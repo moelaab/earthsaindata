@@ -69,5 +69,95 @@
       "Peta Permukaan Laut",
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Permukaan Laut</span>"
     ]
+  },
+  {
+    "objectID": "peta/machine.html",
+    "href": "peta/machine.html",
+    "title": "Preparing Training Data for Land Cover Mapping",
+    "section": "",
+    "text": "Introduction\nPreparing training data for supervised land cover classification using satellite imagery such as Landsat and Sentinel-2 is crucial for accurate mapping, yet it presents several challenges.",
+    "crumbs": [
+      "**Preparing Training Data for Land Cover Mapping**"
+    ]
+  },
+  {
+    "objectID": "peta/machine.html#introduction",
+    "href": "peta/machine.html#introduction",
+    "title": "Preparing Training Data for Land Cover Mapping",
+    "section": "",
+    "text": "Challenges in preparing training samples for supervised land cover\n\nHigh-quality and consistent training data\nClass imbalance\nMixed pixels\nTemporal variations\nSpectral confusion\nCo-registration and geometric accuracy\nLabor-intensive manual collection\nLimited transferability\n\n\n\nCheck tutorial for preparing training data (polygons)\n\nWatch Youtube video tutorial: https://www.youtube.com/watch?v=k–M1a-V_x4",
+    "crumbs": [
+      "**Preparing Training Data for Land Cover Mapping**"
+    ]
+  },
+  {
+    "objectID": "peta/machine.html#initialize-and-authenticate-earth-engine",
+    "href": "peta/machine.html#initialize-and-authenticate-earth-engine",
+    "title": "Preparing Training Data for Land Cover Mapping",
+    "section": "Initialize and authenticate Earth Engine",
+    "text": "Initialize and authenticate Earth Engine\nTo get started with Google Earth Engine (GEE), you need to initialize and authenticate the Earth Engine API. Follow these steps.\nFirst, import the Earth Engine API by importing the ee module into your Python environment. This module allows you to interact with the Earth Engine platform.\n\n# Import the API\nimport ee\n\n# Import the geemap library\nimport geemap\n\n\n            \n            \n\n\nNext, initialize the Earth Engine API. You must initialize the API to use Earth Engine functionalities. This involves authenticating your session and initializing the library. When you run the ee.Initialize() command for the first time, you might be prompted to authenticate your session. This will open a web browser window where you need to log in with your Google account and grant Earth Engine access.\n\n# Trigger the authentication flow.\nee.Authenticate()\n\n# Initialize the library.\nee.Initialize(project='ee-kamusoko-test') # Change to your EE project",
+    "crumbs": [
+      "**Preparing Training Data for Land Cover Mapping**"
+    ]
+  },
+  {
+    "objectID": "peta/machine.html#import-study-area-boundary",
+    "href": "peta/machine.html#import-study-area-boundary",
+    "title": "Preparing Training Data for Land Cover Mapping",
+    "section": "Import study area boundary",
+    "text": "Import study area boundary\nFirst, import the study area boundary.\n\n# Load the boundary\nboundary = ee.FeatureCollection('users/kamas72_ML_Zim_Cities/Bulawayo_Crop_Boundary')",
+    "crumbs": [
+      "**Preparing Training Data for Land Cover Mapping**"
+    ]
+  },
+  {
+    "objectID": "peta/machine.html#import-training-data",
+    "href": "peta/machine.html#import-training-data",
+    "title": "Preparing Training Data for Land Cover Mapping",
+    "section": "Import training data",
+    "text": "Import training data\nNext, we will import land cover training data (polygons), which was created in QGIS.\n\n# Load training datasets\ntraining_data = ee.FeatureCollection('users/kamas72_ML_Zim_Cities/Updated_TA_2020_Bul_May_21_GEE')\n\n# Get the histogram of classes (key = class value, value = count)\nhistogram = training_data.aggregate_histogram('Cl_Id').getInfo()\n\n# Define a label map for clarity\nlabel_map = {\n    '0': \"Bare areas\",\n    '1': \"Built-up\",\n    '2': \"Cropland\",\n    '3': \"Grass / open areas\",\n    '4': \"Woodlands\",\n    '5': \"Water\"\n}\n\nprint(\"Number of training polygons per land cover class (Cl_Id):\")\nfor cl_id in sorted(histogram.keys(), key=int):\n    label = label_map.get(cl_id, f\"Class {cl_id}\")\n    print(f\"{label} (Cl_Id={cl_id}): {histogram[cl_id]}\")\n\n\n            \n            \n\n\nNumber of training polygons per land cover class (Cl_Id):\nBare areas (Cl_Id=0): 154\nBuilt-up (Cl_Id=1): 806\nCropland (Cl_Id=2): 169\nGrass / open areas (Cl_Id=3): 495\nWoodlands (Cl_Id=4): 335\nWater (Cl_Id=5): 19",
+    "crumbs": [
+      "**Preparing Training Data for Land Cover Mapping**"
+    ]
+  },
+  {
+    "objectID": "peta/machine.html#create-sentinel-2-composite",
+    "href": "peta/machine.html#create-sentinel-2-composite",
+    "title": "Preparing Training Data for Land Cover Mapping",
+    "section": "Create Sentinel-2 composite",
+    "text": "Create Sentinel-2 composite\nThe sentinel-2 mission offers a wide-swath, high-resolution, multispectral imaging capability with a global 5-day revisit frequency. The Sentinel-2 Multispectral Instrument (MSI) has 13 spectral bands, providing a comprehensive view of the Earth’s surface. These bands are distributed as four at 10 meters, six at 20 meters, and three at 60 meters spatial resolution. For more detailed information about the Sentinel-2 mission, please visit https://sentinel.esa.int/web/sentinel/missions/sentinel-2.\n\n# Sentinel-2 SR data (Harmonized)\ns2 = ee.ImageCollection('COPERNICUS/S2_SR_HARMONIZED')\n\n# Cloud masking function using SCL band\ndef mask_s2clouds(image):\n    scl = image.select('SCL')\n    mask = scl.neq(8).And(scl.neq(9)).And(scl.neq(10)).And(scl.neq(11))\n    return image.updateMask(mask).divide(10000)\n\n# Filter and preprocess Sentinel-2 data\nS2 = (s2.filterBounds(boundary)\n      .filterDate('2024-03-01', '2024-06-30')\n      .filter(ee.Filter.lt('CLOUDY_PIXEL_PERCENTAGE', 10))\n      .map(mask_s2clouds)\n      .select(['B2','B3','B4','B5','B6','B7','B8','B11','B12']))\n\n# Bands to include in the classification\nbands = ['B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'B8', 'B11', 'B12']\n\n# Create a median composite\ncomposite = S2.median().clip(boundary)",
+    "crumbs": [
+      "**Preparing Training Data for Land Cover Mapping**"
+    ]
+  },
+  {
+    "objectID": "peta/machine.html#display-training-samples-and-sentine-2",
+    "href": "peta/machine.html#display-training-samples-and-sentine-2",
+    "title": "Preparing Training Data for Land Cover Mapping",
+    "section": "Display training samples and Sentine-2",
+    "text": "Display training samples and Sentine-2\nNext, display the land cover training samples on Sentinel-2 imagery\n\n# Initialize the map\nmap = geemap.Map()\nmap.centerObject(training_data, 12)\n\n# Add Sentinel-2 composite\nmap.addLayer(composite, {'bands': ['B11', 'B8', 'B3'], 'min': 0, 'max': 0.3}, 'Sentinel-2 Composite')\n\n# Add training data as a layer\nmap.addLayer(training_data, {'color': 'red'}, 'Training Data')\n\n# Display the map with layer control\nmap.addLayerControl()\nmap",
+    "crumbs": [
+      "**Preparing Training Data for Land Cover Mapping**"
+    ]
+  },
+  {
+    "objectID": "peta/machine.html#prepare-training-data",
+    "href": "peta/machine.html#prepare-training-data",
+    "title": "Preparing Training Data for Land Cover Mapping",
+    "section": "Prepare training data",
+    "text": "Prepare training data\nIn this step, we prepare the dataset for training and testing machine learning models by processing satellite imagery and training labels. We start by selecting Sentinel-2 bands (B2 to B12) and clipping the composite image to the specified boundary region, defining the input features. Next, we rasterize the vector training data using the Cl_Id property to create a raster layer representing class labels and add it as a new band (class) to the input features. To create a representative dataset, we use stratified sampling to extract reflectance values and class labels, ensuring proportional representation across classes.\n\n# Use ee.List for band selection\nbands = ee.List(['B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'B8', 'B11', 'B12'])\ninput_features = composite.clip(boundary)\nprint('input features: ', input_features.getInfo())\n\n# Rasterise training data\ntraining_rasterized = training_data.reduceToImage(\n    properties=['Cl_Id'],\n    reducer=ee.Reducer.first()\n).toInt().remap([0, 1, 2, 3, 4, 5], [0, 1, 2, 3, 4, 5]) # Bare areas, Built-up, Cropland, Grass/ open areas, Woodlands, Water\n\n# Add a class band to features\ninput_features = input_features.addBands(training_rasterized.toInt().rename('class'))\n\n# Sample the reflectance, elevation, and slope values for each training point\ntraining_dataset = input_features.stratifiedSample(\n    numPoints=10000,\n    classBand=\"class\",\n    region=boundary,\n    scale=20\n)\n\n\n            \n            \n\n\ninput features:  {'type': 'Image', 'bands': [{'id': 'B2', 'data_type': {'type': 'PixelType', 'precision': 'float', 'min': 0, 'max': 6.553500175476074}, 'crs': 'EPSG:4326', 'crs_transform': [1, 0, 0, 0, 1, 0]}, {'id': 'B3', 'data_type': {'type': 'PixelType', 'precision': 'float', 'min': 0, 'max': 6.553500175476074}, 'crs': 'EPSG:4326', 'crs_transform': [1, 0, 0, 0, 1, 0]}, {'id': 'B4', 'data_type': {'type': 'PixelType', 'precision': 'float', 'min': 0, 'max': 6.553500175476074}, 'crs': 'EPSG:4326', 'crs_transform': [1, 0, 0, 0, 1, 0]}, {'id': 'B5', 'data_type': {'type': 'PixelType', 'precision': 'float', 'min': 0, 'max': 6.553500175476074}, 'crs': 'EPSG:4326', 'crs_transform': [1, 0, 0, 0, 1, 0]}, {'id': 'B6', 'data_type': {'type': 'PixelType', 'precision': 'float', 'min': 0, 'max': 6.553500175476074}, 'crs': 'EPSG:4326', 'crs_transform': [1, 0, 0, 0, 1, 0]}, {'id': 'B7', 'data_type': {'type': 'PixelType', 'precision': 'float', 'min': 0, 'max': 6.553500175476074}, 'crs': 'EPSG:4326', 'crs_transform': [1, 0, 0, 0, 1, 0]}, {'id': 'B8', 'data_type': {'type': 'PixelType', 'precision': 'float', 'min': 0, 'max': 6.553500175476074}, 'crs': 'EPSG:4326', 'crs_transform': [1, 0, 0, 0, 1, 0]}, {'id': 'B11', 'data_type': {'type': 'PixelType', 'precision': 'float', 'min': 0, 'max': 6.553500175476074}, 'crs': 'EPSG:4326', 'crs_transform': [1, 0, 0, 0, 1, 0]}, {'id': 'B12', 'data_type': {'type': 'PixelType', 'precision': 'float', 'min': 0, 'max': 6.553500175476074}, 'crs': 'EPSG:4326', 'crs_transform': [1, 0, 0, 0, 1, 0]}]}",
+    "crumbs": [
+      "**Preparing Training Data for Land Cover Mapping**"
+    ]
+  },
+  {
+    "objectID": "peta/machine.html#export-the-training-samples-and-sentinel-2-imagery",
+    "href": "peta/machine.html#export-the-training-samples-and-sentinel-2-imagery",
+    "title": "Preparing Training Data for Land Cover Mapping",
+    "section": "Export the training samples and Sentinel-2 imagery",
+    "text": "Export the training samples and Sentinel-2 imagery\nWe export the ‘training_data’ feature collection, Sentinel-2 composite and PALSAR ScanSAR images to your Google Drive. After configuring the export, the task is started with task.start().\n\n# Export training samples as CSV\ntask_table = ee.batch.Export.table.toDrive(\n    collection=training_dataset,\n    description='Bul_TrainingData_2024',\n    folder='Bulawayo_Dataset_2024',\n    fileFormat='CSV'\n)\n\n# Start the export task\ntask_table.start()\n\n# Export the composite with indices\ntask_composite = ee.batch.Export.image.toDrive(\n    image=composite.float(),\n    description='Bul_S2_2024',\n    folder='Bulawayo_Dataset_2024',\n    scale=10,\n    region=boundary.geometry(),\n    maxPixels=1e13\n)\ntask_composite.start()",
+    "crumbs": [
+      "**Preparing Training Data for Land Cover Mapping**"
+    ]
   }
 ]
