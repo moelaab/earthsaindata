@@ -60,104 +60,201 @@
     ]
   },
   {
-    "objectID": "peta/model.html",
-    "href": "peta/model.html",
-    "title": "4  Permukaan Laut",
+    "objectID": "peta/grafik.html",
+    "href": "peta/grafik.html",
+    "title": "4  Charting in Colaboratory",
     "section": "",
-    "text": "Berikut adalah QS. Ali ’Imran: 110 yang telah diformat menggunakan font Amiri Quran — font khusus yang dirancang untuk menyerupai gaya penulisan Mushaf Al-Qur’an (berbasis Uthmani script), lengkap dengan harakat, tasydid, dan tanda waqaf sesuai standar Mushaf Madinah.\n\nSummary\nLogistic and linear regression models have many similarities. The strongest of which is the linear combination of the explanatory variables which is used to form predictions related to the response variable. However, with logistic regression, the response variable is binary and therefore a prediction is given on the probability of a successful event. Logistic model fit and variable selection can be carried out in similar ways as multiple linear regression.\n\n\nTerms\nWe introduced the following terms in the chapter. If you’re not sure what some of these terms mean, we recommend you go back in the text and review their definitions. We are purposefully presenting them in alphabetical order, instead of in order of appearance, so they will be a little more challenging to locate. However, you should be able to easily spot them as bolded text.",
+    "text": "Matplotlib\nA common use for notebooks is data visualization using charts. Colaboratory makes this easy with several charting tools available as Python imports.\nMatplotlib is the most common charting package, see its documentation for details, and its examples for inspiration.",
     "crumbs": [
       "Peta Permukaan Laut",
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Permukaan Laut</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Charting in Colaboratory</span>"
+    ]
+  },
+  {
+    "objectID": "peta/grafik.html#matplotlib",
+    "href": "peta/grafik.html#matplotlib",
+    "title": "4  Charting in Colaboratory",
+    "section": "",
+    "text": "Line Plots\n\nimport matplotlib.pyplot as plt\n\nx  = [1, 2, 3, 4, 5, 6, 7, 8, 9]\ny1 = [1, 3, 5, 3, 1, 3, 5, 3, 1]\ny2 = [2, 4, 6, 4, 2, 4, 6, 4, 2]\nplt.plot(x, y1, label=\"line L\")\nplt.plot(x, y2, label=\"line H\")\nplt.plot()\n\nplt.xlabel(\"x axis\")\nplt.ylabel(\"y axis\")\nplt.title(\"Line Graph Example\")\nplt.legend()\nplt.show()\n\n\n\n\n\n\n\n\n\n\nBar Plots\n\nimport matplotlib.pyplot as plt\n\n# Look at index 4 and 6, which demonstrate overlapping cases.\nx1 = [1, 3, 4, 5, 6, 7, 9]\ny1 = [4, 7, 2, 4, 7, 8, 3]\n\nx2 = [2, 4, 6, 8, 10]\ny2 = [5, 6, 2, 6, 2]\n\n# Colors: https://matplotlib.org/api/colors_api.html\n\nplt.bar(x1, y1, label=\"Blue Bar\", color='b')\nplt.bar(x2, y2, label=\"Green Bar\", color='g')\nplt.plot()\n\nplt.xlabel(\"bar number\")\nplt.ylabel(\"bar height\")\nplt.title(\"Bar Chart Example\")\nplt.legend()\nplt.show()\n\n\n\n\n\n\n\n\n\n\nHistograms\n\nimport matplotlib.pyplot as plt\nimport numpy as np\n\n# Use numpy to generate a bunch of random data in a bell curve around 5.\nn = 5 + np.random.randn(1000)\n\nm = [m for m in range(len(n))]\nplt.bar(m, n)\nplt.title(\"Raw Data\")\nplt.show()\n\nplt.hist(n, bins=20)\nplt.title(\"Histogram\")\nplt.show()\n\nplt.hist(n, cumulative=True, bins=20)\nplt.title(\"Cumulative Histogram\")\nplt.show()\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nScatter Plots\n\nimport matplotlib.pyplot as plt\n\nx1 = [2, 3, 4]\ny1 = [5, 5, 5]\n\nx2 = [1, 2, 3, 4, 5]\ny2 = [2, 3, 2, 3, 4]\ny3 = [6, 8, 7, 8, 7]\n\n# Markers: https://matplotlib.org/api/markers_api.html\n\nplt.scatter(x1, y1)\nplt.scatter(x2, y2, marker='v', color='r')\nplt.scatter(x2, y3, marker='^', color='m')\nplt.title('Scatter Plot Example')\nplt.show()\n\n\n\n\n\n\n\n\n\n\nStack Plots\n\nimport matplotlib.pyplot as plt\n\nidxes = [ 1,  2,  3,  4,  5,  6,  7,  8,  9]\narr1  = [23, 40, 28, 43,  8, 44, 43, 18, 17]\narr2  = [17, 30, 22, 14, 17, 17, 29, 22, 30]\narr3  = [15, 31, 18, 22, 18, 19, 13, 32, 39]\n\n# Adding legend for stack plots is tricky.\nplt.plot([], [], color='r', label = 'D 1')\nplt.plot([], [], color='g', label = 'D 2')\nplt.plot([], [], color='b', label = 'D 3')\n\nplt.stackplot(idxes, arr1, arr2, arr3, colors= ['r', 'g', 'b'])\nplt.title('Stack Plot Example')\nplt.legend()\nplt.show()\n\n\n\n\n\n\n\n\n\n\nPie Charts\n\nimport matplotlib.pyplot as plt\n\nlabels = 'S1', 'S2', 'S3'\nsections = [56, 66, 24]\ncolors = ['c', 'g', 'y']\n\nplt.pie(sections, labels=labels, colors=colors,\n        startangle=90,\n        explode = (0, 0.1, 0),\n        autopct = '%1.2f%%')\n\nplt.axis('equal') # Try commenting this out.\nplt.title('Pie Chart Example')\nplt.show()\n\n\n\n\n\n\n\n\n\n\nfill_between and alpha\n\nimport matplotlib.pyplot as plt\nimport numpy as np\n\nys = 200 + np.random.randn(100)\nx = [x for x in range(len(ys))]\n\nplt.plot(x, ys, '-')\nplt.fill_between(x, ys, 195, where=(ys &gt; 195), facecolor='g', alpha=0.6)\n\nplt.title(\"Fills and Alpha Example\")\nplt.show()\n\n\n\n\n\n\n\n\n\n\nSubplotting using Subplot2grid\n\nimport matplotlib.pyplot as plt\nimport numpy as np\n\ndef random_plots():\n  xs = []\n  ys = []\n\n  for i in range(20):\n    x = i\n    y = np.random.randint(10)\n\n    xs.append(x)\n    ys.append(y)\n\n  return xs, ys\n\nfig = plt.figure()\nax1 = plt.subplot2grid((5, 2), (0, 0), rowspan=1, colspan=2)\nax2 = plt.subplot2grid((5, 2), (1, 0), rowspan=3, colspan=2)\nax3 = plt.subplot2grid((5, 2), (4, 0), rowspan=1, colspan=1)\nax4 = plt.subplot2grid((5, 2), (4, 1), rowspan=1, colspan=1)\n\nx, y = random_plots()\nax1.plot(x, y)\n\nx, y = random_plots()\nax2.plot(x, y)\n\nx, y = random_plots()\nax3.plot(x, y)\n\nx, y = random_plots()\nax4.plot(x, y)\n\nplt.tight_layout()\nplt.show()",
+    "crumbs": [
+      "Peta Permukaan Laut",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Charting in Colaboratory</span>"
+    ]
+  },
+  {
+    "objectID": "peta/grafik.html#plot-styles",
+    "href": "peta/grafik.html#plot-styles",
+    "title": "4  Charting in Colaboratory",
+    "section": "Plot styles",
+    "text": "Plot styles\nColaboratory charts use Seaborn’s custom styling by default. To customize styling further please see the matplotlib docs.",
+    "crumbs": [
+      "Peta Permukaan Laut",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Charting in Colaboratory</span>"
+    ]
+  },
+  {
+    "objectID": "peta/grafik.html#d-graphs",
+    "href": "peta/grafik.html#d-graphs",
+    "title": "4  Charting in Colaboratory",
+    "section": "3D Graphs",
+    "text": "3D Graphs\n\n3D Scatter Plots\n\nimport matplotlib.pyplot as plt\nimport numpy as np\nfrom mpl_toolkits.mplot3d import axes3d\n\nfig = plt.figure()\nax = fig.add_subplot(111, projection = '3d')\n\nx1 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]\ny1 = np.random.randint(10, size=10)\nz1 = np.random.randint(10, size=10)\n\nx2 = [-1, -2, -3, -4, -5, -6, -7, -8, -9, -10]\ny2 = np.random.randint(-10, 0, size=10)\nz2 = np.random.randint(10, size=10)\n\nax.scatter(x1, y1, z1, c='b', marker='o', label='blue')\nax.scatter(x2, y2, z2, c='g', marker='D', label='green')\n\nax.set_xlabel('x axis')\nax.set_ylabel('y axis')\nax.set_zlabel('z axis')\nplt.title(\"3D Scatter Plot Example\")\nplt.legend()\nplt.tight_layout()\nplt.show()\n\n\n\n\n\n\n\n\n\n\n3D Bar Plots\n\nimport matplotlib.pyplot as plt\nimport numpy as np\n\nfig = plt.figure()\nax = fig.add_subplot(111, projection = '3d')\n\nx = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]\ny = np.random.randint(10, size=10)\nz = np.zeros(10)\n\ndx = np.ones(10)\ndy = np.ones(10)\ndz = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]\n\nax.bar3d(x, y, z, dx, dy, dz, color='g')\n\nax.set_xlabel('x axis')\nax.set_ylabel('y axis')\nax.set_zlabel('z axis')\nplt.title(\"3D Bar Chart Example\")\nplt.tight_layout()\nplt.show()\n\n\n\n\n\n\n\n\n\n\nWireframe Plots\n\nimport matplotlib.pyplot as plt\n\nfig = plt.figure()\nax = fig.add_subplot(111, projection = '3d')\n\nx, y, z = axes3d.get_test_data()\n\nax.plot_wireframe(x, y, z, rstride = 2, cstride = 2)\n\nplt.title(\"Wireframe Plot Example\")\nplt.tight_layout()\nplt.show()",
+    "crumbs": [
+      "Peta Permukaan Laut",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Charting in Colaboratory</span>"
+    ]
+  },
+  {
+    "objectID": "peta/grafik.html#seaborn",
+    "href": "peta/grafik.html#seaborn",
+    "title": "4  Charting in Colaboratory",
+    "section": "Seaborn",
+    "text": "Seaborn\nThere are several libraries layered on top of Matplotlib that you can use in Colab. One that is worth highlighting is Seaborn:\n\nimport matplotlib.pyplot as plt\nimport numpy as np\nimport seaborn as sns\n\n# Generate some random data\nnum_points = 20\n# x will be 5, 6, 7... but also twiddled randomly\nx = 5 + np.arange(num_points) + np.random.randn(num_points)\n# y will be 10, 11, 12... but twiddled even more randomly\ny = 10 + np.arange(num_points) + 5 * np.random.randn(num_points)\nsns.regplot(x, y)\nplt.show()\n\n\n\n\n\n\n\n\nThat’s a simple scatterplot with a nice regression line fit to it, all with just one call to Seaborn’s regplot.\nHere’s a Seaborn heatmap:\n\nimport matplotlib.pyplot as plt\nimport numpy as np\n\n# Make a 10 x 10 heatmap of some random data\nside_length = 10\n# Start with a 10 x 10 matrix with values randomized around 5\ndata = 5 + np.random.randn(side_length, side_length)\n# The next two lines make the values larger as we get closer to (9, 9)\ndata += np.arange(side_length)\ndata += np.reshape(np.arange(side_length), (side_length, 1))\n# Generate the heatmap\nsns.heatmap(data)\nplt.show()",
+    "crumbs": [
+      "Peta Permukaan Laut",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Charting in Colaboratory</span>"
+    ]
+  },
+  {
+    "objectID": "peta/grafik.html#altair",
+    "href": "peta/grafik.html#altair",
+    "title": "4  Charting in Colaboratory",
+    "section": "Altair",
+    "text": "Altair\nAltair is a declarative visualization library for creating interactive visualizations in Python, and is installed and enabled in Colab by default.\nFor example, here is an interactive scatter plot:\n\n!pip install vega_datasets\n\nCollecting vega_datasets\n  Downloading vega_datasets-0.9.0-py3-none-any.whl.metadata (5.5 kB)\nRequirement already satisfied: pandas in d:\\buku\\psd\\bukuenv\\lib\\site-packages (from vega_datasets) (2.3.3)\nRequirement already satisfied: numpy&gt;=1.26.0 in d:\\buku\\psd\\bukuenv\\lib\\site-packages (from pandas-&gt;vega_datasets) (2.3.4)\nRequirement already satisfied: python-dateutil&gt;=2.8.2 in d:\\buku\\psd\\bukuenv\\lib\\site-packages (from pandas-&gt;vega_datasets) (2.9.0.post0)\nRequirement already satisfied: pytz&gt;=2020.1 in d:\\buku\\psd\\bukuenv\\lib\\site-packages (from pandas-&gt;vega_datasets) (2025.2)\nRequirement already satisfied: tzdata&gt;=2022.7 in d:\\buku\\psd\\bukuenv\\lib\\site-packages (from pandas-&gt;vega_datasets) (2025.2)\nRequirement already satisfied: six&gt;=1.5 in d:\\buku\\psd\\bukuenv\\lib\\site-packages (from python-dateutil&gt;=2.8.2-&gt;pandas-&gt;vega_datasets) (1.17.0)\nDownloading vega_datasets-0.9.0-py3-none-any.whl (210 kB)\nInstalling collected packages: vega_datasets\nSuccessfully installed vega_datasets-0.9.0\n\n\n\nimport altair as alt\nfrom vega_datasets import data\ncars = data.cars()\n\nalt.Chart(cars).mark_point().encode(\n    x='Horsepower',\n    y='Miles_per_Gallon',\n    color='Origin',\n).interactive()\n\n\n\n\n\n\n\nFor more examples of Altair plots, see the Altair snippets notebook or the external Altair Example Gallery.",
+    "crumbs": [
+      "Peta Permukaan Laut",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Charting in Colaboratory</span>"
+    ]
+  },
+  {
+    "objectID": "peta/grafik.html#plotly",
+    "href": "peta/grafik.html#plotly",
+    "title": "4  Charting in Colaboratory",
+    "section": "Plotly",
+    "text": "Plotly\n\nSample",
+    "crumbs": [
+      "Peta Permukaan Laut",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Charting in Colaboratory</span>"
+    ]
+  },
+  {
+    "objectID": "peta/grafik.html#bokeh",
+    "href": "peta/grafik.html#bokeh",
+    "title": "4  Charting in Colaboratory",
+    "section": "Bokeh",
+    "text": "Bokeh\n\nSample\n\nimport numpy as np\nfrom bokeh.plotting import figure, show\nfrom bokeh.io import output_notebook\n\n# Call once to configure Bokeh to display plots inline in the notebook.\noutput_notebook()\n\n    \n    \n        \n        Loading BokehJS ...\n    \n\n\n\n\n\n\nN = 4000\nx = np.random.random(size=N) * 100\ny = np.random.random(size=N) * 100\nradii = np.random.random(size=N) * 1.5\ncolors = [\"#%02x%02x%02x\" % (r, g, 150) for r, g in zip(np.floor(50+2*x).astype(int), np.floor(30+2*y).astype(int))]\n\np = figure()\np.circle(x, y, radius=radii, fill_color=colors, fill_alpha=0.6, line_color=None)\nshow(p)",
+    "crumbs": [
+      "Peta Permukaan Laut",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Charting in Colaboratory</span>"
     ]
   },
   {
     "objectID": "peta/machine.html",
     "href": "peta/machine.html",
-    "title": "Preparing Training Data for Land Cover Mapping",
+    "title": "5  Preparing Training Data for Land Cover Mapping",
     "section": "",
     "text": "Introduction\nPreparing training data for supervised land cover classification using satellite imagery such as Landsat and Sentinel-2 is crucial for accurate mapping, yet it presents several challenges.",
     "crumbs": [
-      "**Preparing Training Data for Land Cover Mapping**"
+      "Peta Permukaan Laut",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>**Preparing Training Data for Land Cover Mapping**</span>"
     ]
   },
   {
     "objectID": "peta/machine.html#introduction",
     "href": "peta/machine.html#introduction",
-    "title": "Preparing Training Data for Land Cover Mapping",
+    "title": "5  Preparing Training Data for Land Cover Mapping",
     "section": "",
     "text": "Challenges in preparing training samples for supervised land cover\n\nHigh-quality and consistent training data\nClass imbalance\nMixed pixels\nTemporal variations\nSpectral confusion\nCo-registration and geometric accuracy\nLabor-intensive manual collection\nLimited transferability\n\n\n\nCheck tutorial for preparing training data (polygons)\n\nWatch Youtube video tutorial: https://www.youtube.com/watch?v=k–M1a-V_x4",
     "crumbs": [
-      "**Preparing Training Data for Land Cover Mapping**"
+      "Peta Permukaan Laut",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>**Preparing Training Data for Land Cover Mapping**</span>"
     ]
   },
   {
     "objectID": "peta/machine.html#initialize-and-authenticate-earth-engine",
     "href": "peta/machine.html#initialize-and-authenticate-earth-engine",
-    "title": "Preparing Training Data for Land Cover Mapping",
+    "title": "5  Preparing Training Data for Land Cover Mapping",
     "section": "Initialize and authenticate Earth Engine",
     "text": "Initialize and authenticate Earth Engine\nTo get started with Google Earth Engine (GEE), you need to initialize and authenticate the Earth Engine API. Follow these steps.\nFirst, import the Earth Engine API by importing the ee module into your Python environment. This module allows you to interact with the Earth Engine platform.\n\n# Import the API\nimport ee\n\n# Import the geemap library\nimport geemap\n\n\n            \n            \n\n\nNext, initialize the Earth Engine API. You must initialize the API to use Earth Engine functionalities. This involves authenticating your session and initializing the library. When you run the ee.Initialize() command for the first time, you might be prompted to authenticate your session. This will open a web browser window where you need to log in with your Google account and grant Earth Engine access.\n\n# Trigger the authentication flow.\nee.Authenticate()\n\n# Initialize the library.\nee.Initialize(project='ee-kamusoko-test') # Change to your EE project",
     "crumbs": [
-      "**Preparing Training Data for Land Cover Mapping**"
+      "Peta Permukaan Laut",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>**Preparing Training Data for Land Cover Mapping**</span>"
     ]
   },
   {
     "objectID": "peta/machine.html#import-study-area-boundary",
     "href": "peta/machine.html#import-study-area-boundary",
-    "title": "Preparing Training Data for Land Cover Mapping",
+    "title": "5  Preparing Training Data for Land Cover Mapping",
     "section": "Import study area boundary",
     "text": "Import study area boundary\nFirst, import the study area boundary.\n\n# Load the boundary\nboundary = ee.FeatureCollection('users/kamas72_ML_Zim_Cities/Bulawayo_Crop_Boundary')",
     "crumbs": [
-      "**Preparing Training Data for Land Cover Mapping**"
+      "Peta Permukaan Laut",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>**Preparing Training Data for Land Cover Mapping**</span>"
     ]
   },
   {
     "objectID": "peta/machine.html#import-training-data",
     "href": "peta/machine.html#import-training-data",
-    "title": "Preparing Training Data for Land Cover Mapping",
+    "title": "5  Preparing Training Data for Land Cover Mapping",
     "section": "Import training data",
     "text": "Import training data\nNext, we will import land cover training data (polygons), which was created in QGIS.\n\n# Load training datasets\ntraining_data = ee.FeatureCollection('users/kamas72_ML_Zim_Cities/Updated_TA_2020_Bul_May_21_GEE')\n\n# Get the histogram of classes (key = class value, value = count)\nhistogram = training_data.aggregate_histogram('Cl_Id').getInfo()\n\n# Define a label map for clarity\nlabel_map = {\n    '0': \"Bare areas\",\n    '1': \"Built-up\",\n    '2': \"Cropland\",\n    '3': \"Grass / open areas\",\n    '4': \"Woodlands\",\n    '5': \"Water\"\n}\n\nprint(\"Number of training polygons per land cover class (Cl_Id):\")\nfor cl_id in sorted(histogram.keys(), key=int):\n    label = label_map.get(cl_id, f\"Class {cl_id}\")\n    print(f\"{label} (Cl_Id={cl_id}): {histogram[cl_id]}\")\n\n\n            \n            \n\n\nNumber of training polygons per land cover class (Cl_Id):\nBare areas (Cl_Id=0): 154\nBuilt-up (Cl_Id=1): 806\nCropland (Cl_Id=2): 169\nGrass / open areas (Cl_Id=3): 495\nWoodlands (Cl_Id=4): 335\nWater (Cl_Id=5): 19",
     "crumbs": [
-      "**Preparing Training Data for Land Cover Mapping**"
+      "Peta Permukaan Laut",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>**Preparing Training Data for Land Cover Mapping**</span>"
     ]
   },
   {
     "objectID": "peta/machine.html#create-sentinel-2-composite",
     "href": "peta/machine.html#create-sentinel-2-composite",
-    "title": "Preparing Training Data for Land Cover Mapping",
+    "title": "5  Preparing Training Data for Land Cover Mapping",
     "section": "Create Sentinel-2 composite",
     "text": "Create Sentinel-2 composite\nThe sentinel-2 mission offers a wide-swath, high-resolution, multispectral imaging capability with a global 5-day revisit frequency. The Sentinel-2 Multispectral Instrument (MSI) has 13 spectral bands, providing a comprehensive view of the Earth’s surface. These bands are distributed as four at 10 meters, six at 20 meters, and three at 60 meters spatial resolution. For more detailed information about the Sentinel-2 mission, please visit https://sentinel.esa.int/web/sentinel/missions/sentinel-2.\n\n# Sentinel-2 SR data (Harmonized)\ns2 = ee.ImageCollection('COPERNICUS/S2_SR_HARMONIZED')\n\n# Cloud masking function using SCL band\ndef mask_s2clouds(image):\n    scl = image.select('SCL')\n    mask = scl.neq(8).And(scl.neq(9)).And(scl.neq(10)).And(scl.neq(11))\n    return image.updateMask(mask).divide(10000)\n\n# Filter and preprocess Sentinel-2 data\nS2 = (s2.filterBounds(boundary)\n      .filterDate('2024-03-01', '2024-06-30')\n      .filter(ee.Filter.lt('CLOUDY_PIXEL_PERCENTAGE', 10))\n      .map(mask_s2clouds)\n      .select(['B2','B3','B4','B5','B6','B7','B8','B11','B12']))\n\n# Bands to include in the classification\nbands = ['B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'B8', 'B11', 'B12']\n\n# Create a median composite\ncomposite = S2.median().clip(boundary)",
     "crumbs": [
-      "**Preparing Training Data for Land Cover Mapping**"
+      "Peta Permukaan Laut",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>**Preparing Training Data for Land Cover Mapping**</span>"
     ]
   },
   {
     "objectID": "peta/machine.html#display-training-samples-and-sentine-2",
     "href": "peta/machine.html#display-training-samples-and-sentine-2",
-    "title": "Preparing Training Data for Land Cover Mapping",
+    "title": "5  Preparing Training Data for Land Cover Mapping",
     "section": "Display training samples and Sentine-2",
     "text": "Display training samples and Sentine-2\nNext, display the land cover training samples on Sentinel-2 imagery\n\n# Initialize the map\nmap = geemap.Map()\nmap.centerObject(training_data, 12)\n\n# Add Sentinel-2 composite\nmap.addLayer(composite, {'bands': ['B11', 'B8', 'B3'], 'min': 0, 'max': 0.3}, 'Sentinel-2 Composite')\n\n# Add training data as a layer\nmap.addLayer(training_data, {'color': 'red'}, 'Training Data')\n\n# Display the map with layer control\nmap.addLayerControl()\nmap",
     "crumbs": [
-      "**Preparing Training Data for Land Cover Mapping**"
+      "Peta Permukaan Laut",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>**Preparing Training Data for Land Cover Mapping**</span>"
     ]
   },
   {
     "objectID": "peta/machine.html#prepare-training-data",
     "href": "peta/machine.html#prepare-training-data",
-    "title": "Preparing Training Data for Land Cover Mapping",
+    "title": "5  Preparing Training Data for Land Cover Mapping",
     "section": "Prepare training data",
     "text": "Prepare training data\nIn this step, we prepare the dataset for training and testing machine learning models by processing satellite imagery and training labels. We start by selecting Sentinel-2 bands (B2 to B12) and clipping the composite image to the specified boundary region, defining the input features. Next, we rasterize the vector training data using the Cl_Id property to create a raster layer representing class labels and add it as a new band (class) to the input features. To create a representative dataset, we use stratified sampling to extract reflectance values and class labels, ensuring proportional representation across classes.\n\n# Use ee.List for band selection\nbands = ee.List(['B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'B8', 'B11', 'B12'])\ninput_features = composite.clip(boundary)\nprint('input features: ', input_features.getInfo())\n\n# Rasterise training data\ntraining_rasterized = training_data.reduceToImage(\n    properties=['Cl_Id'],\n    reducer=ee.Reducer.first()\n).toInt().remap([0, 1, 2, 3, 4, 5], [0, 1, 2, 3, 4, 5]) # Bare areas, Built-up, Cropland, Grass/ open areas, Woodlands, Water\n\n# Add a class band to features\ninput_features = input_features.addBands(training_rasterized.toInt().rename('class'))\n\n# Sample the reflectance, elevation, and slope values for each training point\ntraining_dataset = input_features.stratifiedSample(\n    numPoints=10000,\n    classBand=\"class\",\n    region=boundary,\n    scale=20\n)\n\n\n            \n            \n\n\ninput features:  {'type': 'Image', 'bands': [{'id': 'B2', 'data_type': {'type': 'PixelType', 'precision': 'float', 'min': 0, 'max': 6.553500175476074}, 'crs': 'EPSG:4326', 'crs_transform': [1, 0, 0, 0, 1, 0]}, {'id': 'B3', 'data_type': {'type': 'PixelType', 'precision': 'float', 'min': 0, 'max': 6.553500175476074}, 'crs': 'EPSG:4326', 'crs_transform': [1, 0, 0, 0, 1, 0]}, {'id': 'B4', 'data_type': {'type': 'PixelType', 'precision': 'float', 'min': 0, 'max': 6.553500175476074}, 'crs': 'EPSG:4326', 'crs_transform': [1, 0, 0, 0, 1, 0]}, {'id': 'B5', 'data_type': {'type': 'PixelType', 'precision': 'float', 'min': 0, 'max': 6.553500175476074}, 'crs': 'EPSG:4326', 'crs_transform': [1, 0, 0, 0, 1, 0]}, {'id': 'B6', 'data_type': {'type': 'PixelType', 'precision': 'float', 'min': 0, 'max': 6.553500175476074}, 'crs': 'EPSG:4326', 'crs_transform': [1, 0, 0, 0, 1, 0]}, {'id': 'B7', 'data_type': {'type': 'PixelType', 'precision': 'float', 'min': 0, 'max': 6.553500175476074}, 'crs': 'EPSG:4326', 'crs_transform': [1, 0, 0, 0, 1, 0]}, {'id': 'B8', 'data_type': {'type': 'PixelType', 'precision': 'float', 'min': 0, 'max': 6.553500175476074}, 'crs': 'EPSG:4326', 'crs_transform': [1, 0, 0, 0, 1, 0]}, {'id': 'B11', 'data_type': {'type': 'PixelType', 'precision': 'float', 'min': 0, 'max': 6.553500175476074}, 'crs': 'EPSG:4326', 'crs_transform': [1, 0, 0, 0, 1, 0]}, {'id': 'B12', 'data_type': {'type': 'PixelType', 'precision': 'float', 'min': 0, 'max': 6.553500175476074}, 'crs': 'EPSG:4326', 'crs_transform': [1, 0, 0, 0, 1, 0]}]}",
     "crumbs": [
-      "**Preparing Training Data for Land Cover Mapping**"
+      "Peta Permukaan Laut",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>**Preparing Training Data for Land Cover Mapping**</span>"
     ]
   },
   {
     "objectID": "peta/machine.html#export-the-training-samples-and-sentinel-2-imagery",
     "href": "peta/machine.html#export-the-training-samples-and-sentinel-2-imagery",
-    "title": "Preparing Training Data for Land Cover Mapping",
+    "title": "5  Preparing Training Data for Land Cover Mapping",
     "section": "Export the training samples and Sentinel-2 imagery",
     "text": "Export the training samples and Sentinel-2 imagery\nWe export the ‘training_data’ feature collection, Sentinel-2 composite and PALSAR ScanSAR images to your Google Drive. After configuring the export, the task is started with task.start().\n\n# Export training samples as CSV\ntask_table = ee.batch.Export.table.toDrive(\n    collection=training_dataset,\n    description='Bul_TrainingData_2024',\n    folder='Bulawayo_Dataset_2024',\n    fileFormat='CSV'\n)\n\n# Start the export task\ntask_table.start()\n\n# Export the composite with indices\ntask_composite = ee.batch.Export.image.toDrive(\n    image=composite.float(),\n    description='Bul_S2_2024',\n    folder='Bulawayo_Dataset_2024',\n    scale=10,\n    region=boundary.geometry(),\n    maxPixels=1e13\n)\ntask_composite.start()",
     "crumbs": [
-      "**Preparing Training Data for Land Cover Mapping**"
+      "Peta Permukaan Laut",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>**Preparing Training Data for Land Cover Mapping**</span>"
+    ]
+  },
+  {
+    "objectID": "peta/model.html",
+    "href": "peta/model.html",
+    "title": "6  Permukaan Laut",
+    "section": "",
+    "text": "Berikut adalah QS. Ali ’Imran: 110 yang telah diformat menggunakan font Amiri Quran — font khusus yang dirancang untuk menyerupai gaya penulisan Mushaf Al-Qur’an (berbasis Uthmani script), lengkap dengan harakat, tasydid, dan tanda waqaf sesuai standar Mushaf Madinah.\n\nSummary\nLogistic and linear regression models have many similarities. The strongest of which is the linear combination of the explanatory variables which is used to form predictions related to the response variable. However, with logistic regression, the response variable is binary and therefore a prediction is given on the probability of a successful event. Logistic model fit and variable selection can be carried out in similar ways as multiple linear regression.\n\n\nTerms\nWe introduced the following terms in the chapter. If you’re not sure what some of these terms mean, we recommend you go back in the text and review their definitions. We are purposefully presenting them in alphabetical order, instead of in order of appearance, so they will be a little more challenging to locate. However, you should be able to easily spot them as bolded text.",
+    "crumbs": [
+      "Peta Permukaan Laut",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Permukaan Laut</span>"
     ]
   }
 ]
