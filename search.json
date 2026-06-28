@@ -300,5 +300,192 @@
       "Peta Permukaan Laut",
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>Example code for land use/land cover classification from satellite imagery</span>"
     ]
+  },
+  {
+    "objectID": "peta/landuse.html",
+    "href": "peta/landuse.html",
+    "title": "8  Automating Land Use and Land Cover Mapping using Python",
+    "section": "",
+    "text": "Table of Contents\nContent Creators: Ankur Mahesh and Isabelle Tingzon\nThis is a continuation of Part 1 of the Land Use and Land Cover (LULC) Mapping Tutorial. Previously, you learned how to train a deep learning model to classify Sentinel-2 image patches into different land use and land cover categories.\nIn this tutorial, you will learn how to: - download your own Sentinel-2A satellite images using Google Earth Engine - use the trained model from the previous tutorial to automatically generate a LULC map for a region of interest\nYou can make a copy of this tutorial by navigating to File-&gt;Save a copy in Drive.",
+    "crumbs": [
+      "Peta Permukaan Laut",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Automating Land Use and Land Cover Mapping using Python</span>"
+    ]
+  },
+  {
+    "objectID": "peta/landuse.html#table-of-contents",
+    "href": "peta/landuse.html#table-of-contents",
+    "title": "8  Automating Land Use and Land Cover Mapping using Python",
+    "section": "",
+    "text": "Introduction to Geospatial Data\nDownload Country Boundaries\nGenerate Sentinel-2 Satellite Image\nGenerate 64x64 px GeoJSON Tiles\nGenerate LULC Map\nConclusion & Next Steps",
+    "crumbs": [
+      "Peta Permukaan Laut",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Automating Land Use and Land Cover Mapping using Python</span>"
+    ]
+  },
+  {
+    "objectID": "peta/landuse.html#spatial-data-types",
+    "href": "peta/landuse.html#spatial-data-types",
+    "title": "8  Automating Land Use and Land Cover Mapping using Python",
+    "section": "Spatial Data Types",
+    "text": "Spatial Data Types\nSpatial data observations focus on location. There are two main types of spatial data: - Vector data - are basically points, lines, and polygons. Each vector object can consist of one or more XY coordinate locations. Vectors can be used to represent, for example, locations of places (e.g. schools, hospitals), roads, or country boundaries. Vector objects can be stored using spatial data formats such as GeoJSON (.geojson), GeoPackage (.gpkg), Shapefile (.shp). - Raster data - are composed of a grid of pixels. Examples include multispectral satellite images, nighttime luminosity maps, and digital elevation maps. Each pixel represents a value or class, e.g. red, green, blue values in satellite images; night light intensity in NTL maps; height in elevation maps. Raster data are commonly stored as GeoTIFFs (.tiff).\nTo learn more about vectors and raster, see this reference.",
+    "crumbs": [
+      "Peta Permukaan Laut",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Automating Land Use and Land Cover Mapping using Python</span>"
+    ]
+  },
+  {
+    "objectID": "peta/landuse.html#coordinate-reference-systems",
+    "href": "peta/landuse.html#coordinate-reference-systems",
+    "title": "8  Automating Land Use and Land Cover Mapping using Python",
+    "section": "Coordinate Reference Systems",
+    "text": "Coordinate Reference Systems\nMap projections are 2D representations of the earth on a flat surface. But because the earth is spheroidal, there is no single most accurate way to represent the earth in two dimensions, resulting in a number of coordinate systems that serve different purposes (recommended watching: “Why all world maps are wrong” by Vox).\nCoordinate reference systems (CRS) provide a method for defining real-world locations in geographic space. These systems determine not just the coordinate locations of objects but also how your map looks and how distance is calculated.\nGeospatial data - whether vector and raster - is always accompanied by CRS information. Two common coordinate systems are EPSG:3857 (Web Mercator) and EPSG:4326 (WGS 84) - in this tutorial, we’ll be using the latter CRS.\n\nfrom IPython.display import YouTubeVideo\nYouTubeVideo('kIID5FDi2JQ', extras=['referrerpolicy=\"strict-origin-when-cross-origin\"'])",
+    "crumbs": [
+      "Peta Permukaan Laut",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Automating Land Use and Land Cover Mapping using Python</span>"
+    ]
+  },
+  {
+    "objectID": "peta/landuse.html#geospatial-data-processing-tools",
+    "href": "peta/landuse.html#geospatial-data-processing-tools",
+    "title": "8  Automating Land Use and Land Cover Mapping using Python",
+    "section": "Geospatial Data Processing Tools",
+    "text": "Geospatial Data Processing Tools\nWe introduce the following geospatial analysis tools and Python packages:\n\nGoogle Earth Engine - a public data archive of petabytes of historical satellite imagery and geospatial datasets. In this tutorial, we will use the Python Earth Engine API to access Sentinel-2 RGB images. Note that you will need sign up for access to Google Earth Engine at https://code.earthengine.google.com/.\nGeoPandas - Extends the functionalities of pandas to add support for geographic data and geospatial analysis.\nRasterio - Raster data such as satellite images are often stored using the GeoTIFF format. Rasterio allows you to read and write these formats and perform advanced geospatial operations on these datasets.\n\nFolium - Allows you to visualize geospatial data on an interactive leaflet map.\n\nFor more geospatial analysis tools, see this comprehensive list of Python packages.",
+    "crumbs": [
+      "Peta Permukaan Laut",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Automating Land Use and Land Cover Mapping using Python</span>"
+    ]
+  },
+  {
+    "objectID": "peta/landuse.html#google-earth-engine",
+    "href": "peta/landuse.html#google-earth-engine",
+    "title": "8  Automating Land Use and Land Cover Mapping using Python",
+    "section": "Google Earth Engine",
+    "text": "Google Earth Engine\nIn this section, we will demonstrate how to use Google Engine to download Sentinel-2 satellite imagery. Again, for simplicity, we will only download Sentinel-2 RGB bands - red (B4), green (B3), and blue (B2).\nIn the following cell, we define a function to generate a Sentinel-2 image from Google Earth using the Python Earth Engine API. In order to minimize cloud cover, we chose to aggregate a collection of images over a period of time, as opposed to obtaining a single image on a given date.\n\ndef generate_image(\n    region,\n    product='COPERNICUS/S2',\n    min_date='2018-01-01',\n    max_date='2020-01-01',\n    range_min=0,\n    range_max=2000,\n    cloud_pct=10\n):\n\n    \"\"\"Generates cloud-filtered, median-aggregated\n    Sentinel-2 image from Google Earth Engine using the\n    Pythin Earth Engine API.\n\n    Args:\n      region (ee.Geometry): The geometry of the area of interest to filter to.\n      product (str): Earth Engine asset ID\n        You can find the full list of ImageCollection IDs\n        at https://developers.google.com/earth-engine/datasets\n      min_date (str): Minimum date to acquire collection of satellite images\n      max_date (str): Maximum date to acquire collection of satellite images\n      range_min (int): Minimum value for visalization range\n      range_max (int): Maximum value for visualization range\n      cloud_pct (float): The cloud cover percent to filter by (default 10)\n\n    Returns:\n      ee.image.Image: Generated Sentinel-2 image clipped to the region of interest\n    \"\"\"\n\n    # Generate median aggregated composite\n    image = ee.ImageCollection(product)\\\n        .filterBounds(region)\\\n        .filterDate(str(min_date), str(max_date))\\\n        .filter(ee.Filter.lt(\"CLOUDY_PIXEL_PERCENTAGE\", cloud_pct))\\\n        .median()\n\n    # Get RGB bands\n    image = image.visualize(bands=['B4', 'B3', 'B2'], min=range_min, max=range_max)\n    # Note that the max value of the RGB bands is set to 65535\n    # because the bands of Sentinel-2 are 16-bit integers\n    # with a full numerical range of [0, 65535] (max is 2^16 - 1);\n    # however, the actual values are much smaller than the max value.\n    # Source: https://stackoverflow.com/a/63912278/4777141\n\n    return image.clip(region)\n\nWe generate and visualize the Sentinel-2 satellite image for Kreis Borken. The satellite image is generated by getting the median of all Sentinel-2 images in 2020 with a cloud cover of less than 10%.\n\n# Get the shape geometry for Kreis Borken\nregion  = geoboundary.loc[geoboundary.shapeName == shape_name]\ncentroid = region.iloc[0].geometry.centroid.coords[0]\nregion = eec.gdfToFc(region) #geodataframe to feature collection\n\n# Generate RGB image using GEE\nimage = generate_image(\n    region,\n    product='COPERNICUS/S2', # Sentinel-2A\n    min_date='2021-01-01', # Get all images within\n    max_date='2021-12-31', # the year 2021\n    cloud_pct=10, # Filter out images with cloud cover &gt;= 10.0%\n)\n\n# Visualize map\nMap = emap.Map(center=[centroid[1], centroid[0]], zoom=10)\nMap.addLayer(image, {}, 'Sentinel2')\nMap.addLayerControl()\nMap\n\nMake this Notebook Trusted to load map: File -&gt; Trust Notebook",
+    "crumbs": [
+      "Peta Permukaan Laut",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Automating Land Use and Land Cover Mapping using Python</span>"
+    ]
+  },
+  {
+    "objectID": "peta/landuse.html#export-image-to-local-gdrive",
+    "href": "peta/landuse.html#export-image-to-local-gdrive",
+    "title": "8  Automating Land Use and Land Cover Mapping using Python",
+    "section": "Export Image to Local Gdrive",
+    "text": "Export Image to Local Gdrive\nIn the following cell, we define a function to export our generated Sentinel-2 satellite image to our local Google Drive.\n\ndef export_image(image, filename, region, folder):\n    \"\"\"Export Image to Google Drive.\n\n    Args:\n      image (ee.image.Image): Generated Sentinel-2 image\n      filename (str): Name of image, without the file extension\n      geometry (ee.geometry.Geometry): The geometry of the area of\n        interest to filter to.\n      folder (str): The destination folder in your Google Drive.\n\n    Returns:\n      ee.batch.Task: A task instance\n    \"\"\"\n\n    print('Exporting to {}.tif ...'.format(filename))\n\n    task = ee.batch.Export.image.toDrive(\n      image=image,\n      driveFolder=folder,\n      scale=10,\n      region=region.geometry(),\n      description=filename,\n      fileFormat='GeoTIFF',\n      crs='EPSG:4326',\n      maxPixels=900000000\n    )\n    task.start()\n\n    return task\n\nWe can now proceed to download the image to our local Google Drive as a GeoTIFF.\nNote: Be careful about exporting large images as they can take a while to download and could eat up storage space!\n\nfolder = 'Colab Notebooks' # Change this to your file destination folder in Google drive\ntask = export_image(image, shape_name, region, folder)\n\nExporting to Borken.tif ...\n\n\nYou can repeatedly run task.status() to monitor the state of the task. After a while, the state should change from “READY” to “RUNNING” to “COMPLETE”.\nAlternatively, you can go to https://code.earthengine.google.com/ to check the status of the task.\n\ntask.status()\n\n{'state': 'RUNNING',\n 'description': 'Borken',\n 'priority': 100,\n 'creation_timestamp_ms': 1717227827019,\n 'update_timestamp_ms': 1717227830338,\n 'start_timestamp_ms': 1717227830263,\n 'task_type': 'EXPORT_IMAGE',\n 'attempt': 1,\n 'id': 'W3JEHOJXBXEQM7DAXZPDRT5R',\n 'name': 'projects/mangrove-mapping/operations/W3JEHOJXBXEQM7DAXZPDRT5R'}",
+    "crumbs": [
+      "Peta Permukaan Laut",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Automating Land Use and Land Cover Mapping using Python</span>"
+    ]
+  },
+  {
+    "objectID": "peta/landuse.html#visualize-sentinel-2a-image",
+    "href": "peta/landuse.html#visualize-sentinel-2a-image",
+    "title": "8  Automating Land Use and Land Cover Mapping using Python",
+    "section": "Visualize Sentinel-2A Image",
+    "text": "Visualize Sentinel-2A Image\nOnce the task status changes to “COMPLETE”, check that the satellite image is in your google drive.\nIn the following cell, we load and visualize the satellite raster image using the Rasterio library.\n\n# Change this to your image file path\ncwd = './drive/My Drive/Colab Notebooks/'\ntif_file = os.path.join(cwd, '{}.tif'.format(shape_name))\n\n# Uncomment this to download the TIF file\nif not os.path.isfile(tif_file):\n  tif_file = '{}.tif'.format(shape_name)\n  !gdown \"12VJQBht4n544OXh4dmugqMESXXxRlBcU\"\n\n# Open image file using Rasterio\nimage = rio.open(tif_file)\nboundary = geoboundary[geoboundary.shapeName == shape_name]\n\n# Plot image and corresponding boundary\nfig, ax = plt.subplots(figsize=(15,15))\nboundary.plot(facecolor=\"none\", edgecolor='red', ax=ax)\nshow(image, ax=ax);\n\n\n\n\n\n\n\n\n # Generate 64x64 px GeoJSON Tiles\nRecall that in previous tutorial, we trained a deep learning model on the EuroSAT RGB dataset, which consists of 64x64 pixel Sentinel-2 image patches. This means that we will also need to break down our huge Sentinel-2 image into smaller 64x64 px tiles.\nLet’s start by creating a function that generates a grid of 64x64 px square polygons using Rasterio Window utilities.\n\ndef generate_tiles(image_file, output_file, area_str, size=64):\n    \"\"\"Generates 64 x 64 polygon tiles.\n\n    Args:\n      image_file (str): Image file path (.tif)\n      output_file (str): Output file path (.geojson)\n      area_str (str): Name of the region\n      size(int): Window size\n\n    Returns:\n      GeoPandas DataFrame: Contains 64 x 64 polygon tiles\n    \"\"\"\n\n    # Open the raster image using rasterio\n    raster = rio.open(image_file)\n    width, height = raster.shape\n\n    # Create a dictionary which will contain our 64 x 64 px polygon tiles\n    # Later we'll convert this dict into a GeoPandas DataFrame.\n    geo_dict = { 'id' : [], 'geometry' : []}\n    index = 0\n\n    # Do a sliding window across the raster image\n    with tqdm(total=width*height) as pbar:\n      for w in range(0, width, size):\n          for h in range(0, height, size):\n              # Create a Window of your desired size\n              window = rio.windows.Window(h, w, size, size)\n              # Get the georeferenced window bounds\n              bbox = rio.windows.bounds(window, raster.transform)\n              # Create a shapely geometry from the bounding box\n              bbox = box(*bbox)\n\n              # Create a unique id for each geometry\n              uid = '{}-{}'.format(area_str.lower().replace(' ', '_'), index)\n\n              # Update dictionary\n              geo_dict['id'].append(uid)\n              geo_dict['geometry'].append(bbox)\n\n              index += 1\n              pbar.update(size*size)\n\n    # Cast dictionary as a GeoPandas DataFrame\n    results = gpd.GeoDataFrame(pd.DataFrame(geo_dict))\n    # Set CRS to EPSG:4326\n    results.crs = {'init' :'epsg:4326'}\n    # Save file as GeoJSON\n    results.to_file(output_file, driver=\"GeoJSON\")\n\n    raster.close()\n    return results\n\nWe can now create square polygons of size 64x64 px across the Kreis Borken Sentinel-2 satellite image.\n\noutput_file = os.path.join(cwd, '{}.geojson'.format(shape_name))\ntiles = generate_tiles(tif_file, output_file, shape_name, size=64)\n\n# Uncomment this to download GeoJSON file\n#if not os.path.isfile(output_file):\n#  output_file = '{}.geojson'.format(shape_name)\n#  !gdown \"1h7L17F0SD1xuppWddqAVh64zxH7Cjf9p\"\n\nprint('Data dimensions: {}'.format(tiles.shape))\ntiles.head(3)\n\n\n\n\nData dimensions: (13950, 2)\n\n\n\n    \n\n\n\n\n\n\nid\ngeometry\n\n\n\n\n0\nborken-0\nPOLYGON ((6.39259 52.23712, 6.39259 52.24287, ...\n\n\n1\nborken-1\nPOLYGON ((6.39834 52.23712, 6.39834 52.24287, ...\n\n\n2\nborken-2\nPOLYGON ((6.40409 52.23712, 6.40409 52.24287, ...",
+    "crumbs": [
+      "Peta Permukaan Laut",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Automating Land Use and Land Cover Mapping using Python</span>"
+    ]
+  },
+  {
+    "objectID": "peta/landuse.html#visualize-64x64-px-tiles",
+    "href": "peta/landuse.html#visualize-64x64-px-tiles",
+    "title": "8  Automating Land Use and Land Cover Mapping using Python",
+    "section": "Visualize 64x64 px Tiles",
+    "text": "Visualize 64x64 px Tiles\nLet’s open the Sentinel-2 raster file using Rasterio and superimpose the 64x64px vector polygons as follows.\n\nimage = rio.open(tif_file)\nfig, ax = plt.subplots(figsize=(15,15))\ntiles.plot(facecolor=\"none\", edgecolor='red', ax=ax)\nshow(image, ax=ax);\n\n\n\n\n\n\n\n\nNotice that the polygons are generated for empty (black) regions as well. Using our model to predict on blank regions seems computationally wasteful.\nInstead, we can get the intersection between: - the Kreis Borken boundary polygon and - the 64 x 64 grid tiles.\nTo do this, we use GeoPandas .sjoin() function. We set parameter op='within' to indicate that we only want the tiles that lie within the district boundary.\nSee more information on GeoPandas sjoin operation here.\n\nimage = rio.open(tif_file)\n\n# Geopandas sjoin function\ntiles = gpd.sjoin(tiles, boundary, op='within')\n\nfig, ax = plt.subplots(figsize=(15,15))\ntiles.plot(facecolor=\"none\", edgecolor='red', ax=ax)\nshow(image, ax=ax);",
+    "crumbs": [
+      "Peta Permukaan Laut",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Automating Land Use and Land Cover Mapping using Python</span>"
+    ]
+  },
+  {
+    "objectID": "peta/landuse.html#visualize-single-cropped-image",
+    "href": "peta/landuse.html#visualize-single-cropped-image",
+    "title": "8  Automating Land Use and Land Cover Mapping using Python",
+    "section": "Visualize Single Cropped Image",
+    "text": "Visualize Single Cropped Image\nWe can now crop our Sentinel-2 image using the generated grids.\nHere, we visualize the Sentinel-2 image cropped using the first tile.\n\ndef show_crop(image, shape, title=''):\n  \"\"\"Crops an image based on the polygon shape.\n  Reference: https://rasterio.readthedocs.io/en/latest/api/rasterio.mask.html#rasterio.mask.mask\n\n  Args:\n    image (str): Image file path (.tif)\n    shape (geometry): The tile with which to crop the image\n    title(str): Image title\n  \"\"\"\n\n  with rio.open(image) as src:\n      out_image, out_transform = rio.mask.mask(src, shape, crop=True)\n      # Crop out black (zero) border\n      _, x_nonzero, y_nonzero = np.nonzero(out_image)\n      out_image = out_image[\n        :,\n        np.min(x_nonzero):np.max(x_nonzero),\n        np.min(y_nonzero):np.max(y_nonzero)\n      ]\n      # Visualize image\n      show(out_image, title=title)\n\nshow_crop(tif_file, [tiles.iloc[5]['geometry']])\n\n\n\n\n\n\n\n\n # Generate Land Use and Land Cover Map In this section, we will generate our land use and land cover classification map using the trained model from the previous tutorial. Recall that the EuroSAT dataset consists of 10 different LULC classes as listed below.\n\n# LULC Classes\nclasses = [\n  'AnnualCrop',\n  'Forest',\n  'HerbaceousVegetation',\n  'Highway',\n  'Industrial',\n  'Pasture',\n  'PermanentCrop',\n  'Residential',\n  'River',\n  'SeaLake'\n]",
+    "crumbs": [
+      "Peta Permukaan Laut",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Automating Land Use and Land Cover Mapping using Python</span>"
+    ]
+  },
+  {
+    "objectID": "peta/landuse.html#load-model-trained-on-eurosat",
+    "href": "peta/landuse.html#load-model-trained-on-eurosat",
+    "title": "8  Automating Land Use and Land Cover Mapping using Python",
+    "section": "Load Model trained on EuroSAT",
+    "text": "Load Model trained on EuroSAT\nFirst, load your trained model.\nIn case you missed Part 1 of the tutorial, you can also uncomment the code below to download the trained model directly.\n\ndevice = torch.device(\"cuda:0\" if torch.cuda.is_available() else \"cpu\")\nmodel_file = cwd+'/models/best_model.pth'\n\n# Uncomment this to download the model file\nif not os.path.isfile(model_file):\n  model_file = 'best_model.pth'\n  !gdown \"13AFOESwxKmexCoOeAbPSX_wr-hGOb9YY\"\n\nmodel = models.resnet50(pretrained=True)\nnum_ftrs = model.fc.in_features\nmodel.fc = torch.nn.Linear(num_ftrs, 10)\nmodel.load_state_dict(torch.load(model_file, map_location=device))\nmodel.eval()\n\nprint('Model file {} successfully loaded.'.format(model_file))\n\nModel file ./drive/My Drive/Colab Notebooks//models/best_model.pth successfully loaded.\n\n\nRemember in the previous tutorial that we applied a set of data transformations to our test set. Before we run our new images through the model, we’ll need to apply these same transformation to our new data as follow.\n\nimagenet_mean, imagenet_std = [0.485, 0.456, 0.406], [0.229, 0.224, 0.225]\n\ntransform = transforms.Compose([\n    transforms.Resize(224),\n    transforms.CenterCrop(224),\n    transforms.ToTensor(),\n    transforms.Normalize(imagenet_mean, imagenet_std)\n])",
+    "crumbs": [
+      "Peta Permukaan Laut",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Automating Land Use and Land Cover Mapping using Python</span>"
+    ]
+  },
+  {
+    "objectID": "peta/landuse.html#model-prediction-lulc-map-generation",
+    "href": "peta/landuse.html#model-prediction-lulc-map-generation",
+    "title": "8  Automating Land Use and Land Cover Mapping using Python",
+    "section": "Model Prediction & LULC Map Generation",
+    "text": "Model Prediction & LULC Map Generation\nNext, let’s define a function that: 1. Crops the source image using the 64x64 tile geometry 2. Generates a prediction for the cropped image using the trained model\n\ndef predict_crop(image, shape, classes, model, show=False):\n    \"\"\"Generates model prediction using trained model\n\n    Args:\n      image (str): Image file path (.tiff)\n      shape (geometry): The tile with which to crop the image\n      classes (list): List of LULC classes\n\n    Return\n      str: Predicted label\n    \"\"\"\n\n    with rio.open(image) as src:\n        # Crop source image using polygon shape\n        # See more information here:\n        # https://rasterio.readthedocs.io/en/latest/api/rasterio.mask.html#rasterio.mask.mask\n        out_image, out_transform = rio.mask.mask(src, shape, crop=True)\n        # Crop out black (zero) border\n        _, x_nonzero, y_nonzero = np.nonzero(out_image)\n        out_image = out_image[\n          :,\n          np.min(x_nonzero):np.max(x_nonzero),\n          np.min(y_nonzero):np.max(y_nonzero)\n        ]\n\n        # Get the metadata of the source image and update it\n        # with the width, height, and transform of the cropped image\n        out_meta = src.meta\n        out_meta.update({\n              \"driver\": \"GTiff\",\n              \"height\": out_image.shape[1],\n              \"width\": out_image.shape[2],\n              \"transform\": out_transform\n        })\n\n        # Save the cropped image as a temporary TIFF file.\n        temp_tif = 'temp.tif'\n        with rio.open(temp_tif, \"w\", **out_meta) as dest:\n          dest.write(out_image)\n\n        # Open the cropped image and generated prediction\n        # using the trained Pytorch model\n        image = Image.open(temp_tif)\n        input = transform(image)\n        output = model(input.unsqueeze(0))\n        _, pred = torch.max(output, 1)\n        label = str(classes[int(pred[0])])\n\n        if show:\n          out_image.show(title=label)\n\n        return label\n\n    return None\n\nLet’s iterate over every 64x64 px tile and generate model predictions for the corresponding cropped image. Note that we are overwriting each temporary TIFF file to save storage space.\n\n# Commence model prediction\nlabels = [] # Store predictions\nfor index in tqdm(range(len(tiles)), total=len(tiles)):\n  label = predict_crop(tif_file, [tiles.iloc[index]['geometry']], classes, model)\n  labels.append(label)\ntiles['pred'] = labels\n\n# Save predictions\nfilepath = os.path.join(cwd, \"{}_preds.geojson\".format(shape_name))\ntiles.to_file(filepath, driver=\"GeoJSON\")\n\ntiles.head(3)\n\n\n\n\n\n    \n\n\n\n\n\n\nid\ngeometry\nindex_right\nshapeName\nshapeISO\nshapeID\nshapeGroup\nshapeType\npred\n\n\n\n\n273\nborken-273\nPOLYGON ((7.07100 52.23137, 7.07100 52.23712, ...\n270\nBorken\n\n24449704B5449167279442\nDEU\nADM3\nPasture\n\n\n274\nborken-274\nPOLYGON ((7.07675 52.23137, 7.07675 52.23712, ...\n270\nBorken\n\n24449704B5449167279442\nDEU\nADM3\nPasture\n\n\n275\nborken-275\nPOLYGON ((7.08250 52.23137, 7.08250 52.23712, ...\n270\nBorken\n\n24449704B5449167279442\nDEU\nADM3\nPasture",
+    "crumbs": [
+      "Peta Permukaan Laut",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Automating Land Use and Land Cover Mapping using Python</span>"
+    ]
+  },
+  {
+    "objectID": "peta/landuse.html#visualize-interactive-lulc-map",
+    "href": "peta/landuse.html#visualize-interactive-lulc-map",
+    "title": "8  Automating Land Use and Land Cover Mapping using Python",
+    "section": "Visualize Interactive LULC Map",
+    "text": "Visualize Interactive LULC Map\nLastly, we show you how to generate an interactive LULC map using Folium.\nLet’s start by loading the resulting predictions.\n\nfilepath = os.path.join(cwd, \"{}_preds.geojson\".format(shape_name))\n\n# Uncomment this to download the model predictions\nif not os.path.isfile(filepath):\n  filepath = \"{}_preds.geojson\".format(shape_name)\n  !gdown \"1LN4efjd3WPGB1TtNiaHcRbFyBzbFY52A\"\n\ntiles = gpd.read_file(filepath)\ntiles.head(3)\n\n\n    \n\n\n\n\n\n\nid\nindex_right\nshapeName\nshapeISO\nshapeID\nshapeGroup\nshapeType\npred\ngeometry\n\n\n\n\n0\nborken-273\n270\nBorken\n\n24449704B5449167279442\nDEU\nADM3\nPasture\nPOLYGON ((7.07100 52.23137, 7.07100 52.23712, ...\n\n\n1\nborken-274\n270\nBorken\n\n24449704B5449167279442\nDEU\nADM3\nPasture\nPOLYGON ((7.07675 52.23137, 7.07675 52.23712, ...\n\n\n2\nborken-275\n270\nBorken\n\n24449704B5449167279442\nDEU\nADM3\nPasture\nPOLYGON ((7.08250 52.23137, 7.08250 52.23712, ...\n\n\n\n\n\n    \n\n  \n    \n\n  \n    \n  \n    \n\n  \n\n    \n  \n\n\n\n  \n\n\n    \n        \n    \n\n  \n\n\n\n  \n\n    \n  \n\n\nWe then map each label to a corresponding color.\n\n# We map each class to a corresponding color\ncolors = {\n  'AnnualCrop' : 'lightgreen',\n  'Forest' : 'forestgreen',\n  'HerbaceousVegetation' : 'yellowgreen',\n  'Highway' : 'gray',\n  'Industrial' : 'red',\n  'Pasture' : 'mediumseagreen',\n  'PermanentCrop' : 'chartreuse',\n  'Residential' : 'magenta',\n  'River' : 'dodgerblue',\n  'SeaLake' : 'blue'\n}\ntiles['color'] = tiles[\"pred\"].apply(\n  lambda x: cl.to_hex(colors.get(x))\n)\ntiles.head(2)\n\n\n    \n\n\n\n\n\n\nid\nindex_right\nshapeName\nshapeISO\nshapeID\nshapeGroup\nshapeType\npred\ngeometry\ncolor\n\n\n\n\n0\nborken-273\n270\nBorken\n\n24449704B5449167279442\nDEU\nADM3\nPasture\nPOLYGON ((7.07100 52.23137, 7.07100 52.23712, ...\n#3cb371\n\n\n1\nborken-274\n270\nBorken\n\n24449704B5449167279442\nDEU\nADM3\nPasture\nPOLYGON ((7.07675 52.23137, 7.07675 52.23712, ...\n#3cb371\n\n\n\n\n\n    \n\n  \n    \n\n  \n    \n  \n    \n\n  \n\n    \n  \n\n\n\n  \n\n\n    \n        \n    \n\n  \n\n\n\n  \n\n    \n  \n\n\nNote that you can toggle the map on/off using the upper right controls.\n\n# Instantiate map centered on the centroid\nmap = folium.Map(location=[centroid[1], centroid[0]], zoom_start=10)\n\n# Add Google Satellite basemap\nfolium.TileLayer(\n      tiles = 'https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',\n      attr = 'Google',\n      name = 'Google Satellite',\n      overlay = True,\n      control = True\n).add_to(map)\n\n# Add LULC Map with legend\nlegend_txt = '&lt;span style=\"color: {col};\"&gt;{txt}&lt;/span&gt;'\nfor label, color in colors.items():\n\n  # Specify the legend color\n  name = legend_txt.format(txt=label, col=color)\n  feat_group = folium.FeatureGroup(name=name)\n\n  # Add GeoJSON to feature group\n  subtiles = tiles[tiles.pred==label]\n  if len(subtiles) &gt; 0:\n    folium.GeoJson(\n        subtiles,\n        style_function=lambda feature: {\n          'fillColor': feature['properties']['color'],\n          'color': 'black',\n          'weight': 1,\n          'fillOpacity': 0.5,\n        },\n        name='LULC Map'\n    ).add_to(feat_group)\n    map.add_child(feat_group)\n\nfolium.LayerControl().add_to(map)\nmap\n\nMake this Notebook Trusted to load map: File -&gt; Trust Notebook",
+    "crumbs": [
+      "Peta Permukaan Laut",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Automating Land Use and Land Cover Mapping using Python</span>"
+    ]
+  },
+  {
+    "objectID": "peta/landuse.html#data-limitations",
+    "href": "peta/landuse.html#data-limitations",
+    "title": "8  Automating Land Use and Land Cover Mapping using Python",
+    "section": "Data Limitations",
+    "text": "Data Limitations\nIf you’ve tried applying the model to another region of the world, you’ll find that the model does not perform as well for certain areas. We note some of the limitations of the EuroSAT dataset as follows: - Limited scene categories. The 10 land cover classes in the EuroSAT dataset are not representative of the complex content of remote sensing data. These class labels are not mutually disjoint (e.g. an image can contain both a highway and a residential area) and their union does not cover real-world distribution (e.g. certain land cover types like desert land and aquaculture are not present in the dataset). - Limited model transferrability. Like many existing remote sensing datasets, EuroSAT, which consists of satellite images distributed across Europe, suffers from limited geographic coverage which restricts the model’s generalizability to other regions of the world. Thus, collaboration with diverse research institutions and stronger data sharing efforts are necessary to improve the global coverage of annotated remote sensing datasets.",
+    "crumbs": [
+      "Peta Permukaan Laut",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Automating Land Use and Land Cover Mapping using Python</span>"
+    ]
+  },
+  {
+    "objectID": "peta/landuse.html#climate-related-applications",
+    "href": "peta/landuse.html#climate-related-applications",
+    "title": "8  Automating Land Use and Land Cover Mapping using Python",
+    "section": "Climate-related Applications",
+    "text": "Climate-related Applications\n\nLand use and land cover change detection. Given that Sentinel-2 will continue to collect RS data for the next several decades, one promising next step is to use the trained model to observe and detect changes in land cover. MapBiomas, for example, is a platform that visualizes LULC changes in Brazil over a long period of time. This can be particularly useful for urban planning, environmental monitoring, and nature protection. Deforestation, for example, contributes significantly to climate change; monitoring changes in forest cover and identifying drivers of forest loss can be useful for forest conservation and restoration efforts.\nAnalyzing carbon emissions from land use change. Analyzing land use category conversion in conjunction with changes in soil carbon storage can help quantify the contribution of land use change and land management to total carbon emissions, as demonstrated in this 2016 study by Lai et al. The study found that land use change - particularly urbanization, which has led to rapid expansion of built-up areas and massive loss of terrestrial carbon storage - has resulted in large carbon emissions in China. This can significantly undermine carbon emission reduction targets unless appropriate measures are taken to control urbanization and improve land management.\nVulnerability assessment of different land cover types. Overlaying land cover maps with various geospatial hazard maps (e.g. hurricane paths, earthquake faults, and flood maps) and climate projection maps can be useful for assessing vulnerability of certain land cover types, such as settlements and agricultural land, to different risks. When shared with humanitarian organizations and government agencies, these maps have the potential to support disaster risk reduction planning as well as long-term climate mitigation and adaptation efforts.",
+    "crumbs": [
+      "Peta Permukaan Laut",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Automating Land Use and Land Cover Mapping using Python</span>"
+    ]
+  },
+  {
+    "objectID": "peta/landuse.html#other-remote-sensing-datasets",
+    "href": "peta/landuse.html#other-remote-sensing-datasets",
+    "title": "8  Automating Land Use and Land Cover Mapping using Python",
+    "section": "Other Remote Sensing Datasets",
+    "text": "Other Remote Sensing Datasets\n\nSo2Sat LCZ42: A benchmark dataset for global local climate zones classification (data, paper)\nRESISC45: High resolution remote sensing scene classification dataset( data, paper)\nBigEarthNet: Large-Scale Sentinel-2 Benchmark (data, paper)\n\nCheck out this Github repository for a more comprehensive collection of satellite imagery datasets.",
+    "crumbs": [
+      "Peta Permukaan Laut",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Automating Land Use and Land Cover Mapping using Python</span>"
+    ]
+  },
+  {
+    "objectID": "peta/landuse.html#next-steps",
+    "href": "peta/landuse.html#next-steps",
+    "title": "8  Automating Land Use and Land Cover Mapping using Python",
+    "section": "Next Steps",
+    "text": "Next Steps\nInterested in learning more about climate change and machine learning?\nWe encourage you to check out our paper, which provides a detailed guide of ways machine learning can be used to tackle climate change. Please also feel free to check out our wiki and tutorials on our website. We also encourage you to join the conversations on our discussion forum, submit to our workshops, attend our events and workshops, and of course, sign up for our newletter!",
+    "crumbs": [
+      "Peta Permukaan Laut",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Automating Land Use and Land Cover Mapping using Python</span>"
+    ]
   }
 ]
