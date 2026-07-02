@@ -487,5 +487,49 @@
       "Peta Permukaan Laut",
       "<span class='chapter-number'>8</span>  <span class='chapter-title'>Automating Land Use and Land Cover Mapping using Python</span>"
     ]
+  },
+  {
+    "objectID": "peta/lulc.html",
+    "href": "peta/lulc.html",
+    "title": "9  Land Cover Classification in Satellite Imagery using Python",
+    "section": "",
+    "text": "Import Modules\nfrom glob import glob\n\nimport earthpy as et\nimport earthpy.spatial as es\nimport earthpy.plot as ep\n\nimport rasterio as rio\nfrom rasterio.plot import plotting_extent\nfrom rasterio.plot import show\nfrom rasterio.plot import reshape_as_raster, reshape_as_image\n\nimport matplotlib.pyplot as plt\nimport numpy as np\nfrom matplotlib.colors import ListedColormap\n\nfrom scipy.io import loadmat\nfrom sklearn.metrics import classification_report, accuracy_score\n\nimport plotly.graph_objects as go\n\nnp.seterr(divide='ignore', invalid='ignore')\n\n{'divide': 'ignore', 'invalid': 'ignore', 'over': 'warn', 'under': 'ignore'}\n%cd /content/drive/My Drive/Satellite_data\n\n/content/drive/My Drive/Satellite_data",
+    "crumbs": [
+      "Peta Permukaan Laut",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Land Cover Classification in Satellite Imagery using Python</span>"
+    ]
+  },
+  {
+    "objectID": "peta/lulc.html#bands",
+    "href": "peta/lulc.html#bands",
+    "title": "9  Land Cover Classification in Satellite Imagery using Python",
+    "section": "Bands",
+    "text": "Bands\n\nep.plot_bands(arr_st, cmap = 'gist_earth', figsize = (20, 12), cols = 6, cbar = False)\nplt.show()",
+    "crumbs": [
+      "Peta Permukaan Laut",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Land Cover Classification in Satellite Imagery using Python</span>"
+    ]
+  },
+  {
+    "objectID": "peta/lulc.html#rgb-composite-image",
+    "href": "peta/lulc.html#rgb-composite-image",
+    "title": "9  Land Cover Classification in Satellite Imagery using Python",
+    "section": "RGB Composite Image",
+    "text": "RGB Composite Image\n\nrgb = ep.plot_rgb(arr_st, \n                  rgb=(3,2,1), \n                  figsize=(8, 10), \n                  # title='RGB Composite Image'\n                  )\n\nplt.show()\n\n\n\n\n\n\n\n\n\nep.plot_rgb(\n    arr_st,\n    rgb=(3, 2, 1),\n    stretch=True,\n    str_clip=0.2,\n    figsize=(8, 10),\n    # title=\"RGB Composite Image with Stretch Applied\",\n)\n\nplt.show()",
+    "crumbs": [
+      "Peta Permukaan Laut",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Land Cover Classification in Satellite Imagery using Python</span>"
+    ]
+  },
+  {
+    "objectID": "peta/lulc.html#data-distribution-of-bands",
+    "href": "peta/lulc.html#data-distribution-of-bands",
+    "title": "9  Land Cover Classification in Satellite Imagery using Python",
+    "section": "Data Distribution of Bands",
+    "text": "Data Distribution of Bands\n\ncolors = ['tomato', 'navy', 'MediumSpringGreen', 'lightblue', 'orange', 'blue',\n          'maroon', 'purple', 'yellow', 'olive', 'brown', 'cyan']\n\nep.hist(arr_st, \n         colors = colors,\n        title=[f'Band-{i}' for i in range(1, 13)], \n        cols=3, \n        alpha=0.5, \n        figsize = (12, 10)\n        )\n\nplt.show()",
+    "crumbs": [
+      "Peta Permukaan Laut",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Land Cover Classification in Satellite Imagery using Python</span>"
+    ]
   }
 ]
