@@ -535,12 +535,12 @@
   {
     "objectID": "peta/desain.html",
     "href": "peta/desain.html",
-    "title": "10  Matrix Algebra",
+    "title": "10  Struktur Organisasi",
     "section": "",
-    "text": "Bagan Struktur Organisasi\n    \n\n\n\n    \n        \n            \n                \n                    \n                \n            \n            \n            \n            \n            \n            \n            \n        \n\n        Dekan\n\n        \n            Kepaa Jurusan\n            Kepala Lab\n            Kepala Bidang Minat",
+    "text": "Berikut adalah bagan struktur organisasi:\n\n\n&lt;svg class=\"line-svg\"&gt;\n    &lt;defs&gt;\n        &lt;marker id=\"arrow\" viewBox=\"0 0 10 10\" refX=\"5\" refY=\"5\" markerWidth=\"6\" markerHeight=\"6\" orient=\"auto-start-reverse\"&gt;\n            &lt;path d=\"M 0 0 L 10 5 L 0 10 z\" fill=\"#000000\" /&gt;\n        &lt;/marker&gt;\n    &lt;/defs&gt;\n    &lt;path d=\"M 400,90 L 400,130 L 140,130 L 140,205\" stroke=\"#000000\" stroke-width=\"4\" fill=\"none\" marker-end=\"url(#arrow)\" /&gt;\n    &lt;path d=\"M 400,90 L 400,205\" stroke=\"#000000\" stroke-width=\"4\" fill=\"none\" marker-end=\"url(#arrow)\" /&gt;\n    &lt;path d=\"M 400,90 L 400,130 L 660,130 L 660,205\" stroke=\"#000000\" stroke-width=\"4\" fill=\"none\" marker-end=\"url(#arrow)\" /&gt;\n&lt;/svg&gt;\n\n&lt;div class=\"node dekan\"&gt;Dekan&lt;/div&gt;\n&lt;div class=\"children-row\"&gt;\n    &lt;div class=\"node jurusan\"&gt;Kepaa Jurusan&lt;/div&gt;\n    &lt;div class=\"node lab\"&gt;Kepala Lab&lt;/div&gt;\n    &lt;div class=\"node minat\"&gt;Kepala Bidang Minat&lt;/div&gt;\n&lt;/div&gt;",
     "crumbs": [
       "Peta Permukaan Laut",
-      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Matrix Algebra</span>"
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Struktur Organisasi</span>"
     ]
   }
 ]

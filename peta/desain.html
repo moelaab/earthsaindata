@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>10&nbsp; Matrix Algebra</title>
+<title>10&nbsp; Struktur Organisasi</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -83,7 +83,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../peta/petagen.html">Peta Permukaan Laut</a></li><li class="breadcrumb-item"><a href="../peta/desain.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Matrix Algebra</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../peta/petagen.html">Peta Permukaan Laut</a></li><li class="breadcrumb-item"><a href="../peta/desain.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Struktur Organisasi</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -190,7 +190,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../peta/desain.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Matrix Algebra</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Struktur Organisasi</span></span></a>
   </div>
 </li>
       </ul>
@@ -206,9 +206,9 @@ ul.task-list li input[type="checkbox"] {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../peta/petagen.html">Peta Permukaan Laut</a></li><li class="breadcrumb-item"><a href="../peta/desain.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Matrix Algebra</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../peta/petagen.html">Peta Permukaan Laut</a></li><li class="breadcrumb-item"><a href="../peta/desain.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Struktur Organisasi</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Matrix Algebra</span></h1>
+<h1 class="title"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Struktur Organisasi</span></h1>
 </div>
 
 
@@ -225,138 +225,57 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<p>Berikut adalah bagan struktur organisasi:</p>
+<style>
+    .chart-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+        width: 100%;
+        max-width: 800px;
+        margin: 40px auto;
+    }
+    .node {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        font-weight: 500;
+        padding: 10px 20px;
+        border-radius: 50%;
+        width: 180px;
+        height: 90px;
+        box-sizing: border-box;
+        font-size: 16px;
+        z-index: 2;
+    }
+    .dekan { background-color: #008000; color: #ffffff; border: 2px solid #005000; }
+    .jurusan { background-color: #f2c4c4; color: #333333; border: 2px solid #b88686; }
+    .lab { background-color: #d4edd9; color: #333333; border: 2px solid #99c2a2; }
+    .minat { background-color: #ffeacc; color: #333333; border: 2px solid #e0a96d; }
+    .line-svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
+    .children-row { display: flex; justify-content: space-between; width: 100%; margin-top: 120px; }
+</style>
+<div class="chart-container">
+<pre><code>&lt;svg class="line-svg"&gt;
+    &lt;defs&gt;
+        &lt;marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"&gt;
+            &lt;path d="M 0 0 L 10 5 L 0 10 z" fill="#000000" /&gt;
+        &lt;/marker&gt;
+    &lt;/defs&gt;
+    &lt;path d="M 400,90 L 400,130 L 140,130 L 140,205" stroke="#000000" stroke-width="4" fill="none" marker-end="url(#arrow)" /&gt;
+    &lt;path d="M 400,90 L 400,205" stroke="#000000" stroke-width="4" fill="none" marker-end="url(#arrow)" /&gt;
+    &lt;path d="M 400,90 L 400,130 L 660,130 L 660,205" stroke="#000000" stroke-width="4" fill="none" marker-end="url(#arrow)" /&gt;
+&lt;/svg&gt;
 
-
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bagan Struktur Organisasi</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f7f9fa;
-            /* Membuat efek grid latar belakang seperti pada gambar */
-            background-image: 
-                linear-gradient(to right, #e0e0e0 1px, transparent 1px),
-                linear-gradient(to bottom, #e0e0e0 1px, transparent 1px);
-            background-size: 20px 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-        }
-
-        .chart-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            position: relative;
-            width: 100%;
-            max-width: 800px;
-        }
-
-        /* Gaya Node/Balon Teks */
-        .node {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            font-weight: 500;
-            padding: 10px 20px;
-            border-radius: 50%; /* Membuat bentuk oval/lingkaran */
-            width: 180px;
-            height: 90px;
-            box-sizing: border-box;
-            font-size: 16px;
-            z-index: 2;
-        }
-
-        /* Warna spesifik masing-masing posisi */
-        .dekan {
-            background-color: #008000;
-            color: #ffffff;
-            border: 2px solid #005000;
-        }
-
-        .jurusan {
-            background-color: #f2c4c4;
-            color: #333333;
-            border: 2px solid #b88686;
-        }
-
-        .lab {
-            background-color: #d4edd9;
-            color: #333333;
-            border: 2px solid #99c2a2;
-        }
-
-        .minat {
-            background-color: #ffeacc;
-            color: #333333;
-            border: 2px solid #e0a96d;
-        }
-
-        /* Sistem Garis Penghubung */
-        .line-svg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        /* Baris Bawah (Target) */
-        .children-row {
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-            margin-top: 120px; /* Jarak vertikal dari Dekan */
-        }
-
-        @media (max-width: 600px) {
-            .children-row {
-                flex-direction: column;
-                align-items: center;
-                gap: 40px;
-            }
-            .line-svg {
-                display: none; /* Sembunyikan garis rumit di layar hp agar tidak berantakan */
-            }
-        }
-    </style>
-
-
-
-    <div class="chart-container">
-        <svg class="line-svg">
-            <defs>
-                <marker id="arrow" viewbox="0 0 10 10" refx="5" refy="5" markerwidth="6" markerheight="6" orient="auto-start-reverse">
-                    <path d="M 0 0 L 10 5 L 0 10 z" fill="#000000"></path>
-                </marker>
-            </defs>
-            
-            <path d="M 400,90 L 400,130 L 140,130 L 140,205" stroke="#000000" stroke-width="4" fill="none" marker-end="url(#arrow)"></path>
-            
-            <path d="M 400,90 L 400,205" stroke="#000000" stroke-width="4" fill="none" marker-end="url(#arrow)"></path>
-            
-            <path d="M 400,90 L 400,130 L 660,130 L 660,205" stroke="#000000" stroke-width="4" fill="none" marker-end="url(#arrow)"></path>
-        </svg>
-
-        <div class="node dekan">Dekan</div>
-
-        <div class="children-row">
-            <div class="node jurusan">Kepaa Jurusan</div>
-            <div class="node lab">Kepala Lab</div>
-            <div class="node minat">Kepala Bidang Minat</div>
-        </div>
-    </div>
-
-
-
+&lt;div class="node dekan"&gt;Dekan&lt;/div&gt;
+&lt;div class="children-row"&gt;
+    &lt;div class="node jurusan"&gt;Kepaa Jurusan&lt;/div&gt;
+    &lt;div class="node lab"&gt;Kepala Lab&lt;/div&gt;
+    &lt;div class="node minat"&gt;Kepala Bidang Minat&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+</div>
 
 
 
