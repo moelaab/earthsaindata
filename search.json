@@ -14,7 +14,7 @@
     "href": "peta/mukalaut.html",
     "title": "1  Peta Permukaan Laut",
     "section": "",
-    "text": "Peta permukaan laut adalah representasi spasial (biasanya 2D atau 3D) dari berbagai parameter fisik, kimia, dan biologis yang terukur di lapisan teratas laut — umumnya dalam rentang 0–1 meter di bawah permukaan laut (skin layer) hingga beberapa puluh meter (near-surface layer). Peta ini merupakan produk penting dalam operational oceanography dan Earth observation, yang memungkinkan pemantauan dinamika laut secara real-time maupun historis.[1]\n\n\n\n\nPeta Temperature Permukaan Laut\nPeta temperatur permukaan laut (Sea Surface Temperature/SST) dari Copernicus Marine Service menyajikan distribusi suhu air laut pada lapisan paling atas (sekitar 1–5 meter) secara global dan harian, dengan resolusi spasial hingga ~5 km, yang dihasilkan melalui integrasi data satelit (seperti Sentinel-3 SLSTR dan NOAA VIIRS), pengamatan in-situ, serta pemrosesan statistik lanjutan (optimal interpolation); dalam peta ini, gradasi warna biru–hijau–kuning–merah menggambarkan kisaran suhu dari dingin ke hangat, memungkinkan identifikasi fenomena penting seperti arus laut (melalui thermal fronts), marine heatwaves (bercak merah persisten), atau dampak El Niño/La Niña (melalui anomali SST relatif terhadap rata-rata klimatologis), sehingga berfungsi sebagai “jendela termal” yang mengungkap dinamika energi Bumi dan menjadi dasar kritis bagi pemahaman perubahan iklim, prediksi cuaca ekstrem, serta pengelolaan ekosistem dan sumber daya kelautan.\n\n\nKlik untuk buka peta interaktif (SST & SLA)\n\n\n\n\n\n\n\n\nReferences\n\n\n[1] Copernicus Marine Service, “Blue Markets:\nCopernicus Marine Service Offer for the Blue Economy,” https://marine.copernicus.eu/services/markets,\n2026.\n\n\n[2] E.U. Copernicus Marine Service Information\n(CMEMS), “Global\nOcean Colour Chlorophyll-a Ocean Monitoring Indicator from Satellite\nObservations: Trends and Anomalies,” Mercator Ocean\nInternational, 2026.\n\n\n[3] Copernicus Marine Service Help Center,\n“Copernicus Marine Toolbox API: Open a Dataset or Read a Dataframe\nRemotely,” Mercator Ocean International, 2024. Retrieved 7 July\n2026. https://help.marine.copernicus.eu/en/articles/8287609-copernicus-marine-toolbox-api-open-a-dataset-or-read-a-dataframe-remotely",
+    "text": "Peta permukaan laut adalah representasi spasial (biasanya 2D atau 3D) dari berbagai parameter fisik, kimia, dan biologis yang terukur di lapisan teratas laut — umumnya dalam rentang 0–1 meter di bawah permukaan laut (skin layer) hingga beberapa puluh meter (near-surface layer). Peta ini merupakan produk penting dalam operational oceanography dan Earth observation, yang memungkinkan pemantauan dinamika laut secara real-time maupun historis.[1]\n\n\n\n\nPeta Temperature Permukaan Laut\nPeta temperatur permukaan laut (Sea Surface Temperature/SST) dari Copernicus Marine Service menyajikan distribusi suhu air laut pada lapisan paling atas (sekitar 1–5 meter) secara global dan harian, dengan resolusi spasial hingga ~5 km, yang dihasilkan melalui integrasi data satelit (seperti Sentinel-3 SLSTR dan NOAA VIIRS), pengamatan in-situ, serta pemrosesan statistik lanjutan (optimal interpolation); dalam peta ini, gradasi warna biru–hijau–kuning–merah menggambarkan kisaran suhu dari dingin ke hangat, memungkinkan identifikasi fenomena penting seperti arus laut (melalui thermal fronts), marine heatwaves (bercak merah persisten), atau dampak El Niño/La Niña (melalui anomali SST relatif terhadap rata-rata klimatologis), sehingga berfungsi sebagai “jendela termal” yang mengungkap dinamika energi Bumi dan menjadi dasar kritis bagi pemahaman perubahan iklim, prediksi cuaca ekstrem, serta pengelolaan ekosistem dan sumber daya kelautan.\n\n\nKlik untuk buka peta interaktif (SST & SLA)\n\n\n\n\n\n\n\n\nReferences\n\n\n[1] Copernicus Marine Service, “Blue Markets:\nCopernicus Marine Service Offer for the Blue Economy,” https://marine.copernicus.eu/services/markets,\n2026.\n\n\n[2] E.U. Copernicus Marine Service Information\n(CMEMS), “Global\nOcean Colour Chlorophyll-a Ocean Monitoring Indicator from Satellite\nObservations: Trends and Anomalies,” Mercator Ocean\nInternational, 2026.\n\n\n[3] Copernicus Marine Service Help Center,\n“Copernicus Marine Toolbox API: Open a Dataset or Read a Dataframe\nRemotely,” Mercator Ocean International, 2024. Retrieved 7 July\n2026. https://help.marine.copernicus.eu/en/articles/8287609-copernicus-marine-toolbox-api-open-a-dataset-or-read-a-dataframe-remotely\n\n\n[4] Geo-SAM Developers, “Geo-SAM\nDocumentation: Installation Guide,” Read the Docs, 2026.\nRetrieved 8 July 2026. https://geo-sam.readthedocs.io/en/latest/Installation.html",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Peta Permukaan Laut</span>"
     ]
@@ -52,11 +52,81 @@
   {
     "objectID": "praproces/labeling.html",
     "href": "praproces/labeling.html",
-    "title": "4  Pengenalan",
+    "title": "4  Labelisasi Objek Permukaan Bumi dengan Geo-Sam",
     "section": "",
-    "text": "Geo-SAM adalah plugin QGIS yang membantu Anda melakukan segmentasi, delineasi, dan pelabelan bentang alam dalam gambar raster geospasial berukuran besar. Plugin ini dibangun di atas Segment Anything Model (SAM) dan menggunakan strategi pengkodean fitur gambar terlebih dahulu serta menghilangkan encoder gambar yang berat dari proses inferensi. Segmentasi interaktif berjalan pada kecepatan milidetik di CPU laptop, menjadikannya alat yang nyaman dan efisien untuk analisis citra penginderaan jauh.\nGeo-SAM menyediakan dua alur kerja segmentasi:\n\nMode Live Encoding – Pilih layer raster dan model SAM, lalu mulai segmentasi. Plugin mengkodekan fitur secara langsung menggunakan tugas latar belakang QGIS dan men-cache-nya untuk query ulang yang cepat. Ini adalah alur kerja yang direkomendasikan untuk sebagian besar pengguna.\nMode Pre-encoded – Gunakan Image Encoder untuk menghasilkan file fitur yang dapat digunakan kembali dari raster, lalu muat ke dalam alat Segmentasi. Ideal saat melakukan segmentasi pada gambar yang sama berulang kali atau saat melakukan encoding di server jarak jauh.\n\n\nAlasan memilih Geo-SAM\n\nBerbasis QGIS – antarmuka grafis lintas platform tanpa memerlukan keterampilan pemrograman.\nUmpan balik cepat – segmentasi muncul secara instan setelah memberikan prompt, dan bahkan dapat mengikuti kursor mouse dalam mode Preview untuk pengalaman pelabelan interaktif yang lancar.\nAlur kerja ganda – segmentasi langsung dari layer gambar atau dari file fitur yang telah dikodekan sebelumnya.\nDukungan multi-band – disesuaikan untuk menangani gambar satu atau dua band (grayscale, NDVI, NDWI, SAR) selain RGB tiga band standar.\nDukungan keluarga model SAM – SAM, SAM 2, SAM 2.1, dan SAM 3.\nAntarmuka multi-bahasa – antarmuka tersedia dalam 中文, 日本語, 한국어, Français, Русский, العربية, Deutsch, Español, dan Português, mengikuti pengaturan lokal QGIS secara otomatis.\n\n\n\nCara Install plugin pada Qgis\nDi QGIS, buka menu Plugins &gt; Manage and Install Plugins. Cari Geo SAM di bagian pencarian, pilih, dan klik Install. Setelah instalasi, centang kotak untuk mengaktifkan plugin.\n\nSetelah mengaktifika Geo-SAM plugin, anda akan menemukan tool Geo-SAM dibawah menu Plugins,\n\n\n\nAnda juga akan melihat bilah alat baru dengan empat ikon:\n\n\n\n\n\n\n\n\n\n\n\nNama\nPeran\nDeskripsi\n\n\n\n\nSegmentasi Geo-SAM\nAlat Utama\nSegmentasi interaktif dengan titik dan kotak pembatas\n\n\nPengode Citra Geo-SAM\nAlat Bantu\nPra-kode gambar raster menjadi file fitur yang dapat digunakan kembali\n\n\nCopilot Pengode Geo-SAM\nAlat Bantu\nPratinjau cakupan patch sebelum pengodean\n\n\nPengaturan Geo-SAM\nPengaturan\nKelola dependensi, model, cache, dan bantuan",
+    "text": "Alasan memilih Geo-SAM\nGeo-SAM adalah plugin QGIS yang membantu Anda melakukan segmentasi, delineasi, dan pelabelan bentang alam dalam gambar raster geospasial berukuran besar. Plugin ini dibangun di atas Segment Anything Model (SAM) dan menggunakan strategi pengkodean fitur gambar terlebih dahulu serta menghilangkan encoder gambar yang berat dari proses inferensi. Segmentasi interaktif berjalan pada kecepatan milidetik di CPU laptop, menjadikannya alat yang nyaman dan efisien untuk analisis citra penginderaan jauh[1].\nGeo-SAM menyediakan dua alur kerja segmentasi:",
     "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Pengenalan</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Labelisasi Objek Permukaan Bumi dengan Geo-Sam</span>"
+    ]
+  },
+  {
+    "objectID": "praproces/labeling.html#prasyarat",
+    "href": "praproces/labeling.html#prasyarat",
+    "title": "4  Labelisasi Objek Permukaan Bumi dengan Geo-Sam",
+    "section": "Prasyarat",
+    "text": "Prasyarat\n\nQGIS 3.x/4.x terinstal.\nPlugin Geo-SAM terinstal dan diaktifkan (lihat Instalasi).\nDependensi terinstal melalui Settings &gt; Dependencies &gt; Install Missing.\nModel SAM diunduh melalui Settings &gt; Model Management (misalnya, SAM2.1 Base).\nGambar raster dimuat di proyek QGIS Anda.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Labelisasi Objek Permukaan Bumi dengan Geo-Sam</span>"
+    ]
+  },
+  {
+    "objectID": "praproces/labeling.html#langkah-1-buka-alat-segmentasi",
+    "href": "praproces/labeling.html#langkah-1-buka-alat-segmentasi",
+    "title": "4  Labelisasi Objek Permukaan Bumi dengan Geo-Sam",
+    "section": "Langkah 1: Buka Alat Segmentasi",
+    "text": "Langkah 1: Buka Alat Segmentasi\nKlik ikon Geo-SAM Segmentation di bagian tools. Sebuah widget dock akan muncul di bagian atas jendela QGIS dengan tata letak panel terbagi:\n\nSisi kiri: tab Input / Output dan Prompts\nSisi kanan: tab Styles dan Options",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Labelisasi Objek Permukaan Bumi dengan Geo-Sam</span>"
+    ]
+  },
+  {
+    "objectID": "praproces/labeling.html#langkah-2-pilih-mode-live-encoding",
+    "href": "praproces/labeling.html#langkah-2-pilih-mode-live-encoding",
+    "title": "4  Labelisasi Objek Permukaan Bumi dengan Geo-Sam",
+    "section": "Langkah 2: Pilih Mode Live Encoding",
+    "text": "Langkah 2: Pilih Mode Live Encoding\nDi tab Input / Output, pastikan dropdown pemilih sumber menampilkan Live Encoding (ini adalah pengaturan default). Kemudian:\n\nPilih model SAM dari dropdown Model (misalnya, SAM2.1 Base).\nPilih layer raster Anda dari dropdown Layer.\nDi bawah Segmentation Result, pilih layer poligon yang ada atau klik Load/Create untuk menentukan Shapefile baru.\n\n\n💡 Tip Jika Anda belum mengunduh model yang dipilih, Geo-SAM akan meminta Anda untuk membuka Model Management dan mengunduhnya.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Labelisasi Objek Permukaan Bumi dengan Geo-Sam</span>"
+    ]
+  },
+  {
+    "objectID": "praproces/labeling.html#langkah-3-gambar-bounding-box",
+    "href": "praproces/labeling.html#langkah-3-gambar-bounding-box",
+    "title": "4  Labelisasi Objek Permukaan Bumi dengan Geo-Sam",
+    "section": "Langkah 3: Gambar Bounding Box",
+    "text": "Langkah 3: Gambar Bounding Box\n\nBuka tab Prompts.\nKlik tombol BBox untuk mengaktifkan alat bounding-box.\nTarik persegi panjang di sekitar bentang alam yang ingin Anda segmentasi. Saat Anda menarik, pratinjau menunjukkan bentang alam di dalam kotak yang disegmentasi secara real-time dengan batas yang jelas.\n\nTarikan pertama memicu background encoding dari area gambar yang terlihat. Bilah progres muncul di manajer tugas QGIS. Setelah pengodean selesai, hasil segmentasi muncul secara instan.\n\nℹ️ Prompt pertama memakan waktu lebih lama Prompt pertama pada area baru memerlukan pengodean fitur gambar (beberapa detik hingga menit tergantung ukuran gambar dan perangkat keras). Prompt berikutnya di area yang sama dimuat dari cache dengan kecepatan milidetik.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Labelisasi Objek Permukaan Bumi dengan Geo-Sam</span>"
+    ]
+  },
+  {
+    "objectID": "praproces/labeling.html#langkah-4-perhalus-dengan-lebih-banyak-prompts",
+    "href": "praproces/labeling.html#langkah-4-perhalus-dengan-lebih-banyak-prompts",
+    "title": "4  Labelisasi Objek Permukaan Bumi dengan Geo-Sam",
+    "section": "Langkah 4: Perhalus dengan Lebih Banyak Prompts",
+    "text": "Langkah 4: Perhalus dengan Lebih Banyak Prompts\n\nTambahkan titik latar belakang: Klik BG, lalu klik pada area yang ingin Anda kecualikan dari segmentasi.\nTambahkan titik latar depan: Klik FG, lalu klik pada area yang ingin Anda sertakan dalam segmentasi.\nUrungkan prompt terakhir: Tekan Z atau klik Undo.\nHapus semua prompt: Tekan C atau klik Clear.\n\nAnda dapat menggabungkan beberapa prompt untuk menyempurnakan segmentasi satu objek.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Labelisasi Objek Permukaan Bumi dengan Geo-Sam</span>"
+    ]
+  },
+  {
+    "objectID": "praproces/labeling.html#langkah-5-simpan-hasilnya",
+    "href": "praproces/labeling.html#langkah-5-simpan-hasilnya",
+    "title": "4  Labelisasi Objek Permukaan Bumi dengan Geo-Sam",
+    "section": "Langkah 5: Simpan Hasilnya",
+    "text": "Langkah 5: Simpan Hasilnya\nKetika Anda puas dengan segmentasi tersebut, tekan S atau klik Save untuk menyimpan poligon segmentasi saat ini.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Labelisasi Objek Permukaan Bumi dengan Geo-Sam</span>"
+    ]
+  },
+  {
+    "objectID": "praproces/labeling.html#langkah-6-pindah-ke-objek-berikutnya",
+    "href": "praproces/labeling.html#langkah-6-pindah-ke-objek-berikutnya",
+    "title": "4  Labelisasi Objek Permukaan Bumi dengan Geo-Sam",
+    "section": "Langkah 6: Pindah ke Objek Berikutnya",
+    "text": "Langkah 6: Pindah ke Objek Berikutnya\nTekan C untuk menghapus prompt, lalu ulangi Langkah 3-5 untuk objek berikutnya.\n\n⚠️ Ingat SAM menyegmentasi satu objek dalam satu waktu. Selalu simpan hasil Anda sebelum menghapus prompt dan pindah ke objek berikutnya.\n\n\n\n\n\n[1] Geo-SAM Developers, “Geo-SAM Documentation: Installation Guide,” Read the Docs, 2026. Retrieved 8 July 2026. https://geo-sam.readthedocs.io/en/latest/Installation.html",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Labelisasi Objek Permukaan Bumi dengan Geo-Sam</span>"
     ]
   },
   {

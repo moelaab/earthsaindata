@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>4&nbsp; Pengenalan</title>
+<title>4&nbsp; Labelisasi Objek Permukaan Bumi dengan Geo-Sam</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,7 +20,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -84,7 +104,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../praproces/labeling.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Pengenalan</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../praproces/labeling.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Labelisasi Objek Permukaan Bumi dengan Geo-Sam</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -146,7 +166,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../praproces/labeling.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Pengenalan</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Labelisasi Objek Permukaan Bumi dengan Geo-Sam</span></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -208,6 +228,18 @@ ul.task-list li input[type="checkbox"] {
   <ul>
   <li><a href="#alasan-memilih-geo-sam" id="toc-alasan-memilih-geo-sam" class="nav-link active" data-scroll-target="#alasan-memilih-geo-sam">Alasan memilih Geo-SAM</a></li>
   <li><a href="#cara-install-plugin-pada-qgis" id="toc-cara-install-plugin-pada-qgis" class="nav-link" data-scroll-target="#cara-install-plugin-pada-qgis">Cara Install plugin pada Qgis</a></li>
+  <li><a href="#langkah-3-instal-dependensi" id="toc-langkah-3-instal-dependensi" class="nav-link" data-scroll-target="#langkah-3-instal-dependensi">Langkah 3: Instal Dependensi</a></li>
+  <li><a href="#unduh-model-sam" id="toc-unduh-model-sam" class="nav-link" data-scroll-target="#unduh-model-sam">Unduh Model SAM</a></li>
+  <li><a href="#memulai-cepat-geo-sam-5-menit" id="toc-memulai-cepat-geo-sam-5-menit" class="nav-link" data-scroll-target="#memulai-cepat-geo-sam-5-menit">Memulai Cepat Geo-Sam (5 Menit)</a>
+  <ul class="collapse">
+  <li><a href="#prasyarat" id="toc-prasyarat" class="nav-link" data-scroll-target="#prasyarat">Prasyarat</a></li>
+  <li><a href="#langkah-1-buka-alat-segmentasi" id="toc-langkah-1-buka-alat-segmentasi" class="nav-link" data-scroll-target="#langkah-1-buka-alat-segmentasi">Langkah 1: Buka Alat Segmentasi</a></li>
+  <li><a href="#langkah-2-pilih-mode-live-encoding" id="toc-langkah-2-pilih-mode-live-encoding" class="nav-link" data-scroll-target="#langkah-2-pilih-mode-live-encoding">Langkah 2: Pilih Mode Live Encoding</a></li>
+  <li><a href="#langkah-3-gambar-bounding-box" id="toc-langkah-3-gambar-bounding-box" class="nav-link" data-scroll-target="#langkah-3-gambar-bounding-box">Langkah 3: Gambar Bounding Box</a></li>
+  <li><a href="#langkah-4-perhalus-dengan-lebih-banyak-prompts" id="toc-langkah-4-perhalus-dengan-lebih-banyak-prompts" class="nav-link" data-scroll-target="#langkah-4-perhalus-dengan-lebih-banyak-prompts">Langkah 4: Perhalus dengan Lebih Banyak Prompts</a></li>
+  <li><a href="#langkah-5-simpan-hasilnya" id="toc-langkah-5-simpan-hasilnya" class="nav-link" data-scroll-target="#langkah-5-simpan-hasilnya">Langkah 5: Simpan Hasilnya</a></li>
+  <li><a href="#langkah-6-pindah-ke-objek-berikutnya" id="toc-langkah-6-pindah-ke-objek-berikutnya" class="nav-link" data-scroll-target="#langkah-6-pindah-ke-objek-berikutnya">Langkah 6: Pindah ke Objek Berikutnya</a></li>
+  </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/moelaab/earthsaindata/edit/main/praproces/labeling.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/moelaab/earthsaindata/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -216,7 +248,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Pengenalan</span></h1>
+<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Labelisasi Objek Permukaan Bumi dengan Geo-Sam</span></h1>
 </div>
 
 
@@ -233,7 +265,7 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Geo-SAM adalah plugin QGIS yang membantu Anda melakukan segmentasi, delineasi, dan pelabelan bentang alam dalam gambar raster geospasial berukuran besar. Plugin ini dibangun di atas <strong>Segment Anything Model</strong> (SAM) dan menggunakan strategi pengkodean fitur gambar terlebih dahulu serta menghilangkan encoder gambar yang berat dari proses inferensi. <strong>Segmentasi interaktif berjalan pada kecepatan milidetik di CPU laptop</strong>, menjadikannya alat yang nyaman dan efisien untuk analisis citra penginderaan jauh.</p>
+<p>Geo-SAM adalah plugin QGIS yang membantu Anda melakukan segmentasi, delineasi, dan pelabelan bentang alam dalam gambar raster geospasial berukuran besar. Plugin ini dibangun di atas <strong>Segment Anything Model</strong> (SAM) dan menggunakan strategi pengkodean fitur gambar terlebih dahulu serta menghilangkan encoder gambar yang berat dari proses inferensi. <strong>Segmentasi interaktif berjalan pada kecepatan milidetik di CPU laptop</strong>, menjadikannya alat yang nyaman dan efisien untuk analisis citra penginderaan jauh<span class="citation" data-cites="geosam_installation_2026">[<a href="../peta/mukalaut.html#ref-geosam_installation_2026" role="doc-biblioref">1</a>]</span>.</p>
 <p>Geo-SAM menyediakan dua alur kerja segmentasi:</p>
 <ul>
 <li><p><strong>Mode Live Encoding</strong> – Pilih layer raster dan model SAM, lalu mulai segmentasi. Plugin mengkodekan fitur secara langsung menggunakan tugas latar belakang QGIS dan men-cache-nya untuk query ulang yang cepat. Ini adalah alur kerja yang direkomendasikan untuk sebagian besar pengguna.</p></li>
@@ -298,8 +330,99 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 </tbody>
 </table>
+</section>
+<section id="langkah-3-instal-dependensi" class="level1">
+<h1>Langkah 3: Instal Dependensi</h1>
+<p>Geo-SAM memerlukan beberapa paket Python (PyTorch, geosam, rasterio, dll.) agar berfungsi. Paket-paket ini dikelola <strong>langsung di dalam plugin</strong> – tidak diperlukan perintah <code>pip</code> secara manual.</p>
+<ol type="1">
+<li>Klik ikon <strong>Geo-SAM Settings</strong> (Pengaturan Geo-SAM) di bagai tools.</li>
+<li>Buka tab <strong>Dependencies</strong></li>
+<li>Klik <strong>Install Missing</strong> dan tunggu hingga instalasi selesai.</li>
+<li><strong>Mulai ulang QGIS</strong> saat diminta.</li>
+</ol>
+</section>
+<section id="unduh-model-sam" class="level1">
+<h1>Unduh Model SAM</h1>
+<p>Checkpoint model SAM diperlukan untuk pengodean gambar dan segmentasi.</p>
+<ol type="1">
+<li>Buka <strong>Geo-SAM Settings</strong> dan buka tab <strong>Model Management</strong>.</li>
+<li>Pilih sebuah model (misalnya, <strong>SAM2.1 Base</strong> untuk keseimbangan yang baik antara kecepatan dan akurasi).</li>
+<li>Klik <strong>Download</strong> dan tunggu hingga unduhan selesai.</li>
+</ol>
+</section>
+<section id="memulai-cepat-geo-sam-5-menit" class="level1">
+<h1>Memulai Cepat Geo-Sam (5 Menit)</h1>
+<p>Panduan ini memandu Anda melalui proses segmentasi bentang alam menggunakan alur kerja <strong>Live Encoding</strong> – cara tercepat untuk memulai dengan Geo-SAM.</p>
+<section id="prasyarat" class="level2">
+<h2 class="anchored" data-anchor-id="prasyarat">Prasyarat</h2>
+<ol type="1">
+<li><strong>QGIS 3.x/4.x</strong> terinstal.</li>
+<li><strong>Plugin Geo-SAM</strong> terinstal dan diaktifkan (lihat <a href="#">Instalasi</a>).</li>
+<li><strong>Dependensi</strong> terinstal melalui Settings &gt; Dependencies &gt; Install Missing.</li>
+<li><strong>Model SAM</strong> diunduh melalui Settings &gt; Model Management (misalnya, <strong>SAM2.1 Base</strong>).</li>
+<li><strong>Gambar raster</strong> dimuat di proyek QGIS Anda.</li>
+</ol>
+</section>
+<section id="langkah-1-buka-alat-segmentasi" class="level2">
+<h2 class="anchored" data-anchor-id="langkah-1-buka-alat-segmentasi">Langkah 1: Buka Alat Segmentasi</h2>
+<p>Klik ikon <strong>Geo-SAM Segmentation</strong> di bagian tools. Sebuah widget dock akan muncul di bagian atas jendela QGIS dengan tata letak panel terbagi:</p>
+<ul>
+<li><strong>Sisi kiri:</strong> tab Input / Output dan Prompts</li>
+<li><strong>Sisi kanan:</strong> tab Styles dan Options</li>
+</ul>
+</section>
+<section id="langkah-2-pilih-mode-live-encoding" class="level2">
+<h2 class="anchored" data-anchor-id="langkah-2-pilih-mode-live-encoding">Langkah 2: Pilih Mode Live Encoding</h2>
+<p>Di tab <strong>Input / Output</strong>, pastikan dropdown pemilih sumber menampilkan <strong>Live Encoding</strong> (ini adalah pengaturan default). Kemudian:</p>
+<ol type="1">
+<li>Pilih model SAM dari dropdown <strong>Model</strong> (misalnya, SAM2.1 Base).</li>
+<li>Pilih layer raster Anda dari dropdown <strong>Layer</strong>.</li>
+<li>Di bawah <strong>Segmentation Result</strong>, pilih layer poligon yang ada atau klik <strong>Load/Create</strong> untuk menentukan Shapefile baru.</li>
+</ol>
+<blockquote class="blockquote">
+<p><strong>💡 Tip</strong> Jika Anda belum mengunduh model yang dipilih, Geo-SAM akan meminta Anda untuk membuka Model Management dan mengunduhnya.</p>
+</blockquote>
+</section>
+<section id="langkah-3-gambar-bounding-box" class="level2">
+<h2 class="anchored" data-anchor-id="langkah-3-gambar-bounding-box">Langkah 3: Gambar Bounding Box</h2>
+<ol type="1">
+<li>Buka tab <strong>Prompts</strong>.</li>
+<li>Klik tombol <strong>BBox</strong> untuk mengaktifkan alat bounding-box.</li>
+<li>Tarik persegi panjang di sekitar bentang alam yang ingin Anda segmentasi. Saat Anda menarik, pratinjau menunjukkan bentang alam di dalam kotak yang disegmentasi secara <em>real-time</em> dengan batas yang jelas.</li>
+</ol>
+<p>Tarikan pertama memicu <strong>background encoding</strong> dari area gambar yang terlihat. Bilah progres muncul di manajer tugas QGIS. Setelah pengodean selesai, hasil segmentasi muncul secara instan.</p>
+<blockquote class="blockquote">
+<p><strong>ℹ️ Prompt pertama memakan waktu lebih lama</strong> Prompt pertama pada area baru memerlukan pengodean fitur gambar (beberapa detik hingga menit tergantung ukuran gambar dan perangkat keras). Prompt berikutnya di area yang sama dimuat dari <em>cache</em> dengan kecepatan <strong>milidetik</strong>.</p>
+</blockquote>
+</section>
+<section id="langkah-4-perhalus-dengan-lebih-banyak-prompts" class="level2">
+<h2 class="anchored" data-anchor-id="langkah-4-perhalus-dengan-lebih-banyak-prompts">Langkah 4: Perhalus dengan Lebih Banyak Prompts</h2>
+<ul>
+<li><strong>Tambahkan titik latar belakang:</strong> Klik <strong>BG</strong>, lalu klik pada area yang ingin Anda <em>kecualikan</em> dari segmentasi.</li>
+<li><strong>Tambahkan titik latar depan:</strong> Klik <strong>FG</strong>, lalu klik pada area yang ingin Anda <em>sertakan</em> dalam segmentasi.</li>
+<li><strong>Urungkan prompt terakhir:</strong> Tekan <strong>Z</strong> atau klik <strong>Undo</strong>.</li>
+<li><strong>Hapus semua prompt:</strong> Tekan <strong>C</strong> atau klik <strong>Clear</strong>.</li>
+</ul>
+<p>Anda dapat menggabungkan beberapa prompt untuk menyempurnakan segmentasi satu objek.</p>
+</section>
+<section id="langkah-5-simpan-hasilnya" class="level2">
+<h2 class="anchored" data-anchor-id="langkah-5-simpan-hasilnya">Langkah 5: Simpan Hasilnya</h2>
+<p>Ketika Anda puas dengan segmentasi tersebut, tekan <strong>S</strong> atau klik <strong>Save</strong> untuk menyimpan poligon segmentasi saat ini.</p>
+</section>
+<section id="langkah-6-pindah-ke-objek-berikutnya" class="level2">
+<h2 class="anchored" data-anchor-id="langkah-6-pindah-ke-objek-berikutnya">Langkah 6: Pindah ke Objek Berikutnya</h2>
+<p>Tekan <strong>C</strong> untuk menghapus prompt, lalu ulangi Langkah 3-5 untuk objek berikutnya.</p>
+<blockquote class="blockquote">
+<p><strong>⚠️ Ingat</strong> SAM menyegmentasi <strong>satu objek dalam satu waktu</strong>. Selalu simpan hasil Anda sebelum menghapus prompt dan pindah ke objek berikutnya.</p>
+</blockquote>
 
 
+<div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-geosam_installation_2026" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">Geo-SAM Developers, <span>“Geo-SAM Documentation: Installation Guide,”</span> Read the Docs, 2026. Retrieved 8 July 2026. <a href="https://geo-sam.readthedocs.io/en/latest/Installation.html">https://geo-sam.readthedocs.io/en/latest/Installation.html</a></div>
+</div>
+</div>
+</section>
 </section>
 
 </main> <!-- /main -->
