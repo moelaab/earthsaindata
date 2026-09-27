@@ -292,9 +292,10 @@ window.Quarto = {
    
   <ul>
   <li><a href="#interpolasi-polinomial" id="toc-interpolasi-polinomial" class="nav-link active" data-scroll-target="#interpolasi-polinomial">1.2 Interpolasi Polinomial</a></li>
-  <li><a href="#contoh-penggunaan" id="toc-contoh-penggunaan" class="nav-link" data-scroll-target="#contoh-penggunaan">Contoh penggunaan</a></li>
+  <li><a href="#interpolasi-spline" id="toc-interpolasi-spline" class="nav-link" data-scroll-target="#interpolasi-spline">1.3 Interpolasi Spline</a></li>
+  <li><a href="#interpolasi-linear" id="toc-interpolasi-linear" class="nav-link" data-scroll-target="#interpolasi-linear">1.3.1 Interpolasi linear</a></li>
   <li><a href="#spline-kuadrat" id="toc-spline-kuadrat" class="nav-link" data-scroll-target="#spline-kuadrat">1.3.2 Spline kuadrat</a></li>
-  <li><a href="#contoh-penggunaan-1" id="toc-contoh-penggunaan-1" class="nav-link" data-scroll-target="#contoh-penggunaan-1">Contoh penggunaan</a></li>
+  <li><a href="#spline-kubik" id="toc-spline-kubik" class="nav-link" data-scroll-target="#spline-kubik">1.3.3 Spline kubik</a></li>
   <li><a href="#interpolasi-sub-spline-akima" id="toc-interpolasi-sub-spline-akima" class="nav-link" data-scroll-target="#interpolasi-sub-spline-akima">1.3.4 Interpolasi sub-spline Akima</a></li>
   <li><a href="#bentuk-bentuk-interpolasi-lainnya" id="toc-bentuk-bentuk-interpolasi-lainnya" class="nav-link" data-scroll-target="#bentuk-bentuk-interpolasi-lainnya">1.4 Bentuk-bentuk interpolasi lainnya</a></li>
   <li><a href="#interpolasi-multivariat" id="toc-interpolasi-multivariat" class="nav-link" data-scroll-target="#interpolasi-multivariat">1.5 Interpolasi multivariat</a></li>
@@ -337,52 +338,55 @@ window.Quarto = {
 <p><span class="math display">\[P(x) = \sum_{i=1}^{n} y_i \prod_{\substack{k=1 \\ k \neq i}}^{n} \frac{x - x_k}{x_i - x_k}. \quad (1)\]</span></p>
 <p>Polinomial interpolasi Lagrange selalu ada dan bersifat unik.</p>
 <p>Polinomial interpolasi berorde tinggi rentan terhadap <em>fenomena Runge</em>: osilasi liar di dekat titik-titik ujung interval, lihat Gambar 1.</p>
-<p>``` {.python .python=} import numpy as np</p>
-<p>def polinterp(n, x, y, z): ““” Interpolasi Lagrange.</p>
-<pre><code>Parameters:
-    n : int          -&gt; jumlah titik data
-    x : array-like   -&gt; array nilai x (absis)
-    y : array-like   -&gt; array nilai y (ordinat)
-    z : float        -&gt; titik yang ingin diinterpolasi
-
-Returns:
-    s : float -&gt; hasil interpolasi pada titik z
-"""
-s = 0.0
-for i in range(n):
-    p = 1.0
-    for k in range(n):
-        if k != i:
-            p *= (z - x[k]) / (x[i] - x[k])
-    s += y[i] * p
-return s</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> polinterp(n, x, y, z):</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">    Interpolasi Lagrange.</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">    Parameters:</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">        n : int          -&gt; jumlah titik data</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">        x : array-like   -&gt; array nilai x (absis)</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">        y : array-like   -&gt; array nilai y (ordinat)</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">        z : float        -&gt; titik yang ingin diinterpolasi</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">    Returns:</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">        s : float -&gt; hasil interpolasi pada titik z</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    s <span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>        p <span class="op">=</span> <span class="fl">1.0</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> k <span class="op">!=</span> i:</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>                p <span class="op">*=</span> (z <span class="op">-</span> x[k]) <span class="op">/</span> (x[i] <span class="op">-</span> x[k])</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>        s <span class="op">+=</span> y[i] <span class="op">*</span> p</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> s</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Contoh penggunaan</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">"__main__"</span>:</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> np.array([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>])</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> np.array([<span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">9</span>, <span class="dv">16</span>])  <span class="co"># y = x^2</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>    z <span class="op">=</span> <span class="fl">2.5</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>    hasil <span class="op">=</span> polinterp(<span class="bu">len</span>(x), x, y, z)</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Hasil interpolasi pada z=</span><span class="sc">{</span>z<span class="sc">}</span><span class="ss"> adalah </span><span class="sc">{</span>hasil<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-951529482.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="408"></p>
+</figure>
+</div>
+<p>Gambar 1: Polinomial interpolasi Lagrange, garis penuh, menunjukkan fenomena Runge: osilasi besar pada ujung-ujung. Sebagai perbandingan, garis putus-putus menunjukkan sebuah spline kubik.</p>
 </section>
-<section id="contoh-penggunaan" class="level1">
-<h1>Contoh penggunaan</h1>
-<p>if <strong>name</strong> == “<strong>main</strong>”: x = np.array([1, 2, 3, 4]) y = np.array([1, 4, 9, 16]) # y = x^2</p>
-<pre><code>z = 2.5
-hasil = polinterp(len(x), x, y, z)
-print(f"Hasil interpolasi pada z={z} adalah {hasil}")</code></pre>
-<pre><code>
-![](images/clipboard-951529482.png){fig-align="center" width="408"}
-
-Gambar 1: Polinomial interpolasi Lagrange, garis penuh, menunjukkan fenomena Runge: osilasi besar pada ujung-ujung. Sebagai perbandingan, garis putus-putus menunjukkan sebuah spline kubik.
-
-# 1.3 Interpolasi Spline
-
-Interpolasi spline menggunakan sebuah *polinomial sepotong-sepotong* (*piecewise polynomial*), $S(x)$, yang disebut *spline*, sebagai fungsi interpolasi,
-
-$$S(x) = S_i(x) \text{ jika } x \in [x_i, x_{i+1}] \big|_{i=1,\ldots,n-1}, \quad (2)$$
-
-di mana $S_i(x)$ adalah polinomial dengan orde tertentu $k$. Interpolasi spline menghindari masalah fenomena Runge. Pada awalnya, "spline" adalah istilah untuk penggaris elastis yang dibengkokkan untuk melewati sejumlah titik yang telah ditentukan. Alat ini digunakan untuk membuat gambar teknik secara manual.
-
-Spline dengan orde $k \ge 1$ dapat dibuat kontinu pada titik-titik tabel,
-
-$$S_i(x_i) = y_i, \ S_i(x_{i+1}) = y_{i+1} \ \Big|_{i=1,\dots,n-1}, \quad (3)$$
-
-bersama dengan $k-1$ turunannya,
-
-$$
+<section id="interpolasi-spline" class="level1">
+<h1>1.3 Interpolasi Spline</h1>
+<p>Interpolasi spline menggunakan sebuah <em>polinomial sepotong-sepotong</em> (<em>piecewise polynomial</em>), <span class="math inline">\(S(x)\)</span>, yang disebut <em>spline</em>, sebagai fungsi interpolasi,</p>
+<p><span class="math display">\[S(x) = S_i(x) \text{ jika } x \in [x_i, x_{i+1}] \big|_{i=1,\ldots,n-1}, \quad (2)\]</span></p>
+<p>di mana <span class="math inline">\(S_i(x)\)</span> adalah polinomial dengan orde tertentu <span class="math inline">\(k\)</span>. Interpolasi spline menghindari masalah fenomena Runge. Pada awalnya, “spline” adalah istilah untuk penggaris elastis yang dibengkokkan untuk melewati sejumlah titik yang telah ditentukan. Alat ini digunakan untuk membuat gambar teknik secara manual.</p>
+<p>Spline dengan orde <span class="math inline">\(k \ge 1\)</span> dapat dibuat kontinu pada titik-titik tabel,</p>
+<p><span class="math display">\[S_i(x_i) = y_i, \ S_i(x_{i+1}) = y_{i+1} \ \Big|_{i=1,\dots,n-1}, \quad (3)\]</span></p>
+<p>bersama dengan <span class="math inline">\(k-1\)</span> turunannya,</p>
+<p><span class="math display">\[
 \left.
 \begin{array}{l}
 S'_i(x_{i+1}) = S'_{i+1}(x_{i+1}), \\
@@ -391,64 +395,55 @@ S''_i(x_{i+1}) = S''_{i+1}(x_{i+1}), \\
 S^{(k-1)}_i(x_{i+1}) = S^{(k-1)}_{i+1}(x_{i+1}).
 \end{array}
 \right| i=1,\dots,n-2 \quad (4)
-$$
-
-Kondisi kontinuitas (3) dan (4) membentuk $kn + n - 2k$ persamaan linear untuk $(n-1)(k+1) = kn + n - k - 1$ koefisien dari $n-1$ polinomial (2) berorde $k$. Kondisi $k-1$ yang hilang dapat dipilih secara (wajar) sembarang.
-
-Yang paling populer adalah spline kubik, di mana polinomial $S_i(x)$ berorde tiga. Spline kubik adalah fungsi kontinu beserta turunan pertama dan keduanya. Spline kubik memiliki fitur bagus yaitu (sejenis) meminimalkan total kelengkungan fungsi interpolasi. Hal ini membuat spline kubik terlihat bagus.
-
-Spline kuadrat—kontinu dengan turunan pertama—hampir tidak sebaik spline kubik dalam sebagian besar hal. Secara khusus, spline ini dapat berosilasi secara tidak wajar ketika perubahan cepat pada fungsi tabel diikuti oleh periode di mana fungsi tersebut hampir konstan. Spline kubik agak lebih kebal terhadap osilasi semacam itu.Spline linear hanyalah sebuah poligon yang digambar melalui titik-titik tabel.
-
-# 1.3.1 Interpolasi linear
-
-*Interpolasi linear* adalah spline dengan polinomial linear. Kondisi kontinuitas (3) dapat dipenuhi dengan memilih spline dalam bentuk (intuitif)
-
-$$S_i(x) = y_i + p_i(x - x_i) \, , \quad (5)$$
-
-di mana
-
-$$p_i = \frac{\Delta y_i}{\Delta x_i} \ , \ \Delta y_i \doteq y_{i+1} - y_i \ , \ \Delta x_i \doteq x_{i+1} - x_i \ . \quad (6)$$
-
-Perhatikan bahwa pencarian interval $[x_i \le x \le x_{i+1}]$ dalam array terurut $\{x_i\}$ harus dilakukan dengan algoritma *pencarian biner* (juga disebut *pencarian setengah interval*): titik $x$ dibandingkan dengan elemen tengah array, jika nilainya kurang dari elemen tengah, algoritma mengulangi aksinya pada sub-array di sebelah kiri elemen tengah, jika lebih besar, pada sub-array di sebelah kanan. Ketika sub-array yang tersisa direduksi menjadi dua elemen, interval tersebut ditemukan. Jumlah operasi rata-rata untuk pencarian biner adalah $O(\log n)$.
-
-``` {.python .python=}
-def linterp(n, x, y, z):
-    """
-    Interpolasi linear menggunakan binary search untuk mencari interval.
-    
-    Parameters:
-        n : int          -&gt; jumlah titik data
-        x : array-like   -&gt; array nilai x (absis), harus terurut naik
-        y : array-like   -&gt; array nilai y (ordinat)
-        z : float        -&gt; titik yang ingin diinterpolasi
-    
-    Returns:
-        float -&gt; hasil interpolasi pada titik z
-    
-    Precondition:
-        n &gt; 1 dan x[0] &lt;= z &lt;= x[n-1]
-    """
-    assert n &gt; 1 and z &gt;= x[0] and z &lt;= x[n - 1]
-
-    i, j = 0, n - 1  # binary search
-    while j - i &gt; 1:
-        m = (i + j) // 2
-        if z &gt; x[m]:
-            i = m
-        else:
-            j = m
-
-    return y[i] + (y[i + 1] - y[i]) / (x[i + 1] - x[i]) * (z - x[i])
-
-
-# Contoh penggunaan
-if __name__ == "__main__":
-    x = [0, 1, 2, 3, 4]
-    y = [0, 1, 4, 9, 16]  # y = x^2 (contoh data)
-
-    z = 2.5
-    hasil = linterp(len(x), x, y, z)
-    print(f"Hasil interpolasi linear pada z={z} adalah {hasil}")</code></pre>
+\]</span></p>
+<p>Kondisi kontinuitas (3) dan (4) membentuk <span class="math inline">\(kn + n - 2k\)</span> persamaan linear untuk <span class="math inline">\((n-1)(k+1) = kn + n - k - 1\)</span> koefisien dari <span class="math inline">\(n-1\)</span> polinomial (2) berorde <span class="math inline">\(k\)</span>. Kondisi <span class="math inline">\(k-1\)</span> yang hilang dapat dipilih secara (wajar) sembarang.</p>
+<p>Yang paling populer adalah spline kubik, di mana polinomial <span class="math inline">\(S_i(x)\)</span> berorde tiga. Spline kubik adalah fungsi kontinu beserta turunan pertama dan keduanya. Spline kubik memiliki fitur bagus yaitu (sejenis) meminimalkan total kelengkungan fungsi interpolasi. Hal ini membuat spline kubik terlihat bagus.</p>
+<p>Spline kuadrat—kontinu dengan turunan pertama—hampir tidak sebaik spline kubik dalam sebagian besar hal. Secara khusus, spline ini dapat berosilasi secara tidak wajar ketika perubahan cepat pada fungsi tabel diikuti oleh periode di mana fungsi tersebut hampir konstan. Spline kubik agak lebih kebal terhadap osilasi semacam itu.Spline linear hanyalah sebuah poligon yang digambar melalui titik-titik tabel.</p>
+</section>
+<section id="interpolasi-linear" class="level1">
+<h1>1.3.1 Interpolasi linear</h1>
+<p><em>Interpolasi linear</em> adalah spline dengan polinomial linear. Kondisi kontinuitas (3) dapat dipenuhi dengan memilih spline dalam bentuk (intuitif)</p>
+<p><span class="math display">\[S_i(x) = y_i + p_i(x - x_i) \, , \quad (5)\]</span></p>
+<p>di mana</p>
+<p><span class="math display">\[p_i = \frac{\Delta y_i}{\Delta x_i} \ , \ \Delta y_i \doteq y_{i+1} - y_i \ , \ \Delta x_i \doteq x_{i+1} - x_i \ . \quad (6)\]</span></p>
+<p>Perhatikan bahwa pencarian interval <span class="math inline">\([x_i \le x \le x_{i+1}]\)</span> dalam array terurut <span class="math inline">\(\{x_i\}\)</span> harus dilakukan dengan algoritma <em>pencarian biner</em> (juga disebut <em>pencarian setengah interval</em>): titik <span class="math inline">\(x\)</span> dibandingkan dengan elemen tengah array, jika nilainya kurang dari elemen tengah, algoritma mengulangi aksinya pada sub-array di sebelah kiri elemen tengah, jika lebih besar, pada sub-array di sebelah kanan. Ketika sub-array yang tersisa direduksi menjadi dua elemen, interval tersebut ditemukan. Jumlah operasi rata-rata untuk pencarian biner adalah <span class="math inline">\(O(\log n)\)</span>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> linterp(n, x, y, z):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Interpolasi linear menggunakan binary search untuk mencari interval.</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">    Parameters:</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">        n : int          -&gt; jumlah titik data</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">        x : array-like   -&gt; array nilai x (absis), harus terurut naik</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">        y : array-like   -&gt; array nilai y (ordinat)</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">        z : float        -&gt; titik yang ingin diinterpolasi</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">    Returns:</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co">        float -&gt; hasil interpolasi pada titik z</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co">    Precondition:</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co">        n &gt; 1 dan x[0] &lt;= z &lt;= x[n-1]</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> n <span class="op">&gt;</span> <span class="dv">1</span> <span class="kw">and</span> z <span class="op">&gt;=</span> x[<span class="dv">0</span>] <span class="kw">and</span> z <span class="op">&lt;=</span> x[n <span class="op">-</span> <span class="dv">1</span>]</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    i, j <span class="op">=</span> <span class="dv">0</span>, n <span class="op">-</span> <span class="dv">1</span>  <span class="co"># binary search</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> j <span class="op">-</span> i <span class="op">&gt;</span> <span class="dv">1</span>:</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>        m <span class="op">=</span> (i <span class="op">+</span> j) <span class="op">//</span> <span class="dv">2</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> z <span class="op">&gt;</span> x[m]:</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>            i <span class="op">=</span> m</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>            j <span class="op">=</span> m</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> y[i] <span class="op">+</span> (y[i <span class="op">+</span> <span class="dv">1</span>] <span class="op">-</span> y[i]) <span class="op">/</span> (x[i <span class="op">+</span> <span class="dv">1</span>] <span class="op">-</span> x[i]) <span class="op">*</span> (z <span class="op">-</span> x[i])</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Contoh penggunaan</span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">"__main__"</span>:</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">9</span>, <span class="dv">16</span>]  <span class="co"># y = x^2 (contoh data)</span></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>    z <span class="op">=</span> <span class="fl">2.5</span></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>    hasil <span class="op">=</span> linterp(<span class="bu">len</span>(x), x, y, z)</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Hasil interpolasi linear pada z=</span><span class="sc">{</span>z<span class="sc">}</span><span class="ss"> adalah </span><span class="sc">{</span>hasil<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="spline-kuadrat" class="level1">
 <h1>1.3.2 Spline kuadrat</h1>
@@ -468,113 +463,113 @@ if __name__ == "__main__":
 <p>Bentuk optimal (7) dari spline kuadrat juga dapat ditulis dalam bentuk biasa yang cocok untuk diferensiasi dan integrasi,</p>
 <p><span class="math display">\[S_i(x) = y_i + b_i(x - x_i) + c_i(x - x_i)^2, \text{ di mana } b_i = p_i - c_i \Delta x_i \, . \quad (13)\]</span></p>
 <p>Sebuah implementasi spline kuadrat dalam C tercantum dalam Tabel 3</p>
-<p>``` {.python .python=} class QSpline: ““” Spline kuadratik: menyimpan titik data (x, y) dan koefisien b, c untuk interpolasi polinomial kuadratik piecewise. ““” def <strong>init</strong>(self, n, x, y): # builds quadratic spline self.n = n self.x = list(x) # copy of x_i self.y = list(y) # copy of y_i self.b = [0.0] * (n - 1) self.c = [0.0] * (n - 1)</p>
-<pre><code>    p = [0.0] * (n - 1)
-    h = [0.0] * (n - 1)
-
-    for i in range(n - 1):
-        h[i] = x[i + 1] - x[i]
-        p[i] = (y[i + 1] - y[i]) / h[i]
-
-    # recursion up:
-    self.c[0] = 0
-    for i in range(n - 2):
-        self.c[i + 1] = (p[i + 1] - p[i] - self.c[i] * h[i]) / h[i + 1]
-
-    self.c[n - 2] /= 2
-
-    # recursion down:
-    for i in range(n - 3, -1, -1):
-        self.c[i] = (p[i + 1] - p[i] - self.c[i + 1] * h[i + 1]) / h[i]
-
-    for i in range(n - 1):
-        self.b[i] = p[i] - self.c[i] * h[i]
-
-def eval(self, z):
-    """Evaluates s(z)"""
-    assert z &gt;= self.x[0] and z &lt;= self.x[self.n - 1]
-
-    i, j = 0, self.n - 1  # binary search
-    while j - i &gt; 1:
-        m = (i + j) // 2
-        if z &gt; self.x[m]:
-            i = m
-        else:
-            j = m
-
-    h = z - self.x[i]
-    return self.y[i] + h * (self.b[i] + h * self.c[i])  # interpolating polynomial</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> QSpline:</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Spline kuadratik: menyimpan titik data (x, y) dan koefisien b, c</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">    untuk interpolasi polinomial kuadratik piecewise.</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, n, x, y):</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        <span class="co"># builds quadratic spline</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.n <span class="op">=</span> n</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.x <span class="op">=</span> <span class="bu">list</span>(x)   <span class="co"># copy of x_i</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.y <span class="op">=</span> <span class="bu">list</span>(y)   <span class="co"># copy of y_i</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.b <span class="op">=</span> [<span class="fl">0.0</span>] <span class="op">*</span> (n <span class="op">-</span> <span class="dv">1</span>)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.c <span class="op">=</span> [<span class="fl">0.0</span>] <span class="op">*</span> (n <span class="op">-</span> <span class="dv">1</span>)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>        p <span class="op">=</span> [<span class="fl">0.0</span>] <span class="op">*</span> (n <span class="op">-</span> <span class="dv">1</span>)</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>        h <span class="op">=</span> [<span class="fl">0.0</span>] <span class="op">*</span> (n <span class="op">-</span> <span class="dv">1</span>)</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n <span class="op">-</span> <span class="dv">1</span>):</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>            h[i] <span class="op">=</span> x[i <span class="op">+</span> <span class="dv">1</span>] <span class="op">-</span> x[i]</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>            p[i] <span class="op">=</span> (y[i <span class="op">+</span> <span class="dv">1</span>] <span class="op">-</span> y[i]) <span class="op">/</span> h[i]</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>        <span class="co"># recursion up:</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.c[<span class="dv">0</span>] <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n <span class="op">-</span> <span class="dv">2</span>):</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.c[i <span class="op">+</span> <span class="dv">1</span>] <span class="op">=</span> (p[i <span class="op">+</span> <span class="dv">1</span>] <span class="op">-</span> p[i] <span class="op">-</span> <span class="va">self</span>.c[i] <span class="op">*</span> h[i]) <span class="op">/</span> h[i <span class="op">+</span> <span class="dv">1</span>]</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.c[n <span class="op">-</span> <span class="dv">2</span>] <span class="op">/=</span> <span class="dv">2</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>        <span class="co"># recursion down:</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n <span class="op">-</span> <span class="dv">3</span>, <span class="op">-</span><span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>):</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.c[i] <span class="op">=</span> (p[i <span class="op">+</span> <span class="dv">1</span>] <span class="op">-</span> p[i] <span class="op">-</span> <span class="va">self</span>.c[i <span class="op">+</span> <span class="dv">1</span>] <span class="op">*</span> h[i <span class="op">+</span> <span class="dv">1</span>]) <span class="op">/</span> h[i]</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n <span class="op">-</span> <span class="dv">1</span>):</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.b[i] <span class="op">=</span> p[i] <span class="op">-</span> <span class="va">self</span>.c[i] <span class="op">*</span> h[i]</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="bu">eval</span>(<span class="va">self</span>, z):</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>        <span class="co">"""Evaluates s(z)"""</span></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>        <span class="cf">assert</span> z <span class="op">&gt;=</span> <span class="va">self</span>.x[<span class="dv">0</span>] <span class="kw">and</span> z <span class="op">&lt;=</span> <span class="va">self</span>.x[<span class="va">self</span>.n <span class="op">-</span> <span class="dv">1</span>]</span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>        i, j <span class="op">=</span> <span class="dv">0</span>, <span class="va">self</span>.n <span class="op">-</span> <span class="dv">1</span>  <span class="co"># binary search</span></span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>        <span class="cf">while</span> j <span class="op">-</span> i <span class="op">&gt;</span> <span class="dv">1</span>:</span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>            m <span class="op">=</span> (i <span class="op">+</span> j) <span class="op">//</span> <span class="dv">2</span></span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> z <span class="op">&gt;</span> <span class="va">self</span>.x[m]:</span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>                i <span class="op">=</span> m</span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>                j <span class="op">=</span> m</span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>        h <span class="op">=</span> z <span class="op">-</span> <span class="va">self</span>.x[i]</span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.y[i] <span class="op">+</span> h <span class="op">*</span> (<span class="va">self</span>.b[i] <span class="op">+</span> h <span class="op">*</span> <span class="va">self</span>.c[i])  <span class="co"># interpolating polynomial</span></span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a><span class="co"># Contoh penggunaan</span></span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">"__main__"</span>:</span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]</span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">9</span>, <span class="dv">16</span>]  <span class="co"># y = x^2</span></span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>    spline <span class="op">=</span> QSpline(<span class="bu">len</span>(x), x, y)</span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a>    z <span class="op">=</span> <span class="fl">2.5</span></span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a>    hasil <span class="op">=</span> spline.<span class="bu">eval</span>(z)</span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Hasil interpolasi spline kuadratik pada z=</span><span class="sc">{</span>z<span class="sc">}</span><span class="ss"> adalah </span><span class="sc">{</span>hasil<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a>    <span class="co"># tidak perlu qspline_free() -&gt; Python otomatis membersihkan memori</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="contoh-penggunaan-1" class="level1">
-<h1>Contoh penggunaan</h1>
-<p>if <strong>name</strong> == “<strong>main</strong>”: x = [0, 1, 2, 3, 4] y = [0, 1, 4, 9, 16] # y = x^2</p>
-<pre><code>spline = QSpline(len(x), x, y)
-
-z = 2.5
-hasil = spline.eval(z)
-print(f"Hasil interpolasi spline kuadratik pada z={z} adalah {hasil}")
-
-# tidak perlu qspline_free() -&gt; Python otomatis membersihkan memori</code></pre>
-<pre><code>
-# 1.3.3 Spline kubik
-
-Spline kubik tersusun dari polinomial orde tiga,
-
-$$S_i(x) = y_i + b_i(x - x_i) + c_i(x - x_i)^2 + d_i(x - x_i)^3 \, . \quad (14)$$
-
-Bentuk ini secara otomatis memenuhi setengah bagian pertama dari kondisi kontinuitas (3): $S_i(x_i) = y_i$. Setengah bagian kedua dari kondisi kontinuitas (3), $S_i(x_{i+1}) = y_{i+1}$, dan kontinuitas turunan pertama dan kedua (4) memberikan sekumpulan persamaan,
-
-$$
+<section id="spline-kubik" class="level1">
+<h1>1.3.3 Spline kubik</h1>
+<p>Spline kubik tersusun dari polinomial orde tiga,</p>
+<p><span class="math display">\[S_i(x) = y_i + b_i(x - x_i) + c_i(x - x_i)^2 + d_i(x - x_i)^3 \, . \quad (14)\]</span></p>
+<p>Bentuk ini secara otomatis memenuhi setengah bagian pertama dari kondisi kontinuitas (3): <span class="math inline">\(S_i(x_i) = y_i\)</span>. Setengah bagian kedua dari kondisi kontinuitas (3), <span class="math inline">\(S_i(x_{i+1}) = y_{i+1}\)</span>, dan kontinuitas turunan pertama dan kedua (4) memberikan sekumpulan persamaan,</p>
+<p><span class="math display">\[
 \begin{aligned}
 y_i + b_i h_i + c_i h_i^2 + d_i h_i^3 &amp;= y_{i+1}, \ i = 1, \dots, n-1 \\
 b_i + 2c_i h_i + 3d_i h_i^2 &amp;= b_{i+1}, \ i = 1, \dots, n-2 \\
 2c_i + 6d_i h_i &amp;= 2c_{i+1}, \ i = 1, \dots, n-2
 \end{aligned}
 \quad (15)
-$$
-
-di mana $h_i \doteq x_{i+1} - x_i$.
-
-Himpunan persamaan (15) merupakan sekumpulan $3n-5$ persamaan linear untuk $3(n-1)$ koefisien yang tidak diketahui $\{a_i, b_i, c_i \mid i = 1, \dots, n-1\}$. Oleh karena itu, dua persamaan lagi harus ditambahkan ke dalam himpunan tersebut untuk mencari koefisien-koefisiennya. Jika kedua persamaan tambahan tersebut juga linear, maka total sistem menjadi linear dan dapat dengan mudah diselesaikan.
-
-Spline disebut *natural* jika kondisi tambahan diberikan sebagai turunan kedua yang bernilai nol pada titik-titik ujung,
-
-$$S''(x_1) = S''(x_n) = 0 \, , \quad (16)$$
-
-yang memberikan
-
-$$
+\]</span></p>
+<p>di mana <span class="math inline">\(h_i \doteq x_{i+1} - x_i\)</span>.</p>
+<p>Himpunan persamaan (15) merupakan sekumpulan <span class="math inline">\(3n-5\)</span> persamaan linear untuk <span class="math inline">\(3(n-1)\)</span> koefisien yang tidak diketahui <span class="math inline">\(\{a_i, b_i, c_i \mid i = 1, \dots, n-1\}\)</span>. Oleh karena itu, dua persamaan lagi harus ditambahkan ke dalam himpunan tersebut untuk mencari koefisien-koefisiennya. Jika kedua persamaan tambahan tersebut juga linear, maka total sistem menjadi linear dan dapat dengan mudah diselesaikan.</p>
+<p>Spline disebut <em>natural</em> jika kondisi tambahan diberikan sebagai turunan kedua yang bernilai nol pada titik-titik ujung,</p>
+<p><span class="math display">\[S''(x_1) = S''(x_n) = 0 \, , \quad (16)\]</span></p>
+<p>yang memberikan</p>
+<p><span class="math display">\[
 \begin{aligned}
 c_1 &amp;= 0 \, , \\
 c_{n-1} + 3d_{n-1}h_{n-1} &amp;= 0 \, .
 \end{aligned}
 \quad (17)
-$$
-
-Menyelesaikan dua persamaan pertama dalam (15) untuk $c_i$ dan $d_i$ memberikan$^1$
-
-$$
+\]</span></p>
+<p>Menyelesaikan dua persamaan pertama dalam (15) untuk <span class="math inline">\(c_i\)</span> dan <span class="math inline">\(d_i\)</span> memberikan<span class="math inline">\(^1\)</span></p>
+<p><span class="math display">\[
 \begin{aligned}
 c_i h_i &amp;= -2b_i - b_{i+1} + 3p_i \, , \\
 d_i h_i^2 &amp;= b_i + b_{i+1} - 2p_i \, ,
 \end{aligned}
 \quad (18)
-$$
-
-di mana $p_i \doteq \frac{\Delta y_i}{h_i}$. Kondisi natural (17) dan persamaan ketiga dalam (15) kemudian menghasilkan sistem tridiagonal berikut yang terdiri dari $n$ persamaan linear untuk $n$ koefisien $b_i$,
-
-$$
+\]</span></p>
+<p>di mana <span class="math inline">\(p_i \doteq \frac{\Delta y_i}{h_i}\)</span>. Kondisi natural (17) dan persamaan ketiga dalam (15) kemudian menghasilkan sistem tridiagonal berikut yang terdiri dari <span class="math inline">\(n\)</span> persamaan linear untuk <span class="math inline">\(n\)</span> koefisien <span class="math inline">\(b_i\)</span>,</p>
+<p><span class="math display">\[
 \begin{aligned}
 2b_1 + b_2 &amp;= 3p_1 \, , \\
 b_i + \left(2\frac{h_i}{h_{i+1}} + 2\right) b_{i+1} + \frac{h_i}{h_{i+1}} b_{i+2} &amp;= 3\left(p_i + p_{i+1}\frac{h_i}{h_{i+1}}\right) \Bigg|_{i=1,\dots,n-2} \, , \\
 b_{n-1} + 2b_n &amp;= 3p_{n-1} \, ,
 \end{aligned}
 \quad (19)
-$$
-
-atau, dalam bentuk matriks,
-
-$$
+\]</span></p>
+<p>atau, dalam bentuk matriks,</p>
+<p><span class="math display">\[
 \begin{pmatrix}
 D_1 &amp; Q_1 &amp; 0 &amp; 0 &amp; \cdots \\
 1 &amp; D_2 &amp; Q_2 &amp; 0 &amp; \cdots \\
@@ -598,25 +593,16 @@ B_1 \\
 B_n
 \end{pmatrix}
 \quad (20)
-$$
-
-di mana elemen-elemen $D_i$ pada diagonal utama adalah
-
-di mana elemen-elemen $D_i$ pada diagonal utama adalah
-
-$$D_1 = 2, \ D_{i+1} = 2\frac{h_i}{h_{i+1}} + 2 \ \Big|_{i=1,\dots,n-2}, \ D_n = 2 \ , \quad (21)$$
-
-elemen-elemen $Q_i$ pada diagonal di atas diagonal utama adalah
-
-$$Q_1 = 1, \ Q_{i+1} = \frac{h_i}{h_{i+1}} \ \Big|_{i=1,\dots,n-2} \ , \quad (22)$$
-
-dan suku-suku ruas kanan $B_i$ adalah
-
-$$B_1 = 3p_1, \ B_{i+1} = 3\left(p_i + p_{i+1}\frac{h_i}{h_{i+1}}\right) \ \Big|_{i=1,\dots,n-2}, B_n = 3p_{n-1} \ . \quad (23)$$
-
-Sistem ini dapat diselesaikan dengan satu kali eliminasi Gauss dan kemudian satu kali substitusi mundur. Setelah satu kali eliminasi Gauss, sistem menjadi
-
-$$
+\]</span></p>
+<p>di mana elemen-elemen <span class="math inline">\(D_i\)</span> pada diagonal utama adalah</p>
+<p>di mana elemen-elemen <span class="math inline">\(D_i\)</span> pada diagonal utama adalah</p>
+<p><span class="math display">\[D_1 = 2, \ D_{i+1} = 2\frac{h_i}{h_{i+1}} + 2 \ \Big|_{i=1,\dots,n-2}, \ D_n = 2 \ , \quad (21)\]</span></p>
+<p>elemen-elemen <span class="math inline">\(Q_i\)</span> pada diagonal di atas diagonal utama adalah</p>
+<p><span class="math display">\[Q_1 = 1, \ Q_{i+1} = \frac{h_i}{h_{i+1}} \ \Big|_{i=1,\dots,n-2} \ , \quad (22)\]</span></p>
+<p>dan suku-suku ruas kanan <span class="math inline">\(B_i\)</span> adalah</p>
+<p><span class="math display">\[B_1 = 3p_1, \ B_{i+1} = 3\left(p_i + p_{i+1}\frac{h_i}{h_{i+1}}\right) \ \Big|_{i=1,\dots,n-2}, B_n = 3p_{n-1} \ . \quad (23)\]</span></p>
+<p>Sistem ini dapat diselesaikan dengan satu kali eliminasi Gauss dan kemudian satu kali substitusi mundur. Setelah satu kali eliminasi Gauss, sistem menjadi</p>
+<p><span class="math display">\[
 \begin{pmatrix}
 \tilde{D}_1 &amp; Q_1 &amp; 0 &amp; 0 &amp; \cdots \\
 0 &amp; \tilde{D}_2 &amp; Q_2 &amp; 0 &amp; \cdots \\
@@ -640,110 +626,100 @@ b_n
 \tilde{B}_n
 \end{pmatrix}
 , \quad (24)
-$$
-
-di mana
-
-$$\tilde{D}_1 = D_1, \ \tilde{D}_i = D_i - Q_{i-1}/\tilde{D}_{i-1} \ \Big|_{i=2,\dots,n} \ , \quad (25)$$
-
-dan
-
-$$ \tilde{B}_1 = B_1 \, , \, \tilde{B}_i = B_i - \tilde{B}_{i-1}/\tilde{D}_{i-1} \ \Big|_{i=2,\dots,n} \, . \quad (26) $$
-
-Sistem segitiga (24) dapat diselesaikan dengan satu kali substitusi mundur,
-
-$$ b_n = \tilde{B}_n/\tilde{D}_n \, , \, b_i = (\tilde{B}_i - Q_i b_{i+1})/\tilde{D}_i \ \Big|_{i=n-1,\dots,1} \, . \quad (27) $$
-
-Sebuah implementasi python dari spline kubik tercantum dalam Tabel 4.
-
-Table 4: Cubic spline
-
-``` python
-class CubicSpline:
-    """
-    Natural cubic spline: interpolasi kubik piecewise dengan
-    kontinuitas turunan pertama dan kedua di setiap titik.
-    """
-    def __init__(self, n, x, y):
-        # builds natural cubic spline
-        self.n = n
-        self.x = list(x)
-        self.y = list(y)
-
-        h = [0.0] * (n - 1)  # VLA
-        for i in range(n - 1):
-            h[i] = x[i + 1] - x[i]
-            assert h[i] &gt; 0
-
-        p = [0.0] * (n - 1)
-        for i in range(n - 1):
-            p[i] = (y[i + 1] - y[i]) / h[i]
-
-        # building the tridiagonal system:
-        D = [0.0] * n
-        Q = [0.0] * (n - 1)
-        B = [0.0] * n
-
-        D[0] = 2
-        for i in range(n - 2):
-            D[i + 1] = 2 * h[i] / h[i + 1] + 2
-        D[n - 1] = 2
-
-        Q[0] = 1
-        for i in range(n - 2):
-            Q[i + 1] = h[i] / h[i + 1]
-
-        for i in range(n - 2):
-            B[i + 1] = 3 * (p[i] + p[i + 1] * h[i] / h[i + 1])
-        B[0] = 3 * p[0]
-        B[n - 1] = 3 * p[n - 2]
-
-        # Gauss elimination:
-        for i in range(1, n):
-            D[i] -= Q[i - 1] / D[i - 1]
-            B[i] -= B[i - 1] / D[i - 1]
-
-        # back-substitution:
-        self.b = [0.0] * n
-        self.b[n - 1] = B[n - 1] / D[n - 1]
-        for i in range(n - 2, -1, -1):
-            self.b[i] = (B[i] - Q[i] * self.b[i + 1]) / D[i]
-
-        self.c = [0.0] * (n - 1)
-        self.d = [0.0] * (n - 1)
-        for i in range(n - 1):
-            self.c[i] = (-2 * self.b[i] - self.b[i + 1] + 3 * p[i]) / h[i]
-            self.d[i] = (self.b[i] + self.b[i + 1] - 2 * p[i]) / h[i] / h[i]
-
-    def eval(self, z):
-        assert z &gt;= self.x[0] and z &lt;= self.x[self.n - 1]
-
-        # binary search for the interval for z:
-        i, j = 0, self.n - 1
-        while j - i &gt; 1:
-            m = (i + j) // 2
-            if z &gt; self.x[m]:
-                i = m
-            else:
-                j = m
-
-        # calculate the interpolating spline:
-        h = z - self.x[i]
-        return self.y[i] + h * (self.b[i] + h * (self.c[i] + h * self.d[i]))
-
-
-# Contoh penggunaan
-if __name__ == "__main__":
-    x = [0, 1, 2, 3, 4]
-    y = [0, 1, 4, 9, 16]  # y = x^2
-
-    spline = CubicSpline(len(x), x, y)
-
-    z = 2.5
-    hasil = spline.eval(z)
-    print(f"Hasil interpolasi cubic spline pada z={z} adalah {hasil}")
-
-    # tidak perlu cubic_spline_free() -&gt; Python otomatis membersihkan memori</code></pre>
+\]</span></p>
+<p>di mana</p>
+<p><span class="math display">\[\tilde{D}_1 = D_1, \ \tilde{D}_i = D_i - Q_{i-1}/\tilde{D}_{i-1} \ \Big|_{i=2,\dots,n} \ , \quad (25)\]</span></p>
+<p>dan</p>
+<p><span class="math display">\[ \tilde{B}_1 = B_1 \, , \, \tilde{B}_i = B_i - \tilde{B}_{i-1}/\tilde{D}_{i-1} \ \Big|_{i=2,\dots,n} \, . \quad (26) \]</span></p>
+<p>Sistem segitiga (24) dapat diselesaikan dengan satu kali substitusi mundur,</p>
+<p><span class="math display">\[ b_n = \tilde{B}_n/\tilde{D}_n \, , \, b_i = (\tilde{B}_i - Q_i b_{i+1})/\tilde{D}_i \ \Big|_{i=n-1,\dots,1} \, . \quad (27) \]</span></p>
+<p>Sebuah implementasi python dari spline kubik tercantum dalam Tabel 4.</p>
+<p>Table 4: Cubic spline</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> CubicSpline:</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Natural cubic spline: interpolasi kubik piecewise dengan</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">    kontinuitas turunan pertama dan kedua di setiap titik.</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, n, x, y):</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>        <span class="co"># builds natural cubic spline</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.n <span class="op">=</span> n</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.x <span class="op">=</span> <span class="bu">list</span>(x)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.y <span class="op">=</span> <span class="bu">list</span>(y)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>        h <span class="op">=</span> [<span class="fl">0.0</span>] <span class="op">*</span> (n <span class="op">-</span> <span class="dv">1</span>)  <span class="co"># VLA</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n <span class="op">-</span> <span class="dv">1</span>):</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>            h[i] <span class="op">=</span> x[i <span class="op">+</span> <span class="dv">1</span>] <span class="op">-</span> x[i]</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>            <span class="cf">assert</span> h[i] <span class="op">&gt;</span> <span class="dv">0</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>        p <span class="op">=</span> [<span class="fl">0.0</span>] <span class="op">*</span> (n <span class="op">-</span> <span class="dv">1</span>)</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n <span class="op">-</span> <span class="dv">1</span>):</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>            p[i] <span class="op">=</span> (y[i <span class="op">+</span> <span class="dv">1</span>] <span class="op">-</span> y[i]) <span class="op">/</span> h[i]</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>        <span class="co"># building the tridiagonal system:</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>        D <span class="op">=</span> [<span class="fl">0.0</span>] <span class="op">*</span> n</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>        Q <span class="op">=</span> [<span class="fl">0.0</span>] <span class="op">*</span> (n <span class="op">-</span> <span class="dv">1</span>)</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>        B <span class="op">=</span> [<span class="fl">0.0</span>] <span class="op">*</span> n</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>        D[<span class="dv">0</span>] <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n <span class="op">-</span> <span class="dv">2</span>):</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>            D[i <span class="op">+</span> <span class="dv">1</span>] <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> h[i] <span class="op">/</span> h[i <span class="op">+</span> <span class="dv">1</span>] <span class="op">+</span> <span class="dv">2</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>        D[n <span class="op">-</span> <span class="dv">1</span>] <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>        Q[<span class="dv">0</span>] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n <span class="op">-</span> <span class="dv">2</span>):</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>            Q[i <span class="op">+</span> <span class="dv">1</span>] <span class="op">=</span> h[i] <span class="op">/</span> h[i <span class="op">+</span> <span class="dv">1</span>]</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n <span class="op">-</span> <span class="dv">2</span>):</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>            B[i <span class="op">+</span> <span class="dv">1</span>] <span class="op">=</span> <span class="dv">3</span> <span class="op">*</span> (p[i] <span class="op">+</span> p[i <span class="op">+</span> <span class="dv">1</span>] <span class="op">*</span> h[i] <span class="op">/</span> h[i <span class="op">+</span> <span class="dv">1</span>])</span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>        B[<span class="dv">0</span>] <span class="op">=</span> <span class="dv">3</span> <span class="op">*</span> p[<span class="dv">0</span>]</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>        B[n <span class="op">-</span> <span class="dv">1</span>] <span class="op">=</span> <span class="dv">3</span> <span class="op">*</span> p[n <span class="op">-</span> <span class="dv">2</span>]</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Gauss elimination:</span></span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, n):</span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>            D[i] <span class="op">-=</span> Q[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">/</span> D[i <span class="op">-</span> <span class="dv">1</span>]</span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>            B[i] <span class="op">-=</span> B[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">/</span> D[i <span class="op">-</span> <span class="dv">1</span>]</span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>        <span class="co"># back-substitution:</span></span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.b <span class="op">=</span> [<span class="fl">0.0</span>] <span class="op">*</span> n</span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.b[n <span class="op">-</span> <span class="dv">1</span>] <span class="op">=</span> B[n <span class="op">-</span> <span class="dv">1</span>] <span class="op">/</span> D[n <span class="op">-</span> <span class="dv">1</span>]</span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n <span class="op">-</span> <span class="dv">2</span>, <span class="op">-</span><span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>):</span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.b[i] <span class="op">=</span> (B[i] <span class="op">-</span> Q[i] <span class="op">*</span> <span class="va">self</span>.b[i <span class="op">+</span> <span class="dv">1</span>]) <span class="op">/</span> D[i]</span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.c <span class="op">=</span> [<span class="fl">0.0</span>] <span class="op">*</span> (n <span class="op">-</span> <span class="dv">1</span>)</span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.d <span class="op">=</span> [<span class="fl">0.0</span>] <span class="op">*</span> (n <span class="op">-</span> <span class="dv">1</span>)</span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n <span class="op">-</span> <span class="dv">1</span>):</span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.c[i] <span class="op">=</span> (<span class="op">-</span><span class="dv">2</span> <span class="op">*</span> <span class="va">self</span>.b[i] <span class="op">-</span> <span class="va">self</span>.b[i <span class="op">+</span> <span class="dv">1</span>] <span class="op">+</span> <span class="dv">3</span> <span class="op">*</span> p[i]) <span class="op">/</span> h[i]</span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.d[i] <span class="op">=</span> (<span class="va">self</span>.b[i] <span class="op">+</span> <span class="va">self</span>.b[i <span class="op">+</span> <span class="dv">1</span>] <span class="op">-</span> <span class="dv">2</span> <span class="op">*</span> p[i]) <span class="op">/</span> h[i] <span class="op">/</span> h[i]</span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="bu">eval</span>(<span class="va">self</span>, z):</span>
+<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a>        <span class="cf">assert</span> z <span class="op">&gt;=</span> <span class="va">self</span>.x[<span class="dv">0</span>] <span class="kw">and</span> z <span class="op">&lt;=</span> <span class="va">self</span>.x[<span class="va">self</span>.n <span class="op">-</span> <span class="dv">1</span>]</span>
+<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a>        <span class="co"># binary search for the interval for z:</span></span>
+<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a>        i, j <span class="op">=</span> <span class="dv">0</span>, <span class="va">self</span>.n <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a>        <span class="cf">while</span> j <span class="op">-</span> i <span class="op">&gt;</span> <span class="dv">1</span>:</span>
+<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a>            m <span class="op">=</span> (i <span class="op">+</span> j) <span class="op">//</span> <span class="dv">2</span></span>
+<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> z <span class="op">&gt;</span> <span class="va">self</span>.x[m]:</span>
+<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a>                i <span class="op">=</span> m</span>
+<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
+<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a>                j <span class="op">=</span> m</span>
+<span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a>        <span class="co"># calculate the interpolating spline:</span></span>
+<span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a>        h <span class="op">=</span> z <span class="op">-</span> <span class="va">self</span>.x[i]</span>
+<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.y[i] <span class="op">+</span> h <span class="op">*</span> (<span class="va">self</span>.b[i] <span class="op">+</span> h <span class="op">*</span> (<span class="va">self</span>.c[i] <span class="op">+</span> h <span class="op">*</span> <span class="va">self</span>.d[i]))</span>
+<span id="cb4-72"><a href="#cb4-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-73"><a href="#cb4-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-74"><a href="#cb4-74" aria-hidden="true" tabindex="-1"></a><span class="co"># Contoh penggunaan</span></span>
+<span id="cb4-75"><a href="#cb4-75" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">"__main__"</span>:</span>
+<span id="cb4-76"><a href="#cb4-76" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]</span>
+<span id="cb4-77"><a href="#cb4-77" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">9</span>, <span class="dv">16</span>]  <span class="co"># y = x^2</span></span>
+<span id="cb4-78"><a href="#cb4-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-79"><a href="#cb4-79" aria-hidden="true" tabindex="-1"></a>    spline <span class="op">=</span> CubicSpline(<span class="bu">len</span>(x), x, y)</span>
+<span id="cb4-80"><a href="#cb4-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-81"><a href="#cb4-81" aria-hidden="true" tabindex="-1"></a>    z <span class="op">=</span> <span class="fl">2.5</span></span>
+<span id="cb4-82"><a href="#cb4-82" aria-hidden="true" tabindex="-1"></a>    hasil <span class="op">=</span> spline.<span class="bu">eval</span>(z)</span>
+<span id="cb4-83"><a href="#cb4-83" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Hasil interpolasi cubic spline pada z=</span><span class="sc">{</span>z<span class="sc">}</span><span class="ss"> adalah </span><span class="sc">{</span>hasil<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb4-84"><a href="#cb4-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-85"><a href="#cb4-85" aria-hidden="true" tabindex="-1"></a>    <span class="co"># tidak perlu cubic_spline_free() -&gt; Python otomatis membersihkan memori</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="interpolasi-sub-spline-akima" class="level1">
 <h1>1.3.4 Interpolasi sub-spline Akima</h1>
@@ -771,79 +747,79 @@ if __name__ == "__main__":
 <p>Dua titik pertama dan dua titik terakhir memerlukan ketentuan khusus, misalnya (secara naif) seseorang dapat cukup menggunakan</p>
 <p><span class="math display">\[\mathcal{A}'_1 = p_1, \ \mathcal{A}'_2 = \frac{1}{2}p_1 + \frac{1}{2}p_2, \ \mathcal{A}'_n = p_{n-1}, \ \mathcal{A}'_{n-1} = \frac{1}{2}p_{n-1} + \frac{1}{2}p_{n-2}. \quad (34)\]</span></p>
 <p>Tabel (5) menunjukkan implementasi python dari algoritma ini.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> AkimaSpline:</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">    Akima spline: interpolasi kubik piecewise yang menghitung slope (b_i)</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">    berdasarkan bobot lokal, sehingga lebih tahan terhadap osilasi</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">    dibanding cubic spline biasa.</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, n, x, y):</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">assert</span> n <span class="op">&gt;</span> <span class="dv">2</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.n <span class="op">=</span> n</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.x <span class="op">=</span> <span class="bu">list</span>(x)</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.y <span class="op">=</span> <span class="bu">list</span>(y)</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>        h <span class="op">=</span> [<span class="fl">0.0</span>] <span class="op">*</span> (n <span class="op">-</span> <span class="dv">1</span>)  <span class="co"># VLA</span></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>        p <span class="op">=</span> [<span class="fl">0.0</span>] <span class="op">*</span> (n <span class="op">-</span> <span class="dv">1</span>)</span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n <span class="op">-</span> <span class="dv">1</span>):</span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>            h[i] <span class="op">=</span> x[i <span class="op">+</span> <span class="dv">1</span>] <span class="op">-</span> x[i]</span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>            <span class="cf">assert</span> h[i] <span class="op">&gt;</span> <span class="dv">0</span></span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n <span class="op">-</span> <span class="dv">1</span>):</span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>            p[i] <span class="op">=</span> (y[i <span class="op">+</span> <span class="dv">1</span>] <span class="op">-</span> y[i]) <span class="op">/</span> h[i]</span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>        b <span class="op">=</span> [<span class="fl">0.0</span>] <span class="op">*</span> n</span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>        b[<span class="dv">0</span>] <span class="op">=</span> p[<span class="dv">0</span>]</span>
-<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>        b[<span class="dv">1</span>] <span class="op">=</span> (p[<span class="dv">0</span>] <span class="op">+</span> p[<span class="dv">1</span>]) <span class="op">/</span> <span class="dv">2</span></span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>        b[n <span class="op">-</span> <span class="dv">1</span>] <span class="op">=</span> p[n <span class="op">-</span> <span class="dv">2</span>]</span>
-<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>        b[n <span class="op">-</span> <span class="dv">2</span>] <span class="op">=</span> (p[n <span class="op">-</span> <span class="dv">2</span>] <span class="op">+</span> p[n <span class="op">-</span> <span class="dv">3</span>]) <span class="op">/</span> <span class="dv">2</span></span>
-<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>, n <span class="op">-</span> <span class="dv">2</span>):</span>
-<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>            w1 <span class="op">=</span> <span class="bu">abs</span>(p[i <span class="op">+</span> <span class="dv">1</span>] <span class="op">-</span> p[i])</span>
-<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>            w2 <span class="op">=</span> <span class="bu">abs</span>(p[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">-</span> p[i <span class="op">-</span> <span class="dv">2</span>])</span>
-<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> w1 <span class="op">+</span> w2 <span class="op">==</span> <span class="dv">0</span>:</span>
-<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>                b[i] <span class="op">=</span> (p[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">+</span> p[i]) <span class="op">/</span> <span class="dv">2</span></span>
-<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
-<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>                b[i] <span class="op">=</span> (w1 <span class="op">*</span> p[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">+</span> w2 <span class="op">*</span> p[i]) <span class="op">/</span> (w1 <span class="op">+</span> w2)</span>
-<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.b <span class="op">=</span> b</span>
-<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.c <span class="op">=</span> [<span class="fl">0.0</span>] <span class="op">*</span> (n <span class="op">-</span> <span class="dv">1</span>)</span>
-<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.d <span class="op">=</span> [<span class="fl">0.0</span>] <span class="op">*</span> (n <span class="op">-</span> <span class="dv">1</span>)</span>
-<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n <span class="op">-</span> <span class="dv">1</span>):</span>
-<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.c[i] <span class="op">=</span> (<span class="dv">3</span> <span class="op">*</span> p[i] <span class="op">-</span> <span class="dv">2</span> <span class="op">*</span> b[i] <span class="op">-</span> b[i <span class="op">+</span> <span class="dv">1</span>]) <span class="op">/</span> h[i]</span>
-<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.d[i] <span class="op">=</span> (b[i] <span class="op">+</span> b[i <span class="op">+</span> <span class="dv">1</span>] <span class="op">-</span> <span class="dv">2</span> <span class="op">*</span> p[i]) <span class="op">/</span> h[i] <span class="op">/</span> h[i]</span>
-<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="bu">eval</span>(<span class="va">self</span>, z):</span>
-<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a>        <span class="cf">assert</span> z <span class="op">&gt;=</span> <span class="va">self</span>.x[<span class="dv">0</span>] <span class="kw">and</span> z <span class="op">&lt;=</span> <span class="va">self</span>.x[<span class="va">self</span>.n <span class="op">-</span> <span class="dv">1</span>]</span>
-<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a>        i, j <span class="op">=</span> <span class="dv">0</span>, <span class="va">self</span>.n <span class="op">-</span> <span class="dv">1</span>  <span class="co"># binary search</span></span>
-<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a>        <span class="cf">while</span> j <span class="op">-</span> i <span class="op">&gt;</span> <span class="dv">1</span>:</span>
-<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a>            m <span class="op">=</span> (i <span class="op">+</span> j) <span class="op">//</span> <span class="dv">2</span></span>
-<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> z <span class="op">&gt;</span> <span class="va">self</span>.x[m]:</span>
-<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a>                i <span class="op">=</span> m</span>
-<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
-<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a>                j <span class="op">=</span> m</span>
-<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a>        h <span class="op">=</span> z <span class="op">-</span> <span class="va">self</span>.x[i]</span>
-<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.y[i] <span class="op">+</span> h <span class="op">*</span> (<span class="va">self</span>.b[i] <span class="op">+</span> h <span class="op">*</span> (<span class="va">self</span>.c[i] <span class="op">+</span> h <span class="op">*</span> <span class="va">self</span>.d[i]))</span>
-<span id="cb7-60"><a href="#cb7-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-61"><a href="#cb7-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-62"><a href="#cb7-62" aria-hidden="true" tabindex="-1"></a><span class="co"># Contoh penggunaan</span></span>
-<span id="cb7-63"><a href="#cb7-63" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">"__main__"</span>:</span>
-<span id="cb7-64"><a href="#cb7-64" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]</span>
-<span id="cb7-65"><a href="#cb7-65" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">9</span>, <span class="dv">16</span>, <span class="dv">25</span>]  <span class="co"># y = x^2</span></span>
-<span id="cb7-66"><a href="#cb7-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-67"><a href="#cb7-67" aria-hidden="true" tabindex="-1"></a>    spline <span class="op">=</span> AkimaSpline(<span class="bu">len</span>(x), x, y)</span>
-<span id="cb7-68"><a href="#cb7-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-69"><a href="#cb7-69" aria-hidden="true" tabindex="-1"></a>    z <span class="op">=</span> <span class="fl">2.5</span></span>
-<span id="cb7-70"><a href="#cb7-70" aria-hidden="true" tabindex="-1"></a>    hasil <span class="op">=</span> spline.<span class="bu">eval</span>(z)</span>
-<span id="cb7-71"><a href="#cb7-71" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Hasil interpolasi Akima spline pada z=</span><span class="sc">{</span>z<span class="sc">}</span><span class="ss"> adalah </span><span class="sc">{</span>hasil<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb7-72"><a href="#cb7-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-73"><a href="#cb7-73" aria-hidden="true" tabindex="-1"></a>    <span class="co"># tidak perlu akima_spline_free() -&gt; Python otomatis membersihkan memori</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> AkimaSpline:</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">    Akima spline: interpolasi kubik piecewise yang menghitung slope (b_i)</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">    berdasarkan bobot lokal, sehingga lebih tahan terhadap osilasi</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">    dibanding cubic spline biasa.</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, n, x, y):</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">assert</span> n <span class="op">&gt;</span> <span class="dv">2</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.n <span class="op">=</span> n</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.x <span class="op">=</span> <span class="bu">list</span>(x)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.y <span class="op">=</span> <span class="bu">list</span>(y)</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>        h <span class="op">=</span> [<span class="fl">0.0</span>] <span class="op">*</span> (n <span class="op">-</span> <span class="dv">1</span>)  <span class="co"># VLA</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>        p <span class="op">=</span> [<span class="fl">0.0</span>] <span class="op">*</span> (n <span class="op">-</span> <span class="dv">1</span>)</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n <span class="op">-</span> <span class="dv">1</span>):</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>            h[i] <span class="op">=</span> x[i <span class="op">+</span> <span class="dv">1</span>] <span class="op">-</span> x[i]</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>            <span class="cf">assert</span> h[i] <span class="op">&gt;</span> <span class="dv">0</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n <span class="op">-</span> <span class="dv">1</span>):</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>            p[i] <span class="op">=</span> (y[i <span class="op">+</span> <span class="dv">1</span>] <span class="op">-</span> y[i]) <span class="op">/</span> h[i]</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>        b <span class="op">=</span> [<span class="fl">0.0</span>] <span class="op">*</span> n</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>        b[<span class="dv">0</span>] <span class="op">=</span> p[<span class="dv">0</span>]</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>        b[<span class="dv">1</span>] <span class="op">=</span> (p[<span class="dv">0</span>] <span class="op">+</span> p[<span class="dv">1</span>]) <span class="op">/</span> <span class="dv">2</span></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>        b[n <span class="op">-</span> <span class="dv">1</span>] <span class="op">=</span> p[n <span class="op">-</span> <span class="dv">2</span>]</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>        b[n <span class="op">-</span> <span class="dv">2</span>] <span class="op">=</span> (p[n <span class="op">-</span> <span class="dv">2</span>] <span class="op">+</span> p[n <span class="op">-</span> <span class="dv">3</span>]) <span class="op">/</span> <span class="dv">2</span></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>, n <span class="op">-</span> <span class="dv">2</span>):</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>            w1 <span class="op">=</span> <span class="bu">abs</span>(p[i <span class="op">+</span> <span class="dv">1</span>] <span class="op">-</span> p[i])</span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>            w2 <span class="op">=</span> <span class="bu">abs</span>(p[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">-</span> p[i <span class="op">-</span> <span class="dv">2</span>])</span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> w1 <span class="op">+</span> w2 <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>                b[i] <span class="op">=</span> (p[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">+</span> p[i]) <span class="op">/</span> <span class="dv">2</span></span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>                b[i] <span class="op">=</span> (w1 <span class="op">*</span> p[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">+</span> w2 <span class="op">*</span> p[i]) <span class="op">/</span> (w1 <span class="op">+</span> w2)</span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.b <span class="op">=</span> b</span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.c <span class="op">=</span> [<span class="fl">0.0</span>] <span class="op">*</span> (n <span class="op">-</span> <span class="dv">1</span>)</span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.d <span class="op">=</span> [<span class="fl">0.0</span>] <span class="op">*</span> (n <span class="op">-</span> <span class="dv">1</span>)</span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n <span class="op">-</span> <span class="dv">1</span>):</span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.c[i] <span class="op">=</span> (<span class="dv">3</span> <span class="op">*</span> p[i] <span class="op">-</span> <span class="dv">2</span> <span class="op">*</span> b[i] <span class="op">-</span> b[i <span class="op">+</span> <span class="dv">1</span>]) <span class="op">/</span> h[i]</span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.d[i] <span class="op">=</span> (b[i] <span class="op">+</span> b[i <span class="op">+</span> <span class="dv">1</span>] <span class="op">-</span> <span class="dv">2</span> <span class="op">*</span> p[i]) <span class="op">/</span> h[i] <span class="op">/</span> h[i]</span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="bu">eval</span>(<span class="va">self</span>, z):</span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>        <span class="cf">assert</span> z <span class="op">&gt;=</span> <span class="va">self</span>.x[<span class="dv">0</span>] <span class="kw">and</span> z <span class="op">&lt;=</span> <span class="va">self</span>.x[<span class="va">self</span>.n <span class="op">-</span> <span class="dv">1</span>]</span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>        i, j <span class="op">=</span> <span class="dv">0</span>, <span class="va">self</span>.n <span class="op">-</span> <span class="dv">1</span>  <span class="co"># binary search</span></span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>        <span class="cf">while</span> j <span class="op">-</span> i <span class="op">&gt;</span> <span class="dv">1</span>:</span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a>            m <span class="op">=</span> (i <span class="op">+</span> j) <span class="op">//</span> <span class="dv">2</span></span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> z <span class="op">&gt;</span> <span class="va">self</span>.x[m]:</span>
+<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a>                i <span class="op">=</span> m</span>
+<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
+<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a>                j <span class="op">=</span> m</span>
+<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>        h <span class="op">=</span> z <span class="op">-</span> <span class="va">self</span>.x[i]</span>
+<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.y[i] <span class="op">+</span> h <span class="op">*</span> (<span class="va">self</span>.b[i] <span class="op">+</span> h <span class="op">*</span> (<span class="va">self</span>.c[i] <span class="op">+</span> h <span class="op">*</span> <span class="va">self</span>.d[i]))</span>
+<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a><span class="co"># Contoh penggunaan</span></span>
+<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">"__main__"</span>:</span>
+<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]</span>
+<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">9</span>, <span class="dv">16</span>, <span class="dv">25</span>]  <span class="co"># y = x^2</span></span>
+<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a>    spline <span class="op">=</span> AkimaSpline(<span class="bu">len</span>(x), x, y)</span>
+<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-69"><a href="#cb5-69" aria-hidden="true" tabindex="-1"></a>    z <span class="op">=</span> <span class="fl">2.5</span></span>
+<span id="cb5-70"><a href="#cb5-70" aria-hidden="true" tabindex="-1"></a>    hasil <span class="op">=</span> spline.<span class="bu">eval</span>(z)</span>
+<span id="cb5-71"><a href="#cb5-71" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Hasil interpolasi Akima spline pada z=</span><span class="sc">{</span>z<span class="sc">}</span><span class="ss"> adalah </span><span class="sc">{</span>hasil<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb5-72"><a href="#cb5-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-73"><a href="#cb5-73" aria-hidden="true" tabindex="-1"></a>    <span class="co"># tidak perlu akima_spline_free() -&gt; Python otomatis membersihkan memori</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="bentuk-bentuk-interpolasi-lainnya" class="level1">
 <h1>1.4 Bentuk-bentuk interpolasi lainnya</h1>
