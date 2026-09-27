@@ -291,7 +291,13 @@ window.Quarto = {
     <h2 id="toc-title">Contents</h2>
    
   <ul>
-  <li><a href="#interpolasi-polinomial" id="toc-interpolasi-polinomial" class="nav-link active" data-scroll-target="#interpolasi-polinomial">1.2 Interpolasi Polinomial</a></li>
+  <li><a href="#interpolasi-polinomial" id="toc-interpolasi-polinomial" class="nav-link active" data-scroll-target="#interpolasi-polinomial">1.2 Interpolasi Polinomial</a>
+  <ul class="collapse">
+  <li><a href="#contoh" id="toc-contoh" class="nav-link" data-scroll-target="#contoh">Contoh</a></li>
+  <li><a href="#rumus-polinomial-lagrange" id="toc-rumus-polinomial-lagrange" class="nav-link" data-scroll-target="#rumus-polinomial-lagrange">2. Rumus Polinomial Lagrange</a></li>
+  <li><a href="#menyusun-persamaan-akhir-px" id="toc-menyusun-persamaan-akhir-px" class="nav-link" data-scroll-target="#menyusun-persamaan-akhir-px">3. Menyusun Persamaan Akhir <span class="math inline">\(P(x)\)</span></a></li>
+  <li><a href="#contoh-uji-coba-nilai-misal-mencari-nilai-di-x-2.5" id="toc-contoh-uji-coba-nilai-misal-mencari-nilai-di-x-2.5" class="nav-link" data-scroll-target="#contoh-uji-coba-nilai-misal-mencari-nilai-di-x-2.5">Contoh Uji Coba Nilai (Misal mencari nilai di <span class="math inline">\(x = 2.5\)</span>)</a></li>
+  </ul></li>
   <li><a href="#interpolasi-spline" id="toc-interpolasi-spline" class="nav-link" data-scroll-target="#interpolasi-spline">1.3 Interpolasi Spline</a></li>
   <li><a href="#interpolasi-linear" id="toc-interpolasi-linear" class="nav-link" data-scroll-target="#interpolasi-linear">1.3.1 Interpolasi linear</a></li>
   <li><a href="#spline-kuadrat" id="toc-spline-kuadrat" class="nav-link" data-scroll-target="#spline-kuadrat">1.3.2 Spline kuadrat</a></li>
@@ -377,6 +383,60 @@ window.Quarto = {
 </figure>
 </div>
 <p>Gambar 1: Polinomial interpolasi Lagrange, garis penuh, menunjukkan fenomena Runge: osilasi besar pada ujung-ujung. Sebagai perbandingan, garis putus-putus menunjukkan sebuah spline kubik.</p>
+<section id="contoh" class="level2">
+<h2 class="anchored" data-anchor-id="contoh">Contoh</h2>
+<p>Data 4 titik <span class="math inline">\((x_i, y_i)\)</span>:</p>
+<ul>
+<li><span class="math inline">\((x_1, y_1) = (1, 1)\)</span></li>
+<li><span class="math inline">\((x_2, y_2) = (2, 4)\)</span></li>
+<li><span class="math inline">\((x_3, y_3) = (3, 9)\)</span></li>
+<li><span class="math inline">\((x_4, y_4) = (4, 16)\)</span></li>
+</ul>
+<hr>
+</section>
+<section id="rumus-polinomial-lagrange" class="level2">
+<h2 class="anchored" data-anchor-id="rumus-polinomial-lagrange">2. Rumus Polinomial Lagrange</h2>
+<p>Berdasarkan rumus di gambar pertama, untuk <span class="math inline">\(n = 4\)</span>:</p>
+<p><span class="math display">\[P(x) = y_1 L_1(x) + y_2 L_2(x) + y_3 L_3(x) + y_4 L_4(x)\]</span></p>
+<p>Hitung setiap suku basis <span class="math inline">\(L_i(x)\)</span> terlebih dahulu:</p>
+<ul>
+<li>Suku <span class="math inline">\(L_1(x)\)</span> (untuk <span class="math inline">\(i=1\)</span>):</li>
+</ul>
+<p><span class="math display">\[L_1(x) = \frac{(x - x_2)(x - x_3)(x - x_4)}{(x_1 - x_2)(x_1 - x_3)(x_1 - x_4)} = \frac{(x - 2)(x - 3)(x - 4)}{(1 - 2)(1 - 3)(1 - 4)} = \frac{(x - 2)(x - 3)(x - 4)}{-6}\]</span></p>
+<ul>
+<li>Suku <span class="math inline">\(L_2(x)\)</span> (untuk <span class="math inline">\(i=2\)</span>):</li>
+</ul>
+<p><span class="math display">\[L_2(x) = \frac{(x - x_1)(x - x_3)(x - x_4)}{(x_2 - x_1)(x_2 - x_3)(x_2 - x_4)} = \frac{(x - 1)(x - 3)(x - 4)}{(2 - 1)(2 - 3)(2 - 4)} = \frac{(x - 1)(x - 3)(x - 4)}{2}\]</span></p>
+<ul>
+<li>Suku <span class="math inline">\(L_3(x)\)</span> (untuk <span class="math inline">\(i=3\)</span>):</li>
+</ul>
+<p><span class="math display">\[L_3(x) = \frac{(x - x_1)(x - x_2)(x - x_4)}{(x_3 - x_1)(x_3 - x_2)(x_3 - x_4)} = \frac{(x - 1)(x - 2)(x - 4)}{(3 - 1)(3 - 2)(3 - 4)} = \frac{(x - 1)(x - 2)(x - 4)}{-2}\]</span></p>
+<ul>
+<li>Suku <span class="math inline">\(L_4(x)\)</span> (untuk <span class="math inline">\(i=4\)</span>):</li>
+</ul>
+<p><span class="math display">\[L_4(x) = \frac{(x - x_1)(x - x_2)(x - x_3)}{(x_4 - x_1)(x_4 - x_2)(x_4 - x_3)} = \frac{(x - 1)(x - 2)(x - 3)}{(4 - 1)(4 - 2)(4 - 3)} = \frac{(x - 1)(x - 2)(x - 3)}{6}\]</span></p>
+<hr>
+</section>
+<section id="menyusun-persamaan-akhir-px" class="level2">
+<h2 class="anchored" data-anchor-id="menyusun-persamaan-akhir-px">3. Menyusun Persamaan Akhir <span class="math inline">\(P(x)\)</span></h2>
+<p>Masukkan nilai <span class="math inline">\(y_i\)</span> masing-masing ke dalam rumus utama:</p>
+<p><span class="math display">\[P(x) = 1 \cdot \left[ \frac{(x-2)(x-3)(x-4)}{-6} \right] + 4 \cdot \left[ \frac{(x-1)(x-3)(x-4)}{2} \right] + 9 \cdot \left[ \frac{(x-1)(x-2)(x-4)}{-2} \right] + 16 \cdot \left[ \frac{(x-1)(x-2)(x-3)}{6} \right]\]</span></p>
+<p>Karena data <span class="math inline">\(y\)</span> merupakan kuadrat dari <span class="math inline">\(x\)</span> (<span class="math inline">\(1^2=1, 2^2=4, 3^2=9, 4^2=16\)</span>), jika disederhanakan aljabar di atas, fungsi ini akan tereduksi menjadi fungsi kuadrat sempurna:</p>
+<p><span class="math display">\[P(x) = x^2\]</span></p>
+<hr>
+</section>
+<section id="contoh-uji-coba-nilai-misal-mencari-nilai-di-x-2.5" class="level2">
+<h2 class="anchored" data-anchor-id="contoh-uji-coba-nilai-misal-mencari-nilai-di-x-2.5">Contoh Uji Coba Nilai (Misal mencari nilai di <span class="math inline">\(x = 2.5\)</span>)</h2>
+<p>Jika kita ingin memprediksi nilai <span class="math inline">\(y\)</span> saat <span class="math inline">\(x = 2.5\)</span>:</p>
+<ul>
+<li><span class="math inline">\(L_1(2.5) = \frac{(0.5)(-0.5)(-1.5)}{-6} = \frac{0.375}{-6} = -0.0625\)</span></li>
+<li><span class="math inline">\(L_2(2.5) = \frac{(1.5)(-0.5)(-1.5)}{2} = \frac{1.125}{2} = 0.5625\)</span></li>
+<li><span class="math inline">\(L_3(2.5) = \frac{(1.5)(0.5)(-1.5)}{-2} = \frac{-1.125}{-2} = 0.5625\)</span></li>
+<li><span class="math inline">\(L_4(2.5) = \frac{(1.5)(0.5)(-0.5)}{6} = \frac{-0.375}{6} = -0.0625\)</span></li>
+</ul>
+<p><span class="math display">\[P(2.5) = 1(-0.0625) + 4(0.5625) + 9(0.5625) + 16(-0.0625)\]</span></p>
+<p><span class="math display">\[P(2.5) = -0.0625 + 2.25 + 5.0625 - 1 = 6.25\]</span></p>
+</section>
 </section>
 <section id="interpolasi-spline" class="level1">
 <h1>1.3 Interpolasi Spline</h1>
