@@ -2,13 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.31">
+<meta name="generator" content="quarto-1.9.38">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>6&nbsp; Preparing Training Data for Land Cover Mapping</title>
+<title>8&nbsp; Preparing Training Data for Land Cover Mapping</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -58,7 +61,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -74,10 +77,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-4cdc4c3d7c65857ab75b3ed392f15dc3.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-227b0b4914b3b96fdf33c87c9a4e56d8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-61a10c9ee73912784f341055440c88d5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-d5e4a03097b17f71721bc3163e7de9d8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -105,10 +108,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
 
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
-<script src="https://unpkg.com/@jupyter-widgets/html-manager@*/dist/embed-amd.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@*/dist/embed-amd.js" crossorigin="anonymous"></script>
 
 
 <link rel="stylesheet" href="../styles.css">
@@ -123,7 +126,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../peta/petagen.html">Peta Permukaan Laut</a></li><li class="breadcrumb-item"><a href="../peta/machine.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title"><strong>Preparing Training Data for Land Cover Mapping</strong></span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../peta/petagen.html">Peta Permukaan Laut</a></li><li class="breadcrumb-item"><a href="../peta/machine.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title"><strong>Preparing Training Data for Land Cover Mapping</strong></span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -138,7 +141,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
       <a href="../index.html" class="sidebar-logo-link">
-      <img src="../images/logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      <img src="../images/logo.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../images/logo.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
       </a>
       <div class="sidebar-tools-main tools-wide">
     <a href="https://orcid.org/0000-0002-8098-2555" title="ORCID" class="quarto-navigation-tool px-1" aria-label="ORCID"><i class="bi bi-"></i></a>
@@ -178,14 +182,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../rps.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">RPS Proyek Sain Data</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../snaq.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Managemen Aquaculture</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Managemen Aquaculture</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../resolusicitra.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Ocean Topics</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../praproces/labeling.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Labelisasi Objek Permukaan Bumi dengan Geo-Sam</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Labelisasi Objek Permukaan Bumi dengan Geo-Sam</span></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -200,37 +216,43 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../peta/grafik.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Charting in Colaboratory</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Charting in Colaboratory</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../peta/machine.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title"><strong>Preparing Training Data for Land Cover Mapping</strong></span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title"><strong>Preparing Training Data for Land Cover Mapping</strong></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../peta/model.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Permukaan Laut</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Permukaan Laut</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../peta/segmentation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Example code for land use/land cover classification from satellite imagery</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Example code for land use/land cover classification from satellite imagery</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../peta/landuse.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Automating Land Use and Land Cover Mapping using Python</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Automating Land Use and Land Cover Mapping using Python</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../peta/lulc.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Land Cover Classification in Satellite Imagery using Python</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Land Cover Classification in Satellite Imagery using Python</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../teori/interpolasi.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">1.1 Interpolasi</span></span></a>
   </div>
 </li>
       </ul>
@@ -263,9 +285,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../peta/petagen.html">Peta Permukaan Laut</a></li><li class="breadcrumb-item"><a href="../peta/machine.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title"><strong>Preparing Training Data for Land Cover Mapping</strong></span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../peta/petagen.html">Peta Permukaan Laut</a></li><li class="breadcrumb-item"><a href="../peta/machine.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title"><strong>Preparing Training Data for Land Cover Mapping</strong></span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title"><strong>Preparing Training Data for Land Cover Mapping</strong></span></h1>
+<h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title"><strong>Preparing Training Data for Land Cover Mapping</strong></span></h1>
 </div>
 
 
@@ -310,11 +332,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>To get started with Google Earth Engine (GEE), you need to initialize and authenticate the Earth Engine API. Follow these steps.</p>
 <p>First, import the Earth Engine API by importing the ee module into your Python environment. This module allows you to interact with the Earth Engine platform.</p>
 <div id="cell-2" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:17}}" data-outputid="14e86e8a-a292-471c-cd55-c2c4f3062417">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import the API</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import the API</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> ee</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Import the geemap library</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geemap</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geemap</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 
             <style>
@@ -343,11 +365,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Next, initialize the Earth Engine API. You must initialize the API to use Earth Engine functionalities. This involves authenticating your session and initializing the library. When you run the ee.Initialize() command for the first time, you might be prompted to authenticate your session. This will open a web browser window where you need to log in with your Google account and grant Earth Engine access.</p>
 <div id="cell-4" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:17}}" data-outputid="44d17732-b5b2-4262-c854-c3c22252b198">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Trigger the authentication flow.</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Trigger the authentication flow.</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>ee.Authenticate()</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize the library.</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>ee.Initialize(project<span class="op">=</span><span class="st">'ee-kamusoko-test'</span>) <span class="co"># Change to your EE project</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>ee.Initialize(project<span class="op">=</span><span class="st">'ee-kamusoko-test'</span>) <span class="co"># Change to your EE project</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 
             <style>
@@ -379,8 +401,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="import-study-area-boundary">Import study area boundary</h2>
 <p>First, import the study area boundary.</p>
 <div id="cell-6" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:17}}" data-outputid="04a36434-0d14-4e74-a278-e5859de5f643">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the boundary</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>boundary <span class="op">=</span> ee.FeatureCollection(<span class="st">'users/kamas72_ML_Zim_Cities/Bulawayo_Crop_Boundary'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the boundary</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>boundary <span class="op">=</span> ee.FeatureCollection(<span class="st">'users/kamas72_ML_Zim_Cities/Bulawayo_Crop_Boundary'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 
             <style>
@@ -412,7 +434,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="import-training-data">Import training data</h2>
 <p>Next, we will import land cover training data (polygons), which was created in QGIS.</p>
 <div id="cell-8" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:139}}" data-outputid="fae9705d-4b03-4b62-e1c4-64b9d69addb7">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load training datasets</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load training datasets</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>training_data <span class="op">=</span> ee.FeatureCollection(<span class="st">'users/kamas72_ML_Zim_Cities/Updated_TA_2020_Bul_May_21_GEE'</span>)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the histogram of classes (key = class value, value = count)</span></span>
@@ -431,7 +453,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Number of training polygons per land cover class (Cl_Id):"</span>)</span>
 <span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> cl_id <span class="kw">in</span> <span class="bu">sorted</span>(histogram.keys(), key<span class="op">=</span><span class="bu">int</span>):</span>
 <span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    label <span class="op">=</span> label_map.get(cl_id, <span class="ss">f"Class </span><span class="sc">{</span>cl_id<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>label<span class="sc">}</span><span class="ss"> (Cl_Id=</span><span class="sc">{</span>cl_id<span class="sc">}</span><span class="ss">): </span><span class="sc">{</span>histogram[cl_id]<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>label<span class="sc">}</span><span class="ss"> (Cl_Id=</span><span class="sc">{</span>cl_id<span class="sc">}</span><span class="ss">): </span><span class="sc">{</span>histogram[cl_id]<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 
             <style>
@@ -472,7 +494,7 @@ Water (Cl_Id=5): 19</code></pre>
 <h2 class="anchored" data-anchor-id="create-sentinel-2-composite">Create Sentinel-2 composite</h2>
 <p>The sentinel-2 mission offers a wide-swath, high-resolution, multispectral imaging capability with a global 5-day revisit frequency. The Sentinel-2 Multispectral Instrument (MSI) has 13 spectral bands, providing a comprehensive view of the Earth’s surface. These bands are distributed as four at 10 meters, six at 20 meters, and three at 60 meters spatial resolution. For more detailed information about the Sentinel-2 mission, please visit https://sentinel.esa.int/web/sentinel/missions/sentinel-2.</p>
 <div id="cell-10" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:17}}" data-outputid="b06fc23b-43c2-4e8a-e157-e413a0e3cd83">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sentinel-2 SR data (Harmonized)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sentinel-2 SR data (Harmonized)</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>s2 <span class="op">=</span> ee.ImageCollection(<span class="st">'COPERNICUS/S2_SR_HARMONIZED'</span>)</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Cloud masking function using SCL band</span></span>
@@ -492,7 +514,7 @@ Water (Cl_Id=5): 19</code></pre>
 <span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>bands <span class="op">=</span> [<span class="st">'B2'</span>, <span class="st">'B3'</span>, <span class="st">'B4'</span>, <span class="st">'B5'</span>, <span class="st">'B6'</span>, <span class="st">'B7'</span>, <span class="st">'B8'</span>, <span class="st">'B11'</span>, <span class="st">'B12'</span>]</span>
 <span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a median composite</span></span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>composite <span class="op">=</span> S2.median().clip(boundary)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>composite <span class="op">=</span> S2.median().clip(boundary)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 
             <style>
@@ -524,7 +546,7 @@ Water (Cl_Id=5): 19</code></pre>
 <h2 class="anchored" data-anchor-id="display-training-samples-and-sentine-2">Display training samples and Sentine-2</h2>
 <p>Next, display the land cover training samples on Sentinel-2 imagery</p>
 <div id="cell-12" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:621,&quot;referenced_widgets&quot;:[&quot;bc9a58655482448da75675a39d13b73e&quot;,&quot;55a5a291f83a43bfbbf6c287b37ff209&quot;,&quot;1cd7822f5bb4457e92712dc61f1cc169&quot;,&quot;5eac73c798fb47c08e86718b4eb346be&quot;,&quot;47050bad05184cca8a9e661e8bbea3ef&quot;,&quot;5484f104c4d941e0877e0614f5f98413&quot;,&quot;ec9f6cdd9aea4dc48121059ed2dc9f25&quot;,&quot;3d3b25358ace4075a751fd0f3201ff25&quot;,&quot;6b8de3a6f5db45658d88ee2772e74a2b&quot;,&quot;4a25db32b3dc49aead9e061e1c7f6516&quot;,&quot;722da50fba7c4be081db5eac3fa0913d&quot;,&quot;d02378af7a75488ea49b348b648fb91b&quot;,&quot;ea296b1aa1b2420093fb8635efc189ed&quot;,&quot;cdda29e7691e42988c62080c1cff1584&quot;,&quot;cd8148c616b34b8a9d679fa1edb8db8e&quot;,&quot;32605937f4014e7cbb0dc4afcfdcc22d&quot;,&quot;558e7c284caf4d82b04061a5e449746d&quot;,&quot;e159f3b0d7a143298ea3085f85a0d7a8&quot;,&quot;c9753517535247ad8f36851cf06da4e0&quot;,&quot;912b1dc0a1ba41a8889f1765a1a08b7c&quot;,&quot;5947c2b0bcfd41cfa534af6d3e57f318&quot;,&quot;ba8460182c7543678b38132fcf49f33c&quot;,&quot;0ebba7c6a3c34ea9bbcdb7d6efbb111d&quot;,&quot;f0eaa7ec2d11424db6d980bc6e2ed57f&quot;,&quot;9b1e3520b245483fb795e42dc7861c99&quot;,&quot;b1478cd3c1d047ef95a005d83a9554c2&quot;,&quot;45fdfbd01c714ae2bb0751ae28b93ee9&quot;,&quot;9836690436ea4016a29cbb221a996e65&quot;,&quot;be1d8b90090045118af3c8963f4be80c&quot;,&quot;33fe3d2f449f4b9fba3b0248f7d68df2&quot;,&quot;7eb83f2dc0c844a5836d594ee947ed5c&quot;,&quot;6363901bbd544f938cb1aa63fa71bc41&quot;,&quot;3b9d0490899245d9ba06de8e14814b7e&quot;,&quot;2177d761ddd349aa8b79926b3bddf035&quot;,&quot;f426060b7ac140c18e9a1a5b3396038f&quot;,&quot;48d9d01dc0174565810c6c93ee0c21a8&quot;,&quot;2c964ae02ba54f7a9eb61e368dafccd8&quot;,&quot;8684638867024d71808cf4796f98dfcb&quot;,&quot;9645ad4ed5a24282a8c02c8637ffff4e&quot;,&quot;efa74596bb0a489aa90cbacb7d8c7cda&quot;,&quot;048cf5c8118a4c53ba1863f28e7fbd90&quot;,&quot;97a71efe89d34cc28b866289336203a9&quot;,&quot;8946cf720546494c9c3baea9202f2068&quot;,&quot;1f3b129c118c4e3eb7539b3404f508f7&quot;,&quot;cdf839386a2a41239b1d2795e9aa7f95&quot;,&quot;4d65fc4ecb694bcdb4c44976e8687dd7&quot;,&quot;f351fc02ca9d4d7d9c278679d1869917&quot;,&quot;7a98a194bec349558385dfc916b3f9da&quot;,&quot;fb245a3397304594a796ac20a6b432aa&quot;,&quot;4fbd66eb469a40eeb784331ad47846f2&quot;,&quot;231f12765bc842d38a24fb8ed4202841&quot;,&quot;5279cee3c5024e37aa664ccc8cf28dc0&quot;,&quot;6ce973918c1a470aa21ff2ef9cbe447a&quot;,&quot;19323dc095a247fea93863ee802ec13e&quot;,&quot;653b576f2cc041b58478a2c6ab548291&quot;,&quot;e43c791e146146aaa0fbd9e36ff3f1aa&quot;,&quot;b64898d3b8e74ccdad046b396bd11c55&quot;,&quot;3acff0e9f6bb4c50935f263e3cca1899&quot;,&quot;7e721f1c4aa14eea8af137e2887bdb1c&quot;,&quot;91967712d43848d39e5b0289732ab354&quot;,&quot;51f7c7afd66a4fdf828751ed70344497&quot;,&quot;37b7b6e36d5244b98d5bfaf5d824a8fa&quot;,&quot;5a374e1ab34c45cfb64dfec9c3ee6f32&quot;,&quot;e01419d27329437e81702ade6baf40b0&quot;,&quot;d7935cd2eab94d9685d7f348af443a62&quot;,&quot;491f55a064a646c4af655c10c0f1c51c&quot;,&quot;54b468355b3a4ae8b527406b5fb32fc7&quot;,&quot;24577e2d019440ac90b8a70936d2d146&quot;,&quot;9ff1c509a60042eebec117f751cd92d0&quot;,&quot;e907d05591ac4617bbc8a47ca5a68fbe&quot;,&quot;5fbb7f666d0f4fd59f0716c880647b41&quot;,&quot;5f9f8e1199364d208a6c76f53ea1a7d6&quot;,&quot;6268950a72bd4afea1465ce80413aa81&quot;,&quot;fa1055bae47b424d8406f71db81c076a&quot;,&quot;6936a1ee062b4c588e997bc12b5ab489&quot;,&quot;0120ae949c704d108bb75a2bb09a9a82&quot;,&quot;ac26686b32fc48c8a3f97da381f51316&quot;,&quot;af884f2c967d47629ceb89838d33b28f&quot;,&quot;73f056f7a0704db99f0c8cff71b2db50&quot;,&quot;810ac21d1cf3483c9a6616771ccdfbaf&quot;,&quot;bd5977c26f8e4c4fab453cf3fc6bb3d6&quot;,&quot;641207bb92964c9282f587ec9435796b&quot;,&quot;6889f12a664c47dda11a0204f967b877&quot;,&quot;d5c3402184f24c16a6af2a37a2ccb2d7&quot;,&quot;564b4a2a9e7c4f06bc34f160b38c9587&quot;,&quot;bcf31a14ee2b404cb56e492c9b276fbf&quot;,&quot;9c78a757f01f42028d579155a99c05bc&quot;,&quot;0559dd7387a94c85807e0b1d3a628555&quot;,&quot;c907e8702e0949aa8f7c4fe9fb4678cf&quot;,&quot;35ac44f3c90042afb3754b8e1c68c1bd&quot;,&quot;a4a2d543562f4ae0a953cf6db40d8962&quot;]}}" data-outputid="56316433-a9b9-490c-926a-ce0bce921477">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize the map</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize the map</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="bu">map</span> <span class="op">=</span> geemap.Map()</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="bu">map</span>.centerObject(training_data, <span class="dv">12</span>)</span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -536,7 +558,7 @@ Water (Cl_Id=5): 19</code></pre>
 <span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the map with layer control</span></span>
 <span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="bu">map</span>.addLayerControl()</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="bu">map</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="bu">map</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 
             <style>
@@ -573,7 +595,7 @@ Water (Cl_Id=5): 19</code></pre>
 <h2 class="anchored" data-anchor-id="prepare-training-data">Prepare training data</h2>
 <p>In this step, we prepare the dataset for training and testing machine learning models by processing satellite imagery and training labels. We start by selecting Sentinel-2 bands (B2 to B12) and clipping the composite image to the specified boundary region, defining the input features. Next, we rasterize the vector training data using the Cl_Id property to create a raster layer representing class labels and add it as a new band (class) to the input features. To create a representative dataset, we use stratified sampling to extract reflectance values and class labels, ensuring proportional representation across classes.</p>
 <div id="cell-14" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:55}}" data-outputid="d234c870-aade-4da0-c2bb-d308ce5b8d13">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use ee.List for band selection</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use ee.List for band selection</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>bands <span class="op">=</span> ee.List([<span class="st">'B2'</span>, <span class="st">'B3'</span>, <span class="st">'B4'</span>, <span class="st">'B5'</span>, <span class="st">'B6'</span>, <span class="st">'B7'</span>, <span class="st">'B8'</span>, <span class="st">'B11'</span>, <span class="st">'B12'</span>])</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>input_features <span class="op">=</span> composite.clip(boundary)</span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'input features: '</span>, input_features.getInfo())</span>
@@ -593,7 +615,7 @@ Water (Cl_Id=5): 19</code></pre>
 <span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>    classBand<span class="op">=</span><span class="st">"class"</span>,</span>
 <span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>    region<span class="op">=</span>boundary,</span>
 <span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>    scale<span class="op">=</span><span class="dv">20</span></span>
-<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 
             <style>
@@ -628,7 +650,7 @@ Water (Cl_Id=5): 19</code></pre>
 <h2 class="anchored" data-anchor-id="export-the-training-samples-and-sentinel-2-imagery">Export the training samples and Sentinel-2 imagery</h2>
 <p>We export the ‘training_data’ feature collection, Sentinel-2 composite and PALSAR ScanSAR images to your Google Drive. After configuring the export, the task is started with task.start().</p>
 <div id="cell-16" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:17}}" data-outputid="3427b3d8-66ef-4b01-ff85-795433b64b00">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Export training samples as CSV</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Export training samples as CSV</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>task_table <span class="op">=</span> ee.batch.Export.table.toDrive(</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    collection<span class="op">=</span>training_dataset,</span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    description<span class="op">=</span><span class="st">'Bul_TrainingData_2024'</span>,</span>
@@ -648,7 +670,7 @@ Water (Cl_Id=5): 19</code></pre>
 <span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>    region<span class="op">=</span>boundary.geometry(),</span>
 <span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>    maxPixels<span class="op">=</span><span class="fl">1e13</span></span>
 <span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>task_composite.start()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>task_composite.start()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 
             <style>
@@ -731,13 +753,14 @@ Water (Cl_Id=5): 19</code></pre>
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
@@ -1082,12 +1105,12 @@ Water (Cl_Id=5): 19</code></pre>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../peta/grafik.html" class="pagination-link" aria-label="Charting in Colaboratory">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Charting in Colaboratory</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Charting in Colaboratory</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../peta/model.html" class="pagination-link" aria-label="Permukaan Laut">
-        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Permukaan Laut</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Permukaan Laut</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

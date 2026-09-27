@@ -2,13 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.31">
+<meta name="generator" content="quarto-1.9.38">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>8&nbsp; Example code for land use/land cover classification from satellite imagery</title>
+<title>10&nbsp; Example code for land use/land cover classification from satellite imagery</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -74,10 +77,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-4cdc4c3d7c65857ab75b3ed392f15dc3.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-227b0b4914b3b96fdf33c87c9a4e56d8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-61a10c9ee73912784f341055440c88d5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-d5e4a03097b17f71721bc3163e7de9d8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -119,7 +122,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../peta/petagen.html">Peta Permukaan Laut</a></li><li class="breadcrumb-item"><a href="../peta/segmentation.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Example code for land use/land cover classification from satellite imagery</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../peta/petagen.html">Peta Permukaan Laut</a></li><li class="breadcrumb-item"><a href="../peta/segmentation.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Example code for land use/land cover classification from satellite imagery</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -134,7 +137,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
       <a href="../index.html" class="sidebar-logo-link">
-      <img src="../images/logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      <img src="../images/logo.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../images/logo.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
       </a>
       <div class="sidebar-tools-main tools-wide">
     <a href="https://orcid.org/0000-0002-8098-2555" title="ORCID" class="quarto-navigation-tool px-1" aria-label="ORCID"><i class="bi bi-"></i></a>
@@ -174,14 +178,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../rps.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">RPS Proyek Sain Data</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../snaq.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Managemen Aquaculture</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Managemen Aquaculture</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../resolusicitra.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Ocean Topics</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../praproces/labeling.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Labelisasi Objek Permukaan Bumi dengan Geo-Sam</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Labelisasi Objek Permukaan Bumi dengan Geo-Sam</span></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -196,37 +212,43 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../peta/grafik.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Charting in Colaboratory</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Charting in Colaboratory</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../peta/machine.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title"><strong>Preparing Training Data for Land Cover Mapping</strong></span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title"><strong>Preparing Training Data for Land Cover Mapping</strong></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../peta/model.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Permukaan Laut</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Permukaan Laut</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../peta/segmentation.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Example code for land use/land cover classification from satellite imagery</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Example code for land use/land cover classification from satellite imagery</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../peta/landuse.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Automating Land Use and Land Cover Mapping using Python</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Automating Land Use and Land Cover Mapping using Python</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../peta/lulc.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Land Cover Classification in Satellite Imagery using Python</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Land Cover Classification in Satellite Imagery using Python</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../teori/interpolasi.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">1.1 Interpolasi</span></span></a>
   </div>
 </li>
       </ul>
@@ -258,9 +280,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../peta/petagen.html">Peta Permukaan Laut</a></li><li class="breadcrumb-item"><a href="../peta/segmentation.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Example code for land use/land cover classification from satellite imagery</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../peta/petagen.html">Peta Permukaan Laut</a></li><li class="breadcrumb-item"><a href="../peta/segmentation.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Example code for land use/land cover classification from satellite imagery</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Example code for land use/land cover classification from satellite imagery</span></h1>
+<h1 class="title"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Example code for land use/land cover classification from satellite imagery</span></h1>
 </div>
 
 
@@ -279,7 +301,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <p>Michael Mommert, University of St.&nbsp;Gallen, 2023</p>
 <div id="cell-1" class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -291,11 +313,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># extract rgb and scale for plotting</span></span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>rgb <span class="op">=</span> np.dstack([sen2[<span class="dv">3</span>], sen2[<span class="dv">2</span>], sen2[<span class="dv">1</span>]])</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>rgb <span class="op">=</span> rgb<span class="op">/</span>np.<span class="bu">max</span>(rgb)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>rgb <span class="op">=</span> rgb<span class="op">/</span>np.<span class="bu">max</span>(rgb)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>plot satellite image and lulc map (using ESA Worldcover colormap)</p>
 <div id="cell-3" class="cell" data-outputid="96d9b11d-329c-4282-fab9-e59aa69c40b0">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot satellite image</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot satellite image</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>f, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">4</span>, <span class="dv">4</span>))</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>ax.imshow(<span class="fl">0.1</span><span class="op">+</span><span class="fl">1.3</span><span class="op">*</span>rgb)</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>plt.subplots_adjust(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>)</span>
@@ -354,7 +376,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>ax.get_yaxis().set_visible(<span class="va">False</span>)</span>
 <span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>ax.get_xaxis().set_visible(<span class="va">False</span>)</span>
 <span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>plt.axis(<span class="st">'off'</span>)</span>
-<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">'lulc.png'</span>, pad_inches<span class="op">=</span><span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">'lulc.png'</span>, pad_inches<span class="op">=</span><span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -375,7 +397,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="thresholding-based-on-single-bands" class="level3">
 <h3 class="anchored" data-anchor-id="thresholding-based-on-single-bands">Thresholding based on single bands</h3>
 <div id="cell-6" class="cell" data-outputid="9988a7c5-a1eb-4c30-d804-4fda97623e21">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>r_filter <span class="op">=</span> np.zeros_like(sen2[<span class="dv">3</span>])</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>r_filter <span class="op">=</span> np.zeros_like(sen2[<span class="dv">3</span>])</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># only select those pixels with a g value greater than a given value</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>r_filter[sen2[<span class="dv">3</span>] <span class="op">&gt;</span> <span class="dv">1100</span>] <span class="op">=</span> <span class="dv">1</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -392,7 +414,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co">ax.get_yaxis().set_visible(False)</span></span>
 <span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co">ax.get_xaxis().set_visible(False)</span></span>
 <span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co">plt.axis('off')</span></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="co">plt.savefig('r_filter.png', pad_inches=0) """</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="co">plt.savefig('r_filter.png', pad_inches=0) """</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
 <pre><code>" # write results to file\nf, ax = plt.subplots(1, 1, figsize=(4, 4))\nax.imshow(r_filter)\nplt.subplots_adjust(0, 0, 1, 1, 0, 0)\nax.get_yaxis().set_visible(False) \nax.get_xaxis().set_visible(False) \nplt.axis('off')\nplt.savefig('r_filter.png', pad_inches=0) "</code></pre>
 </div>
@@ -408,7 +430,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="thresholding-based-on-multiple-bands" class="level3">
 <h3 class="anchored" data-anchor-id="thresholding-based-on-multiple-bands">Thresholding based on multiple bands</h3>
 <div id="cell-8" class="cell" data-outputid="70651583-c955-4172-bf07-ad2b5bd57e00">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>r,g,b,nir <span class="op">=</span> sen2[<span class="dv">3</span>], sen2[<span class="dv">2</span>], sen2[<span class="dv">1</span>], sen2[<span class="dv">8</span>]</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>r,g,b,nir <span class="op">=</span> sen2[<span class="dv">3</span>], sen2[<span class="dv">2</span>], sen2[<span class="dv">1</span>], sen2[<span class="dv">8</span>]</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># define vegetation and water index</span></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>ndvi <span class="op">=</span> (nir <span class="op">-</span> r)<span class="op">/</span>(nir <span class="op">+</span> r)</span>
@@ -446,7 +468,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a><span class="co">ax.get_yaxis().set_visible(False)</span></span>
 <span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a><span class="co">ax.get_xaxis().set_visible(False)</span></span>
 <span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a><span class="co">plt.axis('off')</span></span>
-<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a><span class="co">plt.savefig('water_ndwi.png', pad_inches=0) """</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a><span class="co">plt.savefig('water_ndwi.png', pad_inches=0) """</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
 <pre><code>" # write results to file\nf, ax = plt.subplots(1, 1, figsize=(4, 4))\nax.imshow(veg)\nplt.subplots_adjust(0, 0, 1, 1, 0, 0)\nax.get_yaxis().set_visible(False) \nax.get_xaxis().set_visible(False) \nplt.axis('off')\nplt.savefig('veg_ndvi.png', pad_inches=0)\n            \nf, ax = plt.subplots(1, 1, figsize=(4, 4))\nax.imshow(water)\nplt.subplots_adjust(0, 0, 1, 1, 0, 0)\nax.get_yaxis().set_visible(False) \nax.get_xaxis().set_visible(False) \nplt.axis('off')\nplt.savefig('water_ndwi.png', pad_inches=0) "</code></pre>
 </div>
@@ -466,7 +488,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="k-means-examples">k-Means examples</h3>
 <p>generate some random data</p>
 <div id="cell-12" class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> numpy.random <span class="im">import</span> multivariate_normal, seed</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">50</span> <span class="co"># sample size per cluster</span></span>
@@ -478,16 +500,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    [multivariate_normal((<span class="dv">0</span>, <span class="dv">1</span>), [[<span class="fl">0.07</span>, <span class="dv">0</span>], [<span class="dv">0</span>, <span class="fl">0.07</span>]], size<span class="op">=</span>n),</span>
 <span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>     multivariate_normal((<span class="dv">1</span>, <span class="dv">1</span>), [[<span class="fl">0.07</span>, <span class="dv">0</span>], [<span class="dv">0</span>, <span class="fl">0.07</span>]], size<span class="op">=</span>n),</span>
 <span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>     multivariate_normal((<span class="dv">1</span>, <span class="dv">0</span>), [[<span class="fl">0.07</span>, <span class="dv">0</span>], [<span class="dv">0</span>, <span class="fl">0.07</span>]], size<span class="op">=</span>n)])</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> np.array([<span class="dv">0</span>] <span class="op">*</span> n <span class="op">+</span> [<span class="dv">1</span>] <span class="op">*</span> n <span class="op">+</span> [<span class="dv">2</span>] <span class="op">*</span> n)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> np.array([<span class="dv">0</span>] <span class="op">*</span> n <span class="op">+</span> [<span class="dv">1</span>] <span class="op">*</span> n <span class="op">+</span> [<span class="dv">2</span>] <span class="op">*</span> n)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>plot distribution</p>
 <div id="cell-14" class="cell" data-outputid="c9d8844a-6f2c-4e0b-fc88-28b72f36f687">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>f, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">5</span>))</span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>ax.scatter(x[:,<span class="dv">0</span>], x[:,<span class="dv">1</span>], color<span class="op">=</span><span class="st">'lightgray'</span>)</span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">'kmeans_setup.png'</span>, dpi<span class="op">=</span><span class="dv">150</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">'kmeans_setup.png'</span>, dpi<span class="op">=</span><span class="dv">150</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -498,7 +520,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>initialization: pick random centroids, plot</p>
 <div id="cell-16" class="cell" data-outputid="61143031-3a5d-405b-ba6a-1aabf1afb4d9">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>k <span class="op">=</span> <span class="dv">3</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>k <span class="op">=</span> <span class="dv">3</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>center_ids <span class="op">=</span> np.random.randint(low<span class="op">=</span><span class="dv">0</span>, high<span class="op">=</span><span class="bu">len</span>(x), size<span class="op">=</span>k)</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>f, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">5</span>))</span>
@@ -511,7 +533,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, c <span class="kw">in</span> <span class="bu">enumerate</span>(center_ids):</span>
 <span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    ax.scatter(x[:,<span class="dv">0</span>][c], x[:,<span class="dv">1</span>][c], s<span class="op">=</span><span class="dv">200</span>, marker<span class="op">=</span><span class="st">'x'</span>, vmin<span class="op">=</span><span class="dv">0</span>, vmax<span class="op">=</span>k, c<span class="op">=</span>i)</span>
 <span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">'kmeans_init.png'</span>, dpi<span class="op">=</span><span class="dv">150</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">'kmeans_init.png'</span>, dpi<span class="op">=</span><span class="dv">150</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -522,7 +544,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>compute distances and assign data points to clusters, plot</p>
 <div id="cell-18" class="cell" data-outputid="df6e55d8-38ad-48f5-dfd4-920ded82b0b5">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> compute_distances(x, cluster_centers):</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> compute_distances(x, cluster_centers):</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    distances <span class="op">=</span> []</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> cluster_center <span class="kw">in</span> cluster_centers:</span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>        distances.append(np.sqrt((x[:,<span class="dv">0</span>] <span class="op">-</span> cluster_center[<span class="dv">0</span>])<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> (x[:,<span class="dv">1</span>] <span class="op">-</span> cluster_center[<span class="dv">1</span>])<span class="op">**</span><span class="dv">2</span>))</span>
@@ -544,7 +566,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, c <span class="kw">in</span> <span class="bu">enumerate</span>(center_ids):</span>
 <span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>    ax.scatter(x[:,<span class="dv">0</span>][c], x[:,<span class="dv">1</span>][c], s<span class="op">=</span><span class="dv">200</span>, marker<span class="op">=</span><span class="st">'x'</span>, vmin<span class="op">=</span><span class="dv">0</span>, vmax<span class="op">=</span>k, c<span class="op">=</span>i)</span>
 <span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">'cluster_assignment.png'</span>, dpi<span class="op">=</span><span class="dv">150</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">'cluster_assignment.png'</span>, dpi<span class="op">=</span><span class="dv">150</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -555,7 +577,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>recompute centroids, plot</p>
 <div id="cell-20" class="cell" data-outputid="e316fcff-864c-4234-89c1-b2248dadc0f4">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> update_cluster_centers(x, y_pred):</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> update_cluster_centers(x, y_pred):</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    k <span class="op">=</span> <span class="bu">len</span>(<span class="bu">set</span>(y_pred))</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    cluster_centers <span class="op">=</span> []</span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(k):</span>
@@ -575,7 +597,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> j, c <span class="kw">in</span> <span class="bu">enumerate</span>(cluster_centers):</span>
 <span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>    ax.scatter(c[<span class="dv">0</span>], c[<span class="dv">1</span>], s<span class="op">=</span><span class="dv">200</span>, marker<span class="op">=</span><span class="st">'x'</span>, c<span class="op">=</span>j, vmin<span class="op">=</span><span class="dv">0</span>, vmax<span class="op">=</span>k)</span>
 <span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">'kmeans_000.png'</span>, dpi<span class="op">=</span><span class="dv">150</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">'kmeans_000.png'</span>, dpi<span class="op">=</span><span class="dv">150</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-error">
 <div class="ansi-escaped-output">
 <pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
@@ -645,7 +667,7 @@ File <span class="ansi-green-fg">~/software/anaconda3/lib/python3.9/site-package
 </div>
 <p>repeat…</p>
 <div id="cell-22" class="cell" data-outputid="69441c93-aa78-4724-d7fd-131313d4da26">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">10</span>):</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">10</span>):</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    dist, y_pred <span class="op">=</span> compute_distances(x, cluster_centers)</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    cluster_centers <span class="op">=</span> update_cluster_centers(x, y_pred)</span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -662,7 +684,7 @@ File <span class="ansi-green-fg">~/software/anaconda3/lib/python3.9/site-package
 <span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># add label to indicate iteration</span></span>
 <span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>    ax.annotate(<span class="st">"Iteration </span><span class="sc">{}</span><span class="st">"</span>.<span class="bu">format</span>(i), xy<span class="op">=</span>(<span class="op">-</span><span class="fl">0.7</span>, <span class="fl">1.7</span>))</span>
 <span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>    plt.savefig(<span class="st">'kmeans_</span><span class="sc">{:03d}</span><span class="st">.png'</span>.<span class="bu">format</span>(i), dpi<span class="op">=</span><span class="dv">150</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>    plt.savefig(<span class="st">'kmeans_</span><span class="sc">{:03d}</span><span class="st">.png'</span>.<span class="bu">format</span>(i), dpi<span class="op">=</span><span class="dv">150</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -731,7 +753,7 @@ File <span class="ansi-green-fg">~/software/anaconda3/lib/python3.9/site-package
 <section id="apply-k-means-to-satellite-image-data" class="level3">
 <h3 class="anchored" data-anchor-id="apply-k-means-to-satellite-image-data">Apply k-Means to satellite image data</h3>
 <div id="cell-24" class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> KMeans</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> KMeans</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> RobustScaler</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># extract R, G, B, NIR and reshape to Nx4</span></span>
@@ -746,11 +768,11 @@ File <span class="ansi-green-fg">~/software/anaconda3/lib/python3.9/site-package
 <span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>clusters <span class="op">=</span> model.fit_predict(rgbnir_scaled)</span>
 <span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="co"># reshape cluster assignments to map</span></span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>clusters_map <span class="op">=</span> clusters.reshape(<span class="dv">120</span>, <span class="dv">120</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>clusters_map <span class="op">=</span> clusters.reshape(<span class="dv">120</span>, <span class="dv">120</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>plot results</p>
 <div id="cell-26" class="cell" data-outputid="dabc13fe-9d84-46fa-d2c2-98bbb63d0313">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>f, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">4</span>))</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>f, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">4</span>))</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>rgb <span class="op">=</span> np.dstack([sen2[<span class="dv">3</span>], sen2[<span class="dv">2</span>], sen2[<span class="dv">1</span>]])</span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>rgb <span class="op">=</span> rgb<span class="op">/</span>np.<span class="bu">max</span>(rgb)</span>
@@ -765,7 +787,7 @@ File <span class="ansi-green-fg">~/software/anaconda3/lib/python3.9/site-package
 <span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>ax.get_yaxis().set_visible(<span class="va">False</span>)</span>
 <span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>ax.get_xaxis().set_visible(<span class="va">False</span>)</span>
 <span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>plt.axis(<span class="st">'off'</span>)</span>
-<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">'kmeans_results_03.png'</span>, pad_inches<span class="op">=</span><span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">'kmeans_results_03.png'</span>, pad_inches<span class="op">=</span><span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -783,7 +805,7 @@ File <span class="ansi-green-fg">~/software/anaconda3/lib/python3.9/site-package
 </div>
 <p>generate segmentation masks for different k</p>
 <div id="cell-28" class="cell" data-outputid="78866606-c841-43c4-9868-7f2b041e3cb8">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>, <span class="dv">11</span>):</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>, <span class="dv">11</span>):</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># perform k-Means</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> KMeans(n_clusters<span class="op">=</span>k)</span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    clusters <span class="op">=</span> model.fit_predict(rgbnir_scaled)</span>
@@ -797,7 +819,7 @@ File <span class="ansi-green-fg">~/software/anaconda3/lib/python3.9/site-package
 <span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>    ax.get_yaxis().set_visible(<span class="va">False</span>)</span>
 <span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>    ax.get_xaxis().set_visible(<span class="va">False</span>)</span>
 <span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>    plt.axis(<span class="st">'off'</span>)</span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>    plt.savefig(<span class="st">'kmeans_results_</span><span class="sc">{:02d}</span><span class="st">.png'</span>.<span class="bu">format</span>(k), pad_inches<span class="op">=</span><span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>    plt.savefig(<span class="st">'kmeans_results_</span><span class="sc">{:02d}</span><span class="st">.png'</span>.<span class="bu">format</span>(k), pad_inches<span class="op">=</span><span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -868,7 +890,7 @@ File <span class="ansi-green-fg">~/software/anaconda3/lib/python3.9/site-package
 <h2 class="anchored" data-anchor-id="u-net">U-Net</h2>
 <p>visualize prediction from a U-Net trained on S2 and ESA Worldcover</p>
 <div id="cell-30" class="cell" data-outputid="68c639e3-ad99-43e5-8b28-56684462ce3f">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'unet_prediction.npy'</span>, <span class="st">'rb'</span>) <span class="im">as</span> f:</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'unet_prediction.npy'</span>, <span class="st">'rb'</span>) <span class="im">as</span> f:</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    unet_pred <span class="op">=</span> np.load(f)[<span class="dv">0</span>]</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># plot prediction</span></span>
@@ -881,7 +903,7 @@ File <span class="ansi-green-fg">~/software/anaconda3/lib/python3.9/site-package
 <span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>ax.get_xaxis().set_visible(<span class="va">False</span>)</span>
 <span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>plt.axis(<span class="st">'off'</span>)</span>
 <span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">'unet_pred.png'</span>, pad_inches<span class="op">=</span><span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">'unet_pred.png'</span>, pad_inches<span class="op">=</span><span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -946,13 +968,14 @@ File <span class="ansi-green-fg">~/software/anaconda3/lib/python3.9/site-package
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
@@ -1297,12 +1320,12 @@ File <span class="ansi-green-fg">~/software/anaconda3/lib/python3.9/site-package
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../peta/model.html" class="pagination-link" aria-label="Permukaan Laut">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Permukaan Laut</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Permukaan Laut</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../peta/landuse.html" class="pagination-link" aria-label="Automating Land Use and Land Cover Mapping using Python">
-        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Automating Land Use and Land Cover Mapping using Python</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Automating Land Use and Land Cover Mapping using Python</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
