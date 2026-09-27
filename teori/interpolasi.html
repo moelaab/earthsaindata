@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>13&nbsp; 1.1 Interpolasi</title>
+<title>13&nbsp; 1.1 Interpolasi [[1]]</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -58,7 +58,27 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -150,7 +170,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../peta/petagen.html">Peta Permukaan Laut</a></li><li class="breadcrumb-item"><a href="../teori/interpolasi.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">1.1 Interpolasi</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../peta/petagen.html">Peta Permukaan Laut</a></li><li class="breadcrumb-item"><a href="../teori/interpolasi.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">1.1 Interpolasi [<span class="citation" data-cites="fedorov2015interpolation">[</span></span></a><a href="#ref-fedorov2015interpolation" role="doc-biblioref">1</a>]]</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -276,7 +296,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../teori/interpolasi.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">1.1 Interpolasi</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">1.1 Interpolasi [<span class="citation" data-cites="fedorov2015interpolation">[</span></span></span></a><a href="#ref-fedorov2015interpolation" role="doc-biblioref">1</a>]]
   </div>
 </li>
       </ul>
@@ -314,9 +334,9 @@ window.Quarto = {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../peta/petagen.html">Peta Permukaan Laut</a></li><li class="breadcrumb-item"><a href="../teori/interpolasi.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">1.1 Interpolasi</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../peta/petagen.html">Peta Permukaan Laut</a></li><li class="breadcrumb-item"><a href="../teori/interpolasi.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">1.1 Interpolasi [<span class="citation" data-cites="fedorov2015interpolation">[</span></span></a><a href="#ref-fedorov2015interpolation" role="doc-biblioref">1</a>]]</li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">1.1 Interpolasi</span></h1>
+<h1 class="title"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">1.1 Interpolasi [<span class="citation" data-cites="fedorov2015interpolation">[<a href="../peta/mukalaut.html#ref-fedorov2015interpolation" role="doc-biblioref">1</a>]</span>]</span></h1>
 </div>
 
 
@@ -907,6 +927,11 @@ b_n
 <p>di mana keempat konstanta <span class="math inline">\(a, b, c, d\)</span> diperoleh dari empat kondisi bahwa fungsi interpolasi sama dengan nilai tabel pada empat titik tabel terdekat (yang merupakan titik sudut dari persegi panjang kisi yang diberikan).</p>
 
 
+<div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-fedorov2015interpolation" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">Fedorov, D. V., <span>“<a href="https://phys.au.dk/~fedorov/Numeric/15/Book/interpolation.pdf">Interpolation</a>,”</span> Course notes, Department of Physics and Astronomy, Aarhus University, 2015.</div>
+</div>
+</div>
 </section>
 
 </main> <!-- /main -->
